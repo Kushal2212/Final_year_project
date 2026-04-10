@@ -1,0 +1,4 @@
+.env/
+convert.py
+raw_images
+.venv/
