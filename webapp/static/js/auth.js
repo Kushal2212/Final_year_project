@@ -12,7 +12,6 @@ function protect() {
 
 // navbar rendering
 document.addEventListener("DOMContentLoaded", () => {
-
   const nav = document.getElementById("cdx-nav-auth");
   if (!nav) return; // 🔑 prevents breaking pages without navbar
 
@@ -36,5 +35,4 @@ document.addEventListener("DOMContentLoaded", () => {
       location.href = "/login";
     };
   }
-
 });

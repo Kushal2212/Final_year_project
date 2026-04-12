@@ -43,6 +43,11 @@ def create_app():
     # ── Blueprints (API routes) ───────────────────────────────────────────────
     app.register_blueprint(auth_bp)
     app.register_blueprint(predict_bp)
+    from webapp.routes.admin   import admin_bp
+    from webapp.routes.weather import weather_bp
+
+    app.register_blueprint(admin_bp)
+    app.register_blueprint(weather_bp)
 
     # ── Web page route ────────────────────────────────────────────────────────
     @app.route("/")
@@ -78,6 +83,14 @@ def create_app():
     def test_token():
             user_id = get_jwt_identity()
             return jsonify({"user_id": user_id, "message": "Token works!"})
+        
+    @app.route("/api/predict", methods=["POST"])
+    def predict():
+        return {"message": "working"}
+    
+    @app.route("/admin")
+    def admin_page():
+        return render_template("admin.html")
 
     # ── Create DB tables ──────────────────────────────────────────────────────
     with app.app_context():

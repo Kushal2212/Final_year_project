@@ -5,13 +5,14 @@ from webapp.extensions import db
 class User(db.Model):
     __tablename__ = "users"
 
-    id         = db.Column(db.Integer, primary_key=True)
+    id         = db.Column(db.Integer,     primary_key=True)
     name       = db.Column(db.String(100), nullable=False)
     email      = db.Column(db.String(150), unique=True, nullable=False)
-    password   = db.Column(db.String(256), nullable=False)   # bcrypt hash
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    password   = db.Column(db.String(256), nullable=False)
+    is_admin   = db.Column(db.Boolean,     default=False, nullable=False,
+                           server_default="0")
+    created_at = db.Column(db.DateTime,    default=datetime.utcnow)
 
-    # One user → many predictions
     predictions = db.relationship("Prediction", backref="user", lazy=True)
 
     def to_dict(self):
@@ -19,6 +20,7 @@ class User(db.Model):
             "id":         self.id,
             "name":       self.name,
             "email":      self.email,
+            "is_admin":   self.is_admin,
             "created_at": self.created_at.isoformat(),
         }
 
@@ -26,8 +28,8 @@ class User(db.Model):
 class Prediction(db.Model):
     __tablename__ = "predictions"
 
-    id             = db.Column(db.Integer, primary_key=True)
-    user_id        = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    id             = db.Column(db.Integer,     primary_key=True)
+    user_id        = db.Column(db.Integer,     db.ForeignKey("users.id"), nullable=False)
     disease        = db.Column(db.String(50),  nullable=False)
     confidence     = db.Column(db.Float,       nullable=False)
     severity       = db.Column(db.String(20),  nullable=False)

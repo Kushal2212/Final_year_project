@@ -872,7 +872,6 @@
     </style>
   </head>
   <body>
-
     <script>
       const TOKEN_KEY = "cardamom_token";
       const USER_KEY = "cardamom_user";
@@ -921,9 +920,7 @@
 
     <!-- ── Nav ── -->
     <nav id="navbar">
-      <a href="/" class="nav-brand"
-        ><span>🌿</span><strong>अलैँची</strong></a
-      >
+      <a href="/" class="nav-brand"><span>🌿</span><strong>अलैँची</strong></a>
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/about">About</a>
@@ -1126,7 +1123,7 @@
           <!-- Loader -->
           <div class="loader-wrap" id="loader">
             <div class="loader-ring"></div>
-            <p>Analysing with EfficientNetB0…</p>
+            <p>Analysing with EfficientNetB0 and MobileNetV2</p>
           </div>
 
           <!-- Result placeholder -->
@@ -1180,6 +1177,25 @@
                 >
                   ✅ Result saved to your history
                 </p>
+
+                <div
+                  id="confidence-warn"
+                  style="
+                    display: none;
+                    margin-bottom: 12px;
+                    padding: 10px 14px;
+                    background: rgba(211, 84, 0, 0.12);
+                    border: 1px solid rgba(211, 84, 0, 0.25);
+                    border-radius: 9px;
+                    color: #f0b27a;
+                    font-size: 0.82rem;
+                  "
+                ></div>
+
+                <div class="ib">
+                  <h4>Ensemble model breakdown</h4>
+                  <div id="model-details"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -1187,6 +1203,57 @@
         <!-- /.card -->
       </div>
       <!-- /#tab-predict -->
+
+      <div id="gradcam-section" style="display: none; margin-top: 18px">
+        <div class="ib">
+          <h4>🔍 AI Attention Map (Grad-CAM)</h4>
+          <p
+            style="
+              font-size: 0.82rem;
+              color: var(--gp);
+              margin-bottom: 10px;
+              line-height: 1.55;
+            "
+          >
+            The heatmap below shows which part of the leaf the AI focused on to
+            make this prediction.
+            <strong style="color: var(--white)">Red/warm areas</strong> = high
+            attention.
+            <strong style="color: var(--gp)">Blue/cool areas</strong> = low
+            attention.
+          </p>
+          <div
+            style="
+              border-radius: 12px;
+              overflow: hidden;
+              border: 1px solid rgba(168, 213, 176, 0.2);
+            "
+          >
+            <img
+              id="gradcam-img"
+              src=""
+              alt="Grad-CAM heatmap"
+              style="
+                width: 100%;
+                display: block;
+                max-height: 280px;
+                object-fit: contain;
+                background: #000;
+              "
+            />
+          </div>
+          <p
+            style="
+              font-size: 0.72rem;
+              color: rgba(168, 213, 176, 0.4);
+              margin-top: 6px;
+              text-align: center;
+            "
+          >
+            Grad-CAM visualization · EfficientNetB0 attention
+          </p>
+        </div>
+      </div>
 
       <!-- ══ HISTORY TAB ══ -->
       <div id="tab-history" class="tab-panel">
@@ -1228,7 +1295,7 @@
 ═══════════════════════════════════════ */
       const ICONS = {
         healthy: "✅",
-        chhirke: "🦠",
+        chirke: "🦠",
         leaf_blight: "🍂",
       };
       const SEVC = { None: "s-none", Medium: "s-med", High: "s-high" };
@@ -1376,6 +1443,8 @@
         document.getElementById("result-ph").innerHTML =
           "📷 Upload or capture a leaf image to begin analysis";
         document.getElementById("file-input").value = "";
+        document.getElementById("gradcam-section").style.display = "none";
+        
       }
 
       /* ═══════════════════════════════════════
@@ -1445,12 +1514,16 @@
         document.getElementById("rcp").textContent = d.confidence + "%";
         document.getElementById("rdesc").textContent = d.description;
         document.getElementById("rrec").textContent = d.recommendation;
+
         const sev = document.getElementById("rsev");
         sev.textContent = "Severity: " + d.severity;
         sev.className = "sev " + (SEVC[d.severity] || "s-none");
+
         requestAnimationFrame(() => {
           document.getElementById("rcb").style.width = d.confidence + "%";
         });
+
+        // All class scores
         const c = document.getElementById("rall");
         c.innerHTML = "";
         (d.all_predictions || []).forEach((p) => {
@@ -1467,10 +1540,53 @@
             (el) => (el.style.width = el.dataset.v + "%"),
           );
         });
+
+        // ── Show model details (EfficientNet vs MobileNet scores) ────────────
+        const details = d.model_details;
+        if (details && document.getElementById("model-details")) {
+          document.getElementById("model-details").innerHTML = `
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
+        <div style="flex:1;background:rgba(74,148,99,.1);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:.7rem;color:var(--gp);margin-bottom:3px">EfficientNetB0</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white)">${details.efficientnet_top}%</div>
+        </div>
+        <div style="flex:1;background:rgba(74,148,99,.1);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:.7rem;color:var(--gp);margin-bottom:3px">MobileNetV2</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white)">${details.mobilenet_top}%</div>
+        </div>
+        <div style="flex:1;background:rgba(200,168,75,.1);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:.7rem;color:var(--gold);margin-bottom:3px">Ensemble</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white)">${details.ensemble_top}%</div>
+        </div>
+      </div>`;
+        }
+
+        // ── Show low confidence warning ───────────────────────────────────────
+        const warnEl = document.getElementById("confidence-warn");
+        if (warnEl) {
+          if (d.low_confidence) {
+            warnEl.style.display = "block";
+            warnEl.textContent = "⚠️ " + d.confidence_label;
+          } else {
+            warnEl.style.display = "none";
+          }
+        }
+
+        // ── Show Grad-CAM heatmap if available ────────────────────────────────
+        const gcSection = document.getElementById("gradcam-section");
+        const gcImg = document.getElementById("gradcam-img");
+        if (gcSection && gcImg) {
+          if (d.gradcam_url) {
+            gcImg.src = d.gradcam_url;
+            gcSection.style.display = "block";
+          } else {
+            gcSection.style.display = "none";
+          }
+        }
+
         document.getElementById("result-wrap").style.display = "block";
         document.getElementById("result-ph").style.display = "none";
       }
-
       /* ═══════════════════════════════════════
    HISTORY
 ═══════════════════════════════════════ */

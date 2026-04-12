@@ -1,4 +1,12 @@
-.env/
 convert.py
 raw_images
 .venv/
+__pycache__/
+*.pyc
+models/*.keras
+database/*.db
+.env
+
+models/
+database/
+dataset/
