@@ -6,6 +6,7 @@ Prediction API with Grad-CAM heatmap generation.
 
 import os
 import sys
+from unittest import result
 import uuid
 
 from flask import Blueprint, request, jsonify, current_app
@@ -53,12 +54,15 @@ def predict():
     except FileNotFoundError as e:
         return jsonify({"error": str(e)}), 503
     except Exception as e:
-        import traceback; traceback.print_exc()
         return jsonify({"error": f"Prediction failed: {e}"}), 500
 
-    # Not a cardamom leaf — return error, do NOT save to database
-    if result.get("error") == "not_cardamom":
-        return jsonify(result), 200
+    # ── Check for ANY error before accessing result fields ──────────────
+    if "error" in result:
+        return jsonify(result), 200          # covers not_cardamom + anything else
+
+    # ── Check disease key exists (safety net) ───────────────────────────
+    if "disease" not in result:
+        return jsonify({"error": "Model returned unexpected result", "raw": str(result)}), 500
 
     # ── Generate Grad-CAM heatmap ─────────────────────────────────────────
     gradcam_url = None
@@ -85,7 +89,8 @@ def predict():
     except Exception as e:
         # Grad-CAM failure is non-critical — prediction still works
         print(f"Grad-CAM skipped: {e}")
-
+        
+    
     # ── Save valid prediction to database ─────────────────────────────────
     record = Prediction(
         user_id        = user_id,

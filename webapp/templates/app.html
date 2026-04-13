@@ -1201,59 +1201,58 @@
           </div>
         </div>
         <!-- /.card -->
-      </div>
-      <!-- /#tab-predict -->
-
-      <div id="gradcam-section" style="display: none; margin-top: 18px">
-        <div class="ib">
-          <h4>🔍 AI Attention Map (Grad-CAM)</h4>
-          <p
-            style="
-              font-size: 0.82rem;
-              color: var(--gp);
-              margin-bottom: 10px;
-              line-height: 1.55;
-            "
-          >
-            The heatmap below shows which part of the leaf the AI focused on to
-            make this prediction.
-            <strong style="color: var(--white)">Red/warm areas</strong> = high
-            attention.
-            <strong style="color: var(--gp)">Blue/cool areas</strong> = low
-            attention.
-          </p>
-          <div
-            style="
-              border-radius: 12px;
-              overflow: hidden;
-              border: 1px solid rgba(168, 213, 176, 0.2);
-            "
-          >
-            <img
-              id="gradcam-img"
-              src=""
-              alt="Grad-CAM heatmap"
+        <div id="gradcam-section" style="display: none; margin-top: 18px">
+          <div class="ib">
+            <h4>🔍 AI Attention Map (Grad-CAM)</h4>
+            <p
               style="
-                width: 100%;
-                display: block;
-                max-height: 280px;
-                object-fit: contain;
-                background: #000;
+                font-size: 0.82rem;
+                color: var(--gp);
+                margin-bottom: 10px;
+                line-height: 1.55;
               "
-            />
+            >
+              The heatmap below shows which part of the leaf the AI focused on
+              to make this prediction.
+              <strong style="color: var(--white)">Red/warm areas</strong> = high
+              attention.
+              <strong style="color: var(--gp)">Blue/cool areas</strong> = low
+              attention.
+            </p>
+            <div
+              style="
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid rgba(168, 213, 176, 0.2);
+              "
+            >
+              <img
+                id="gradcam-img"
+                src=""
+                alt="Grad-CAM heatmap"
+                style="
+                  width: 100%;
+                  display: block;
+                  max-height: 280px;
+                  object-fit: contain;
+                  background: #000;
+                "
+              />
+            </div>
+            <p
+              style="
+                font-size: 0.72rem;
+                color: rgba(168, 213, 176, 0.4);
+                margin-top: 6px;
+                text-align: center;
+              "
+            >
+              Grad-CAM visualization · EfficientNetB0 attention
+            </p>
           </div>
-          <p
-            style="
-              font-size: 0.72rem;
-              color: rgba(168, 213, 176, 0.4);
-              margin-top: 6px;
-              text-align: center;
-            "
-          >
-            Grad-CAM visualization · EfficientNetB0 attention
-          </p>
         </div>
       </div>
+      <!-- /#tab-predict -->
 
       <!-- ══ HISTORY TAB ══ -->
       <div id="tab-history" class="tab-panel">
@@ -1444,7 +1443,6 @@
           "📷 Upload or capture a leaf image to begin analysis";
         document.getElementById("file-input").value = "";
         document.getElementById("gradcam-section").style.display = "none";
-        
       }
 
       /* ═══════════════════════════════════════
