@@ -188,3 +188,5 @@ def stats():
         "total_predictions": len(records),
         "disease_counts":    counts,
     }), 200
+    
+    

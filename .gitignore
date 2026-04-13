@@ -10,3 +10,5 @@ database/*.db
 models/
 database/
 dataset/
+
+webapp/static/uploads/

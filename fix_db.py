@@ -32,3 +32,18 @@ except sqlite3.OperationalError as e:
 
 conn.close()
 print("\nDone! Now run: python make_admin.py")
+
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS contact_messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(150) NOT NULL,
+        subject VARCHAR(200) NOT NULL,
+        message TEXT NOT NULL,
+        is_read BOOLEAN DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+conn.commit()
+print("✅ contact_messages table created")

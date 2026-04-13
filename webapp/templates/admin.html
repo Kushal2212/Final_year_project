@@ -493,6 +493,43 @@
           </button>
         </div>
       </div>
+
+      <!-- Messages table -->
+      <div class="tcard">
+        <div class="thead">
+          <h3>
+            Contact Messages
+            <span
+              id="unread-badge"
+              style="
+                background: rgba(192, 57, 43, 0.2);
+                color: #f1948a;
+                padding: 2px 10px;
+                border-radius: 99px;
+                font-size: 0.75rem;
+                margin-left: 8px;
+              "
+            >
+            </span>
+          </h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="msgs-tbody">
+            <tr>
+              <td colspan="5" class="empty">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
 
     <footer>© 2025 Cardamom Disease Detection · Admin Panel · Nepal 🇳🇵</footer>
@@ -706,6 +743,53 @@
       loadStats();
       loadUsers();
       loadPredictions();
+
+      async function loadMessages() {
+        const d = await apiCall("/api/admin/messages", "GET");
+        if (d.error) return;
+
+        // Show unread count
+        if (d.unread > 0) {
+          document.getElementById("unread-badge").textContent =
+            d.unread + " unread";
+        }
+
+        const tbody = document.getElementById("msgs-tbody");
+        if (!d.messages.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="empty">No messages yet</td></tr>';
+          return;
+        }
+        tbody.innerHTML = d.messages
+          .map(
+            (m) => `
+    <tr style="${!m.is_read ? "background:rgba(74,148,99,0.05)" : ""}">
+      <td>${m.name}</td>
+      <td style="color:var(--gp)">${m.email}</td>
+      <td>${m.subject}</td>
+      <td style="color:var(--gp)">${new Date(m.created_at).toLocaleDateString()}</td>
+      <td>
+        ${
+          !m.is_read
+            ? `<button onclick="markRead(${m.id})" style="background:none;border:1px solid rgba(168,213,176,.3);border-radius:6px;color:var(--gp);font-size:.78rem;padding:3px 10px;cursor:pointer">Mark read</button>`
+            : '<span style="color:rgba(168,213,176,.4);font-size:.78rem">Read</span>'
+        }
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5" style="padding:8px 16px;color:var(--gp);font-size:.82rem;border-bottom:1px solid rgba(168,213,176,.08)">${m.message}</td>
+    </tr>`,
+          )
+          .join("");
+      }
+
+      async function markRead(id) {
+        await apiCall("/api/admin/messages/" + id + "/read", "POST");
+        loadMessages();
+      }
+
+      // Add to the bottom of your existing calls
+      loadMessages();
     </script>
   </body>
 </html>

@@ -549,7 +549,6 @@
     </style>
   </head>
   <body>
-
     <script>
       const TOKEN_KEY = "cardamom_token";
       const USER_KEY = "cardamom_user";
@@ -597,9 +596,7 @@
     </script>
 
     <nav id="navbar">
-      <a href="/" class="nav-brand"
-        ><span>🌿</span><strong>अलैँची</strong></a
-      >
+      <a href="/" class="nav-brand"><span>🌿</span><strong>अलैँची</strong></a>
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/about">About</a>
@@ -830,7 +827,7 @@
           <label>Message *</label
           ><textarea id="msg" placeholder="Write your message here…"></textarea>
         </div>
-        <button class="btn-submit" id="send-btn" onclick="sendMessage()">
+        <button class="btn-submit" id="send-btn" onclick="submitContact()">
           <span>📨</span> Send Message
         </button>
       </div>
@@ -859,7 +856,6 @@
       <p>© 2025 अलैँची · Nepal 🇳🇵 · एलाइची रोग पहिचान प्रणाली</p>
     </footer>
 
-    
     <script>
       const obs = new IntersectionObserver(
         (entries) => {
@@ -875,32 +871,115 @@
         el.parentElement.classList.toggle("open");
       }
 
-      function sendMessage() {
-        const fname = document.getElementById("fname").value.trim();
-        const lname = document.getElementById("lname").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const msg = document.getElementById("msg").value.trim();
+      //function sendMessage() {
+      // const fname = document.getElementById("fname").value.trim();
+      // const lname = document.getElementById("lname").value.trim();
+      // const email = document.getElementById("email").value.trim();
+      //const msg = document.getElementById("msg").value.trim();
+      //const okA = document.getElementById("ok-alert");
+      //const errA = document.getElementById("err-alert");
+      //okA.style.display = "none";
+      //errA.style.display = "none";
+      //if (!fname || !lname || !email || !msg) {
+      //errA.style.display = "block";
+      //return;
+      //}
+      //const btn = document.getElementById("send-btn");
+      //btn.disabled = true;
+      //btn.innerHTML = "<span>⏳</span> Sending…";
+      //setTimeout(() => {
+      //okA.style.display = "block";
+      //btn.disabled = false;
+      //btn.innerHTML = "<span>📨</span> Send Message";
+      //document.getElementById("fname").value = "";
+      //document.getElementById("lname").value = "";
+      //document.getElementById("email").value = "";
+      //document.getElementById("msg").value = "";
+      //document.getElementById("topic").value = "";
+      //}, 1400);
+      //}
+
+      async function submitContact(event) {
+        if (event) event.preventDefault();
+
+        const fnameEl = document.getElementById("fname");
+        const lnameEl = document.getElementById("lname");
+        const emailEl = document.getElementById("email");
+        const msgEl = document.getElementById("msg");
+        const topicEl = document.getElementById("topic");
+
         const okA = document.getElementById("ok-alert");
         const errA = document.getElementById("err-alert");
+        const btn = document.getElementById("send-btn");
+
+        // Safety check
+        if (
+          !fnameEl ||
+          !lnameEl ||
+          !emailEl ||
+          !msgEl ||
+          !topicEl ||
+          !okA ||
+          !errA ||
+          !btn
+        ) {
+          console.error("One or more elements not found!");
+          return;
+        }
+
+        const name = fnameEl.value.trim() + " " + lnameEl.value.trim();
+        const email = emailEl.value.trim();
+        const msg = msgEl.value.trim();
+        const subject = topicEl.value;
+
+        // Reset alerts
         okA.style.display = "none";
         errA.style.display = "none";
-        if (!fname || !lname || !email || !msg) {
+
+        if (!name.trim() || !email || !msg) {
           errA.style.display = "block";
           return;
         }
-        const btn = document.getElementById("send-btn");
-        btn.disabled = true;
-        btn.innerHTML = "<span>⏳</span> Sending…";
-        setTimeout(() => {
+
+        try {
+          // Button loading
+          btn.disabled = true;
+          btn.innerHTML = "<span>⏳</span> Sending…";
+
+          // API call
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, subject, message: msg }),
+          });
+
+          if (!res.ok) {
+            throw new Error("Server error: " + res.status);
+          }
+
+          const data = await res.json();
+
+          if (data.error) {
+            errA.style.display = "block";
+            return;
+          }
+
+          // Success
           okA.style.display = "block";
+
+          // Clear form
+          fnameEl.value = "";
+          lnameEl.value = "";
+          emailEl.value = "";
+          msgEl.value = "";
+          topicEl.value = "";
+        } catch (error) {
+          console.error(error);
+          errA.style.display = "block";
+        } finally {
           btn.disabled = false;
           btn.innerHTML = "<span>📨</span> Send Message";
-          document.getElementById("fname").value = "";
-          document.getElementById("lname").value = "";
-          document.getElementById("email").value = "";
-          document.getElementById("msg").value = "";
-          document.getElementById("topic").value = "";
-        }, 1400);
+        }
       }
     </script>
   </body>

@@ -18,6 +18,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from webapp.extensions import db, bcrypt, jwt
 from webapp.routes.auth import auth_bp
 from webapp.routes.predict_routes import predict_bp
+from webapp.routes.contact_routes import contact_bp
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -43,6 +44,7 @@ def create_app():
     # ── Blueprints (API routes) ───────────────────────────────────────────────
     app.register_blueprint(auth_bp)
     app.register_blueprint(predict_bp)
+    app.register_blueprint(contact_bp)
     from webapp.routes.admin   import admin_bp
     from webapp.routes.weather import weather_bp
 
@@ -91,6 +93,7 @@ def create_app():
     @app.route("/admin")
     def admin_page():
         return render_template("admin.html")
+    
 
     # ── Create DB tables ──────────────────────────────────────────────────────
     with app.app_context():

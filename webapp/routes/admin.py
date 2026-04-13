@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from webapp.extensions import db
-from webapp.models import User, Prediction
+from webapp.models import User, Prediction, ContactMessage
 from sqlalchemy import func
 from datetime import datetime, timedelta
 import os
@@ -223,3 +223,55 @@ def delete_prediction(pid):
     db.session.delete(record)
     db.session.commit()
     return jsonify({"message": "Prediction deleted"}), 200
+
+# ── Save contact message ───────────────────────────────────────────────────
+@admin_bp.route("/contact", methods=["POST"])
+def save_contact():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
+    name    = data.get("name",    "").strip()
+    email   = data.get("email",   "").strip()
+    subject = data.get("subject", "").strip()
+    message = data.get("message", "").strip()
+
+    if not name or not email or not message:
+        return jsonify({"error": "Name, email and message are required"}), 400
+
+    msg = ContactMessage(
+        name=name, email=email,
+        subject=subject or "No subject",
+        message=message
+    )
+    db.session.add(msg)
+    db.session.commit()
+    return jsonify({"message": "Message received! We will reply within 24 hours."}), 201
+
+
+# ── Get all messages (admin only) ─────────────────────────────────────────
+@admin_bp.route("/messages", methods=["GET"])
+@jwt_required()
+def get_messages():
+    if not check_admin():
+        return jsonify({"error": "Admin access required"}), 403
+
+    messages = ContactMessage.query.order_by(
+        ContactMessage.created_at.desc()
+    ).all()
+    return jsonify({
+        "messages": [m.to_dict() for m in messages],
+        "unread":   ContactMessage.query.filter_by(is_read=False).count(),
+    }), 200
+
+
+# ── Mark message as read ───────────────────────────────────────────────────
+@admin_bp.route("/messages/<int:msg_id>/read", methods=["POST"])
+@jwt_required()
+def mark_read(msg_id):
+    if not check_admin():
+        return jsonify({"error": "Admin access required"}), 403
+    msg = ContactMessage.query.get_or_404(msg_id)
+    msg.is_read = True
+    db.session.commit()
+    return jsonify({"message": "Marked as read"}), 200
