@@ -999,7 +999,7 @@
     <header>
       <span class="leaf">🌿</span>
       <h1>Cardamom <span>Disease</span> Detection</h1>
-      <p>EfficientNetB0 · REST API · SQLite Database</p>
+      <p>EfficientNetB0 & MobileNetV2 · REST API · SQLite Database</p>
       <p class="nep">अलैँची रोग पहिचान प्रणाली</p>
       <p id="user-greeting"></p>
     </header>
@@ -1286,6 +1286,8 @@
       </div>
     </main>
 
+    
+
     <footer>Cardamom Disease Prediction System · Nepal 🇳🇵</footer>
 
     <script>
@@ -1294,7 +1296,7 @@
 ═══════════════════════════════════════ */
       const ICONS = {
         healthy: "✅",
-        chirke: "🦠",
+        chhirke: "🦠",
         leaf_blight: "🍂",
       };
       const SEVC = { None: "s-none", Medium: "s-med", High: "s-high" };
@@ -1608,7 +1610,7 @@
         <div class="hist-meta">${new Date(p.created_at).toLocaleString()} · Severity: ${p.severity}</div>
       </div>
       <span class="hist-conf">${p.confidence}%</span>
-      <button class="hist-del" onclick="deletePred(${p.id})" title="Delete">🗑</button>
+      <button class="hist-del" onclick="deletePred(${p.id}, '${p.disease}')" title="Delete">🗑</button>
     </div>`,
           )
           .join("");
@@ -1629,11 +1631,9 @@
         loadHistory();
       }
 
-      async function deletePred(id) {
-        if (!confirm("Delete this record?")) return;
-        await api("/api/history/" + id, "DELETE");
-        loadHistory();
-      }
+      async function deletePred(id, diseaseName) {
+  openDeleteModal(id, diseaseName);
+}
 
       /* ═══════════════════════════════════════
    STATS
@@ -1680,5 +1680,186 @@
         }
       }
     </script>
+
+    <!--
+  PASTE THIS anywhere inside <body> in app.html — before </body>
+  This adds a beautiful delete confirmation modal
+-->
+
+<!-- ── Delete Confirmation Modal ── -->
+<div id="del-backdrop" onclick="closeDeleteModal()" style="
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.65);z-index:9000;
+  backdrop-filter:blur(6px)"></div>
+
+<div id="del-modal" style="
+  display:none;position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:9001;width:100%;max-width:380px;padding:0 16px">
+  <div style="
+    background:#1a3a2a;
+    border:1px solid rgba(168,213,176,0.15);
+    border-radius:20px;padding:32px 28px;
+    font-family:'DM Sans',sans-serif;
+    animation:delIn .25s ease">
+
+    <!-- Icon -->
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="
+        width:56px;height:56px;
+        background:rgba(192,57,43,0.15);
+        border:1px solid rgba(192,57,43,0.25);
+        border-radius:50%;
+        display:flex;align-items:center;
+        justify-content:center;margin:0 auto;
+        font-size:24px">🗑️</div>
+    </div>
+
+    <!-- Text -->
+    <h3 style="
+      font-family:'Playfair Display',serif;
+      font-size:1.25rem;font-weight:700;
+      color:#fff;text-align:center;
+      margin-bottom:10px">
+      Delete Prediction?
+    </h3>
+    <p style="
+      font-size:.86rem;color:#a8d5b0;
+      text-align:center;line-height:1.6;
+      margin-bottom:24px" id="del-msg">
+      This prediction record will be permanently deleted
+      and cannot be recovered.
+    </p>
+
+    <!-- Buttons -->
+    <div style="display:flex;gap:10px">
+      <button onclick="closeDeleteModal()" style="
+        flex:1;padding:12px;
+        background:rgba(255,255,255,0.06);
+        border:1px solid rgba(168,213,176,0.15);
+        border-radius:10px;color:#a8d5b0;
+        font-family:'DM Sans',sans-serif;
+        font-size:.9rem;cursor:pointer;
+        transition:all .2s"
+        onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        Cancel
+      </button>
+      <button id="del-confirm-btn" onclick="confirmDelete()" style="
+        flex:1;padding:12px;
+        background:linear-gradient(135deg,#c0392b,#922b21);
+        border:none;border-radius:10px;
+        color:#fff;font-family:'DM Sans',sans-serif;
+        font-size:.9rem;font-weight:500;cursor:pointer;
+        transition:all .2s"
+        onmouseover="this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.transform='none'">
+        🗑️ Yes, Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes delIn {
+  from { opacity:0; transform:translate(-50%,-46%) scale(0.96) }
+  to   { opacity:1; transform:translate(-50%,-50%) scale(1) }
+}
+</style>
+
+<script>
+// ── Delete modal state ─────────────────────────────────────────────────────
+let _deleteId   = null;
+let _deleteType = 'prediction'; // future use
+
+function openDeleteModal(id, diseaseName) {
+  _deleteId = id;
+  const msg = document.getElementById('del-msg');
+  if (diseaseName) {
+    msg.innerHTML = `The <strong style="color:#fff">${diseaseName.replace(/_/g,' ')}</strong> prediction record will be permanently deleted and cannot be recovered.`;
+  } else {
+    msg.textContent = 'This prediction record will be permanently deleted and cannot be recovered.';
+  }
+  document.getElementById('del-backdrop').style.display = 'block';
+  document.getElementById('del-modal').style.display    = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDeleteModal() {
+  document.getElementById('del-backdrop').style.display = 'none';
+  document.getElementById('del-modal').style.display    = 'none';
+  document.body.style.overflow = '';
+  _deleteId = null;
+}
+
+async function confirmDelete() {
+  if (!_deleteId) return;
+
+  const btn         = document.getElementById('del-confirm-btn');
+  btn.disabled      = true;
+  btn.textContent   = 'Deleting…';
+
+  const res = await api('/api/history/' + _deleteId, 'DELETE');
+
+  btn.disabled    = false;
+  btn.textContent = '🗑️ Yes, Delete';
+  closeDeleteModal();
+
+  if (res.error) {
+    // Show inline error instead of alert
+    showToast('❌ Could not delete: ' + res.error, 'error');
+    return;
+  }
+
+  showToast('✅ Prediction deleted', 'success');
+  loadHistory();
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDeleteModal();
+});
+</script>
+
+
+<!--
+  ── TOAST NOTIFICATION (replaces alert) ──────────────────────────────────
+  Also paste this — it shows a small notification at the bottom
+-->
+<div id="toast" style="
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:#1a3a2a;
+  border:1px solid rgba(168,213,176,0.2);
+  border-radius:10px;padding:12px 22px;
+  color:#a8d5b0;font-family:'DM Sans',sans-serif;
+  font-size:.88rem;z-index:9999;
+  transition:transform .3s ease, opacity .3s ease;
+  opacity:0;pointer-events:none;white-space:nowrap">
+</div>
+
+<script>
+let toastTimer = null;
+function showToast(message, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = message;
+  t.style.background = type === 'error'
+    ? 'rgba(192,57,43,0.9)'
+    : 'rgba(26,58,42,0.95)';
+  t.style.borderColor = type === 'error'
+    ? 'rgba(192,57,43,0.4)'
+    : 'rgba(168,213,176,0.25)';
+  t.style.color = type === 'error' ? '#f1948a' : '#a8d5b0';
+  t.style.opacity     = '1';
+  t.style.transform   = 'translateX(-50%) translateY(0)';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    t.style.opacity   = '0';
+    t.style.transform = 'translateX(-50%) translateY(80px)';
+  }, 3000);
+}
+</script>
+
   </body>
 </html>

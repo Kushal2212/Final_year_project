@@ -37,16 +37,10 @@ DISEASE_INFO = {
         "recommendation": "Continue regular care: proper shade, watering, and organic fertiliser.",
         "severity":       "None",
     },
-    "chirke": {
-        "nepali":         "चिर्के रोग",
+    "chhirke": {
+        "nepali":         "छिर्के रोग",
         "description":    "Viral disease spread by aphids. Causes mosaic yellowing and stunted growth.",
         "recommendation": "Remove infected plants. Spray neem oil or imidacloprid to control aphids.",
-        "severity":       "High",
-    },
-    "foorkey": {
-        "nepali":         "फुर्के रोग",
-        "description":    "Phytoplasma disease spread by insects. Plants produce thin grass-like shoots.",
-        "recommendation": "Uproot and destroy infected plants. Apply systemic insecticide.",
         "severity":       "High",
     },
     "leaf_blight": {

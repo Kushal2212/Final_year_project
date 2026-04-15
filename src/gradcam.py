@@ -96,3 +96,4 @@ def generate_gradcam(img_path: str, model, class_idx: int, output_path: str) -> 
     except Exception as e:
         print(f"Grad-CAM error: {e}")
         return None
+

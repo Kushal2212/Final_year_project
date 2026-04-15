@@ -24,7 +24,7 @@ LABELS_PATH  = MODEL_DIR / "class_labels.json"
 IMG_SIZE   = 224
 BATCH_SIZE = 32
 SEED       = 42
-CLASSES    = ["chirke", "healthy", "leaf_blight"]
+CLASSES    = ["chhirke", "healthy", "leaf_blight"]
 
 
 # ─────────────────────────────────────────────────────────────────────────

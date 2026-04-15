@@ -20,19 +20,19 @@ DISTRICTS = {
 def calc_risk(temp, humidity, rain):
     risks = []
 
-    # chirke risk (aphid-spread virus → hot + dry)
+    # chhirke risk (aphid-spread virus → hot + dry)
     if temp > 24 and humidity < 70:
-        risks.append({"disease": "chirke (चिर्के रोग)", "level": "High",
+        risks.append({"disease": "chhirke (छिर्के रोग)", "level": "High",
             "color": "red",
             "message": f"Hot {temp:.0f}°C + low humidity {humidity:.0f}% — ideal for aphids.",
             "action":  "Apply neem oil spray. Check for aphids daily."})
     elif temp > 20 and humidity < 80:
-        risks.append({"disease": "chirke (चिर्के रोग)", "level": "Medium",
+        risks.append({"disease": "chhirke (छिर्के रोग)", "level": "Medium",
             "color": "orange",
             "message": "Moderate risk. Monitor plants for aphid presence.",
             "action":  "Inspect plants 2-3 times per week."})
     else:
-        risks.append({"disease": "chirke (चिर्के रोग)", "level": "Low",
+        risks.append({"disease": "chhirke (छिर्के रोग)", "level": "Low",
             "color": "green",
             "message": "Low aphid activity expected.",
             "action":  "Continue regular monitoring."})

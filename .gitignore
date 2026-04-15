@@ -11,4 +11,4 @@ models/
 database/
 dataset/
 
-webapp/static/uploads/
+\.webapp\static\upload\
