@@ -49,7 +49,7 @@
         pointer-events: none;
       }
 
-      /* ── Nav ── */
+      /* NAV */
       nav {
         position: fixed;
         top: 0;
@@ -105,12 +105,6 @@
         color: var(--white);
       }
       .nav-links a:hover::after {
-        width: 100%;
-      }
-      .nav-links a.active {
-        color: var(--white);
-      }
-      .nav-links a.active::after {
         width: 100%;
       }
       #cdx-nav-auth {
@@ -215,7 +209,7 @@
         display: flex;
       }
 
-      /* ── Header ── */
+      /* HEADER */
       header {
         padding: 108px 20px 24px;
         text-align: center;
@@ -265,7 +259,7 @@
         color: var(--white);
       }
 
-      /* ── Main ── */
+      /* MAIN */
       main {
         max-width: 820px;
         margin: 0 auto;
@@ -274,7 +268,7 @@
         z-index: 1;
       }
 
-      /* ── Tabs ── */
+      /* TABS */
       .tabs {
         display: flex;
         gap: 4px;
@@ -285,13 +279,13 @@
       }
       .tab {
         flex: 1;
-        padding: 10px;
+        padding: 9px 6px;
         text-align: center;
         border: none;
         background: none;
         color: var(--gp);
         font-family: "DM Sans", sans-serif;
-        font-size: 0.85rem;
+        font-size: 0.83rem;
         cursor: pointer;
         border-radius: 8px;
         transition: all 0.2s;
@@ -308,7 +302,7 @@
         display: block;
       }
 
-      /* ── Card ── */
+      /* CARD */
       .card {
         background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(168, 213, 176, 0.2);
@@ -323,7 +317,7 @@
         margin-bottom: 18px;
       }
 
-      /* ── Source tabs ── */
+      /* SOURCE TABS */
       .src-tabs {
         display: flex;
         gap: 6px;
@@ -355,7 +349,7 @@
         color: var(--white);
       }
 
-      /* ── Drop zone ── */
+      /* DROP ZONE */
       .drop-zone {
         border: 2px dashed var(--g3);
         border-radius: 14px;
@@ -395,7 +389,7 @@
         font-size: 0.83rem;
       }
 
-      /* ── Camera ── */
+      /* CAMERA */
       #camera-container {
         border-radius: 14px;
         overflow: hidden;
@@ -499,7 +493,7 @@
         font-size: 0.8rem;
       }
 
-      /* ── Preview ── */
+      /* PREVIEW */
       #prev-wrap {
         display: none;
         margin-top: 14px;
@@ -536,7 +530,7 @@
         color: #f1948a;
       }
 
-      /* ── Analyse btn ── */
+      /* ANALYSE BTN */
       .btn-analyse {
         display: block;
         width: 100%;
@@ -562,8 +556,6 @@
         transform: none;
         box-shadow: none;
       }
-
-      /* ── Upload warning ── */
       .upload-warn {
         margin-top: 10px;
         padding: 10px 14px;
@@ -575,7 +567,7 @@
         line-height: 1.5;
       }
 
-      /* ── Loader ── */
+      /* LOADER */
       .loader-wrap {
         display: none;
         text-align: center;
@@ -600,7 +592,7 @@
         }
       }
 
-      /* ── Result placeholder ── */
+      /* RESULT PLACEHOLDER */
       #result-ph {
         text-align: center;
         padding: 28px 20px;
@@ -609,7 +601,7 @@
         display: block;
       }
 
-      /* ── Result card ── */
+      /* RESULT CARD */
       #result-wrap {
         display: none;
         margin-top: 18px;
@@ -769,7 +761,7 @@
         text-align: right;
       }
 
-      /* ── Low confidence banner ── */
+      /* LOW CONFIDENCE BANNER */
       .low-conf-banner {
         margin: 14px 0 0;
         padding: 13px 15px;
@@ -781,7 +773,7 @@
       .low-conf-banner.show {
         display: block;
       }
-      .low-conf-banner .lcb-title {
+      .lcb-title {
         color: #f0b27a;
         font-size: 0.84rem;
         font-weight: 500;
@@ -821,7 +813,7 @@
         background: rgba(211, 84, 0, 0.24);
       }
 
-      /* ── Model breakdown ── */
+      /* MODEL BREAKDOWN */
       .model-breakdown {
         display: flex;
         gap: 10px;
@@ -853,7 +845,7 @@
         color: var(--white);
       }
 
-      /* ── Grad-CAM ── */
+      /* GRAD-CAM */
       #gradcam-section {
         display: none;
         margin-top: 16px;
@@ -877,7 +869,7 @@
         text-align: center;
       }
 
-      /* ── History ── */
+      /* HISTORY */
       .hist-item {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(168, 213, 176, 0.12);
@@ -965,7 +957,7 @@
         font-size: 0.82rem;
       }
 
-      /* ── Stats ── */
+      /* STATS */
       .stat-row {
         display: flex;
         gap: 12px;
@@ -993,7 +985,7 @@
         text-transform: capitalize;
       }
 
-      /* ── Weather ── */
+      /* WEATHER */
       .district-btn {
         padding: 8px 18px;
         border-radius: 10px;
@@ -1091,7 +1083,32 @@
         line-height: 1.5;
       }
 
-      /* ── Delete modal ── */
+      /* FORECAST TIMELINE */
+      .timeline-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .timeline-day {
+        flex: 1;
+        min-width: 80px;
+        border-radius: 10px;
+        padding: 11px 8px;
+        text-align: center;
+      }
+      .timeline-day-date {
+        font-size: 0.72rem;
+        color: var(--gp);
+        margin-bottom: 4px;
+      }
+      .timeline-day-level {
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-top: 3px;
+      }
+
+      /* DELETE MODAL */
       .del-backdrop {
         display: none;
         position: fixed;
@@ -1197,7 +1214,7 @@
         transform: none;
       }
 
-      /* ── Toast ── */
+      /* TOAST */
       #toast {
         position: fixed;
         bottom: 28px;
@@ -1239,14 +1256,11 @@
         .burger {
           display: flex;
         }
-        .w-stat-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
       }
     </style>
   </head>
   <body>
-    <!-- ── Nav ── -->
+    <!-- NAV -->
     <nav>
       <a href="/" class="nav-brand"><span>🌿</span><strong>अलैँची</strong></a>
       <div class="nav-links">
@@ -1269,11 +1283,11 @@
       <div id="cdx-mob-auth"></div>
     </div>
 
-    <!-- ── Header ── -->
+    <!-- HEADER -->
     <header>
       <span class="leaf">🌿</span>
       <h1>Cardamom <span>Disease</span> Detection</h1>
-      <p>EfficientNetB0 & MobileNetV2 · REST API · SQLite Database</p>
+      <p>EfficientNetB0 &amp; MobileNetV2 · REST API · SQLite Database</p>
       <p class="nep">अलैँची रोग पहिचान प्रणाली</p>
       <p id="user-greeting"></p>
     </header>
@@ -1312,7 +1326,7 @@
         </button>
       </div>
 
-      <!-- ══ PREDICT ══ -->
+      <!-- PREDICT TAB -->
       <div id="tab-predict" class="tab-panel active">
         <div class="card">
           <h3
@@ -1326,7 +1340,6 @@
             Upload or capture leaf image
           </h3>
 
-          <!-- Source toggle -->
           <div class="src-tabs">
             <button
               id="src-upload-btn"
@@ -1344,7 +1357,6 @@
             </button>
           </div>
 
-          <!-- Upload -->
           <div id="mode-upload">
             <div class="drop-zone" id="drop-zone">
               <input type="file" id="file-input" accept="image/*" />
@@ -1354,7 +1366,6 @@
             </div>
           </div>
 
-          <!-- Camera -->
           <div id="mode-camera" style="display: none">
             <div id="camera-container">
               <video id="camera-video" autoplay playsinline muted></video>
@@ -1379,7 +1390,6 @@
             <canvas id="camera-canvas" style="display: none"></canvas>
           </div>
 
-          <!-- Preview -->
           <div id="prev-wrap">
             <img id="prev-img" src="" alt="preview" />
             <div class="prev-bar">
@@ -1402,18 +1412,15 @@
             automatically.
           </div>
 
-          <!-- Loader -->
           <div class="loader-wrap" id="loader">
             <div class="loader-ring"></div>
             <p>Analysing with EfficientNetB0 and MobileNetV2…</p>
           </div>
 
-          <!-- Placeholder -->
           <div id="result-ph">
             📷 Upload or capture a leaf image to begin analysis
           </div>
 
-          <!-- Result -->
           <div id="result-wrap">
             <div class="res-card">
               <div class="res-head">
@@ -1425,7 +1432,7 @@
                 </div>
                 <div class="conf-wrap">
                   <div class="conf-lbl">
-                    <span>Confidence</span>
+                    <span>Confidence=</span>
                     <span
                       ><span id="rcp">0%</span>
                       <span class="conf-badge" id="rclvl"></span
@@ -1437,7 +1444,6 @@
                 </div>
               </div>
 
-              <!-- Low confidence banner -->
               <div class="low-conf-banner" id="low-conf-banner">
                 <div class="lcb-title">
                   ⚠️ Low Confidence — please retake for better accuracy
@@ -1489,7 +1495,6 @@
             </div>
           </div>
 
-          <!-- Grad-CAM -->
           <div id="gradcam-section">
             <div class="ib" style="margin-top: 16px">
               <h4>🔍 AI Attention Map (Grad-CAM)</h4>
@@ -1518,7 +1523,7 @@
         </div>
       </div>
 
-      <!-- ══ HISTORY ══ -->
+      <!-- HISTORY TAB -->
       <div id="tab-history" class="tab-panel">
         <div class="card">
           <h2>Prediction History</h2>
@@ -1541,7 +1546,7 @@
         </div>
       </div>
 
-      <!-- ══ STATS ══ -->
+      <!-- STATS TAB -->
       <div id="tab-stats" class="tab-panel">
         <div class="card">
           <h2>Your Statistics</h2>
@@ -1549,7 +1554,7 @@
         </div>
       </div>
 
-      <!-- ══ WEATHER ══ -->
+      <!-- WEATHER TAB -->
       <div id="tab-weather" class="tab-panel">
         <div class="card">
           <h2>🌦️ Weather Risk Alert</h2>
@@ -1582,11 +1587,14 @@
               id="district-btns"
             ></div>
           </div>
+
           <div class="loader-wrap" id="weather-loader">
             <div class="loader-ring"></div>
             <p>Fetching weather data…</p>
           </div>
+
           <div id="weather-result" style="display: none">
+            <!-- Current weather -->
             <div
               style="
                 background: rgba(74, 148, 99, 0.08);
@@ -1651,6 +1659,8 @@
                 </div>
               </div>
             </div>
+
+            <!-- Disease risk cards -->
             <div
               style="
                 font-size: 0.71rem;
@@ -1664,11 +1674,47 @@
               Disease Risk Assessment
             </div>
             <div id="risk-cards"></div>
+
+            <!-- 3-day forecast alert -->
+            <div
+              id="forecast-alert"
+              style="
+                display: none;
+                margin-top: 14px;
+                padding: 12px 16px;
+                border-radius: 10px;
+                font-size: 0.84rem;
+                font-weight: 500;
+              "
+            ></div>
+
+            <!-- 3-day timeline -->
+            <div
+              id="forecast-timeline-wrap"
+              style="display: none; margin-top: 14px"
+            >
+              <div
+                style="
+                  font-size: 0.71rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.1em;
+                  color: var(--gp);
+                  font-weight: 600;
+                  margin-bottom: 8px;
+                "
+              >
+                3-Day Risk Forecast
+              </div>
+              <div class="timeline-row" id="risk-timeline"></div>
+            </div>
+
             <div class="demo-note" id="w-demo-note" style="display: none">
-              📡 Showing demo data. Set <strong>WEATHER_API_KEY</strong> in your
-              environment to get live weather from OpenWeatherMap (free tier).
+              📡 Showing demo data. Set
+              <strong>WEATHER_API_KEY</strong> environment variable for live
+              weather from OpenWeatherMap (free tier).
             </div>
           </div>
+
           <div
             id="weather-empty"
             style="
@@ -1686,7 +1732,7 @@
 
     <footer>Cardamom Disease Prediction System · Nepal 🇳🇵</footer>
 
-    <!-- ── Delete modal ── -->
+    <!-- DELETE MODAL -->
     <div
       class="del-backdrop"
       id="del-backdrop"
@@ -1714,15 +1760,14 @@
       </div>
     </div>
 
-    <!-- ── Toast ── -->
+    <!-- TOAST -->
     <div id="toast"></div>
 
-    <!-- ── Scripts ── -->
     <script src="/static/js/auth.js"></script>
     <script>
-      /* ══════════════════════════════════════════
-   STATE
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       STATE
+    ══════════════════════════════════ */
       const ICONS = {
         healthy: "✅",
         chhirke: "🦠",
@@ -1730,22 +1775,50 @@
         leaf_blight: "🍂",
       };
       const SEVC = { None: "s-none", Medium: "s-med", High: "s-high" };
-      let histPage = 1,
-        histTotal = 1;
-      let selFile = null,
-        cameraStream = null;
-      let _deleteId = null;
+      const RISK_COLORS = {
+        High: {
+          bg: "rgba(192,57,43,.18)",
+          border: "rgba(192,57,43,.38)",
+          text: "#f1948a",
+        },
+        Medium: {
+          bg: "rgba(211,84,0,.15)",
+          border: "rgba(211,84,0,.32)",
+          text: "#f0b27a",
+        },
+        Low: {
+          bg: "rgba(74,148,99,.15)",
+          border: "rgba(74,148,99,.35)",
+          text: "#a8d5b0",
+        },
+      };
+      const RISK_ICONS = { High: "🔴", Medium: "🟡", Low: "🟢" };
+      const WEATHER_ICONS = {
+        rain: "🌧️",
+        drizzle: "🌦️",
+        thunder: "⛈️",
+        snow: "❄️",
+        mist: "🌫️",
+        fog: "🌫️",
+        clear: "☀️",
+        cloud: "⛅",
+      };
       const DISTRICTS = [
         { key: "ilam", name: "Ilam" },
         { key: "taplejung", name: "Taplejung" },
         { key: "panchthar", name: "Panchthar" },
         { key: "sankhuwasabha", name: "Sankhuwasabha" },
       ];
+      let histPage = 1,
+        histTotal = 1;
+      let selFile = null,
+        cameraStream = null;
+      let _deleteId = null;
       let activeDistrict = "ilam";
 
-      /* ══════════════════════════════════════════
-   NAV AUTH  (single implementation)
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       NAV AUTH
+    ══════════════════════════════════ */
       function renderNav() {
         const ph = document.getElementById("cdx-nav-auth");
         const mobPh = document.getElementById("cdx-mob-auth");
@@ -1786,9 +1859,9 @@
         location.href = "/login";
       }
 
-      /* ══════════════════════════════════════════
-   TOAST
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       TOAST
+    ══════════════════════════════════ */
       let _toastTimer = null;
       function showToast(msg, type = "success", duration = 3200) {
         const t = document.getElementById("toast");
@@ -1807,9 +1880,9 @@
         }, duration);
       }
 
-      /* ══════════════════════════════════════════
-   TAB SWITCH
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       TAB SWITCH
+    ══════════════════════════════════ */
       const TAB_ORDER = ["predict", "history", "stats", "weather"];
       function switchTab(tab) {
         document
@@ -1824,9 +1897,9 @@
         );
       }
 
-      /* ══════════════════════════════════════════
-   SOURCE (upload / camera)
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       SOURCE SWITCH
+    ══════════════════════════════════ */
       function setSource(src) {
         const isCam = src === "camera";
         document.getElementById("src-upload-btn").className =
@@ -1842,9 +1915,9 @@
         if (!isCam) stopCamera();
       }
 
-      /* ══════════════════════════════════════════
-   CAMERA
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       CAMERA
+    ══════════════════════════════════ */
       async function startCamera() {
         try {
           cameraStream = await navigator.mediaDevices.getUserMedia({
@@ -1865,7 +1938,6 @@
           );
         }
       }
-
       function stopCamera() {
         if (cameraStream) {
           cameraStream.getTracks().forEach((t) => t.stop());
@@ -1875,7 +1947,6 @@
         document.getElementById("camera-btns").style.display = "none";
         document.getElementById("camera-start-wrap").style.display = "block";
       }
-
       function capturePhoto() {
         const video = document.getElementById("camera-video");
         const canvas = document.getElementById("camera-canvas");
@@ -1894,9 +1965,9 @@
         );
       }
 
-      /* ══════════════════════════════════════════
-   FILE / DRAG-DROP
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       FILE / DRAG-DROP
+    ══════════════════════════════════ */
       const dz = document.getElementById("drop-zone");
       const fi = document.getElementById("file-input");
       dz.addEventListener("dragover", (e) => {
@@ -1927,7 +1998,6 @@
         document.getElementById("result-ph").style.display = "none";
         document.getElementById("gradcam-section").style.display = "none";
       }
-
       function clearPreview() {
         selFile = null;
         document.getElementById("prev-wrap").style.display = "none";
@@ -1941,9 +2011,9 @@
         document.getElementById("low-conf-banner").classList.remove("show");
       }
 
-      /* ══════════════════════════════════════════
-   PREDICT
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       PREDICT
+    ══════════════════════════════════ */
       async function doPrediction() {
         if (!selFile) return;
         document.getElementById("btn-analyse").disabled = true;
@@ -1963,16 +2033,12 @@
           const d = await res.json();
           document.getElementById("loader").style.display = "none";
           document.getElementById("btn-analyse").disabled = false;
-
           if (d.error === "not_cardamom") {
             document.getElementById("result-ph").innerHTML = `
-        <span style="font-size:42px;display:block;margin-bottom:12px">⚠️</span>
-        <p style="color:#f1948a;font-size:.9rem;font-weight:500;margin-bottom:8px">Not a cardamom leaf!</p>
-        <p style="color:var(--gp);font-size:.83rem;line-height:1.6">${d.message}</p>
-        <button onclick="clearPreview()" style="margin-top:14px;padding:8px 20px;
-          background:rgba(255,255,255,.06);border:1px solid rgba(168,213,176,.2);
-          border-radius:8px;color:var(--gp);font-family:'DM Sans',sans-serif;
-          font-size:.82rem;cursor:pointer">Try another image</button>`;
+            <span style="font-size:42px;display:block;margin-bottom:12px">⚠️</span>
+            <p style="color:#f1948a;font-size:.9rem;font-weight:500;margin-bottom:8px">Not a cardamom leaf!</p>
+            <p style="color:var(--gp);font-size:.83rem;line-height:1.6">${d.message}</p>
+            <button onclick="clearPreview()" style="margin-top:14px;padding:8px 20px;background:rgba(255,255,255,.06);border:1px solid rgba(168,213,176,.2);border-radius:8px;color:var(--gp);font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer">Try another image</button>`;
             document.getElementById("result-ph").style.display = "block";
             return;
           }
@@ -1992,9 +2058,9 @@
         }
       }
 
-      /* ══════════════════════════════════════════
-   SHOW RESULT
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       SHOW RESULT
+    ══════════════════════════════════ */
       function showResult(d) {
         document.getElementById("ri").textContent = ICONS[d.disease] || "🌿";
         document.getElementById("rn").textContent = d.disease.replace(
@@ -2009,7 +2075,6 @@
         sev.textContent = "Severity: " + d.severity;
         sev.className = "sev " + (SEVC[d.severity] || "s-none");
 
-        // Confidence + colour
         const pct = d.confidence;
         const level = (d.confidence_level || "").toLowerCase();
         const lvlKey =
@@ -2024,25 +2089,19 @@
           bar.style.width = pct + "%";
         });
 
-        // Low confidence banner
-        const banner = document.getElementById("low-conf-banner");
         d.low_confidence
-          ? banner.classList.add("show")
-          : banner.classList.remove("show");
+          ? document.getElementById("low-conf-banner").classList.add("show")
+          : document.getElementById("low-conf-banner").classList.remove("show");
 
-        // Saved note
         const note = document.getElementById("saved-note");
         if (note) note.style.display = d.saved ? "block" : "none";
 
-        // All class scores
         const c = document.getElementById("rall");
         c.innerHTML = "";
         (d.all_predictions || []).forEach((p) => {
           const row = document.createElement("div");
           row.className = "pr";
-          row.innerHTML = `<div class="pn">${p.class.replace(/_/g, " ")}</div>
-      <div class="pb"><div class="pbf" style="width:0%" data-v="${p.confidence}"></div></div>
-      <div class="pp">${p.confidence}%</div>`;
+          row.innerHTML = `<div class="pn">${p.class.replace(/_/g, " ")}</div><div class="pb"><div class="pbf" style="width:0%" data-v="${p.confidence}"></div></div><div class="pp">${p.confidence}%</div>`;
           c.appendChild(row);
         });
         requestAnimationFrame(() => {
@@ -2051,21 +2110,19 @@
           );
         });
 
-        // Ensemble model breakdown
         const md = document.getElementById("model-details");
         const mdw = document.getElementById("model-details-wrap");
         if (d.model_details && md) {
           const det = d.model_details;
           md.innerHTML = `
-      <div class="model-box"><div class="model-box-lbl">EfficientNetB0</div><div class="model-box-val">${det.efficientnet_top}%</div></div>
-      <div class="model-box"><div class="model-box-lbl">MobileNetV2</div><div class="model-box-val">${det.mobilenet_top}%</div></div>
-      <div class="model-box gold"><div class="model-box-lbl">Ensemble</div><div class="model-box-val">${det.ensemble_top}%</div></div>`;
+          <div class="model-box"><div class="model-box-lbl">EfficientNetB0</div><div class="model-box-val">${det.efficientnet_top}%</div></div>
+          <div class="model-box"><div class="model-box-lbl">MobileNetV2</div><div class="model-box-val">${det.mobilenet_top}%</div></div>
+          <div class="model-box gold"><div class="model-box-lbl">Ensemble</div><div class="model-box-val">${det.ensemble_top}%</div></div>`;
           mdw.style.display = "block";
         } else if (mdw) {
           mdw.style.display = "none";
         }
 
-        // Grad-CAM
         const gc = document.getElementById("gradcam-section");
         const gcImg = document.getElementById("gradcam-img");
         if (d.gradcam_url && gc && gcImg) {
@@ -2079,9 +2136,9 @@
         document.getElementById("result-ph").style.display = "none";
       }
 
-      /* ══════════════════════════════════════════
-   HISTORY
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       HISTORY
+    ══════════════════════════════════ */
       async function loadHistory() {
         const res = await api(`/api/history?page=${histPage}&limit=8`, "GET");
         const list = document.getElementById("hist-list");
@@ -2095,15 +2152,15 @@
         list.innerHTML = res.predictions
           .map(
             (p) => `
-    <div class="hist-item">
-      <span class="hist-icon">${ICONS[p.disease] || "🌿"}</span>
-      <div class="hist-info">
-        <div class="hist-disease">${p.disease.replace(/_/g, " ")} · ${p.nepali_name || ""}</div>
-        <div class="hist-meta">${new Date(p.created_at).toLocaleString()} · Severity: ${p.severity}</div>
-      </div>
-      <span class="hist-conf">${p.confidence}%</span>
-      <button class="hist-del" onclick="openDeleteModal(${p.id},'${p.disease}')" title="Delete">🗑</button>
-    </div>`,
+        <div class="hist-item">
+          <span class="hist-icon">${ICONS[p.disease] || "🌿"}</span>
+          <div class="hist-info">
+            <div class="hist-disease">${p.disease.replace(/_/g, " ")} · ${p.nepali_name || ""}</div>
+            <div class="hist-meta">${new Date(p.created_at).toLocaleString()} · Severity: ${p.severity}</div>
+          </div>
+          <span class="hist-conf">${p.confidence}%</span>
+          <button class="hist-del" onclick="openDeleteModal(${p.id},'${p.disease}')" title="Delete">🗑</button>
+        </div>`,
           )
           .join("");
         const pag = document.getElementById("hist-pagination");
@@ -2117,15 +2174,14 @@
           pag.style.display = "none";
         }
       }
-
       function changePage(d) {
         histPage = Math.max(1, Math.min(histTotal, histPage + d));
         loadHistory();
       }
 
-      /* ══════════════════════════════════════════
-   DELETE MODAL
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       DELETE MODAL
+    ══════════════════════════════════ */
       function openDeleteModal(id, disease) {
         _deleteId = id;
         document.getElementById("del-msg").innerHTML =
@@ -2134,14 +2190,12 @@
         document.getElementById("del-modal").style.display = "block";
         document.body.style.overflow = "hidden";
       }
-
       function closeDeleteModal() {
         document.getElementById("del-backdrop").style.display = "none";
         document.getElementById("del-modal").style.display = "none";
         document.body.style.overflow = "";
         _deleteId = null;
       }
-
       async function confirmDelete() {
         if (!_deleteId) return;
         const btn = document.getElementById("del-confirm-btn");
@@ -2158,14 +2212,13 @@
         showToast("✅ Prediction deleted", "success");
         loadHistory();
       }
-
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeDeleteModal();
       });
 
-      /* ══════════════════════════════════════════
-   STATS
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       STATS
+    ══════════════════════════════════ */
       async function loadStats() {
         const res = await api("/api/stats", "GET");
         const el = document.getElementById("stats-content");
@@ -2179,53 +2232,20 @@
               `<div class="stat-box"><div class="stat-num">${v}</div><div class="stat-lbl">${k.replace(/_/g, " ")}</div></div>`,
           )
           .join("");
-        el.innerHTML = `<div class="stat-row">
-    <div class="stat-box"><div class="stat-num">${res.total_predictions}</div><div class="stat-lbl">Total scans</div></div>
-    ${boxes}</div>`;
+        el.innerHTML = `<div class="stat-row"><div class="stat-box"><div class="stat-num">${res.total_predictions}</div><div class="stat-lbl">Total scans</div></div>${boxes}</div>`;
       }
 
-      /* ══════════════════════════════════════════
-   WEATHER
-══════════════════════════════════════════ */
-      const RISK_COLORS = {
-        High: {
-          bg: "rgba(192,57,43,.18)",
-          border: "rgba(192,57,43,.38)",
-          text: "#f1948a",
-        },
-        Medium: {
-          bg: "rgba(211,84,0,.15)",
-          border: "rgba(211,84,0,.32)",
-          text: "#f0b27a",
-        },
-        Low: {
-          bg: "rgba(74,148,99,.15)",
-          border: "rgba(74,148,99,.35)",
-          text: "#a8d5b0",
-        },
-      };
-      const RISK_ICONS = { High: "🔴", Medium: "🟡", Low: "🟢" };
-      const WEATHER_ICONS = {
-        rain: "🌧️",
-        drizzle: "🌦️",
-        thunder: "⛈️",
-        snow: "❄️",
-        mist: "🌫️",
-        fog: "🌫️",
-        clear: "☀️",
-        cloud: "⛅",
-      };
-
+      /* ══════════════════════════════════
+       WEATHER
+    ══════════════════════════════════ */
       function renderDistrictButtons() {
         const el = document.getElementById("district-btns");
         if (!el) return;
         el.innerHTML = DISTRICTS.map(
-          (d) => `
-    <button onclick="selectDistrict('${d.key}')"
-      class="district-btn ${d.key === activeDistrict ? "active" : "inactive"}">${d.name}</button>`,
+          (d) =>
+            `<button onclick="selectDistrict('${d.key}')" class="district-btn ${d.key === activeDistrict ? "active" : "inactive"}">${d.name}</button>`,
         ).join("");
       }
-
       function selectDistrict(key) {
         activeDistrict = key;
         renderDistrictButtons();
@@ -2238,18 +2258,22 @@
         document.getElementById("weather-result").style.display = "none";
         document.getElementById("weather-empty").style.display = "none";
 
-        const d = await api(`/api/weather?district=${activeDistrict}`, "GET");
+        // Fetch current weather
+        const w = await api(`/api/weather?district=${activeDistrict}`, "GET");
+        // Fetch 3-day forecast
+        const f = await api(`/api/forecast?district=${activeDistrict}`, "GET");
+
         document.getElementById("weather-loader").style.display = "none";
 
-        if (d.error) {
+        if (w.error) {
           document.getElementById("weather-empty").textContent =
-            "❌ " + d.error;
+            "❌ " + w.error;
           document.getElementById("weather-empty").style.display = "block";
           return;
         }
 
-        // Icon
-        const desc = (d.description || "").toLowerCase();
+        // ── Render current weather ────────────────────────────────────────
+        const desc = (w.description || "").toLowerCase();
         let icon = "🌤️";
         for (const [k, v] of Object.entries(WEATHER_ICONS)) {
           if (desc.includes(k)) {
@@ -2257,16 +2281,14 @@
             break;
           }
         }
-
         document.getElementById("w-icon").textContent = icon;
-        document.getElementById("w-location").textContent = d.location;
-        document.getElementById("w-desc").textContent = d.description;
-        document.getElementById("w-temp").textContent = d.temperature + "°C";
-        document.getElementById("w-humidity").textContent = d.humidity + "%";
-        document.getElementById("w-rain").textContent = d.rain_mm + " mm";
+        document.getElementById("w-location").textContent = w.location;
+        document.getElementById("w-desc").textContent = w.description;
+        document.getElementById("w-temp").textContent = w.temperature + "°C";
+        document.getElementById("w-humidity").textContent = w.humidity + "%";
+        document.getElementById("w-rain").textContent = w.rain_mm + " mm";
 
-        // Overall risk badge
-        const overall = d.risk?.overall || "Low";
+        const overall = w.risk?.overall || "Low";
         const rc = RISK_COLORS[overall] || RISK_COLORS.Low;
         const badge = document.getElementById("w-overall-badge");
         badge.textContent = overall + " Risk";
@@ -2274,37 +2296,118 @@
         badge.style.border = "1px solid " + rc.border;
         badge.style.color = rc.text;
 
-        // Risk cards
+        // Disease risk cards
         const container = document.getElementById("risk-cards");
         container.innerHTML = "";
-        (d.risk?.risks || []).forEach((r) => {
+        (w.risk?.risks || []).forEach((r) => {
           const c = RISK_COLORS[r.level] || RISK_COLORS.Low;
           const card = document.createElement("div");
           card.className = "risk-card";
           card.style.background = c.bg;
           card.style.border = "1px solid " + c.border;
           card.innerHTML = `
-      <div class="risk-card-head">
-        <span style="font-size:18px">${RISK_ICONS[r.level] || "⚪"}</span>
-        <div>
-          <div class="risk-card-name">${r.disease}</div>
-          <div class="risk-card-level" style="color:${c.text}">${r.level} Risk</div>
-        </div>
-      </div>
-      <p class="risk-card-msg">${r.message}</p>
-      <div class="risk-card-action"><strong>Action:</strong> ${r.action}</div>`;
+          <div class="risk-card-head">
+            <span style="font-size:18px">${RISK_ICONS[r.level] || "⚪"}</span>
+            <div>
+              <div class="risk-card-name">${r.disease}</div>
+              <div class="risk-card-level" style="color:${c.text}">${r.level} Risk</div>
+            </div>
+          </div>
+          <p class="risk-card-msg">${r.message}</p>
+          <div class="risk-card-action"><strong>Action:</strong> ${r.action}</div>`;
           container.appendChild(card);
         });
 
-        document.getElementById("w-demo-note").style.display = d.demo
+        // ── Render forecast timeline ──────────────────────────────────────
+        if (f && !f.error && f.risk_timeline) {
+          const alertEl = document.getElementById("forecast-alert");
+          const timelineEl = document.getElementById("risk-timeline");
+          const wrapEl = document.getElementById("forecast-timeline-wrap");
+
+          const chartData = f.daily_summary;
+
+          if (chartData) {
+            const labels = chartData.map((d) => d.date);
+            const temps = chartData.map((d) => d.avg_temp);
+            const humidity = chartData.map((d) => d.avg_humidity);
+
+            const ctx = document
+              .getElementById("weatherChart")
+              .getContext("2d");
+
+            if (
+              window.weatherChart &&
+              typeof window.weatherChart.destroy === "function"
+            ) {
+              window.weatherChart.destroy();
+            }
+
+            window.weatherChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: labels,
+                datasets: [
+                  {
+                    label: "Temperature (°C)",
+                    data: temps,
+                    borderWidth: 2,
+                  },
+                  {
+                    label: "Humidity (%)",
+                    data: humidity,
+                    borderWidth: 2,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: { display: true },
+                },
+              },
+            });
+          }
+
+          // Show alert
+          if (f.alert) {
+            const isHigh = f.alert.includes("⚠️");
+            alertEl.textContent = f.alert;
+            alertEl.style.background = isHigh
+              ? "rgba(192,57,43,.12)"
+              : "rgba(74,148,99,.1)";
+            alertEl.style.border = isHigh
+              ? "1px solid rgba(192,57,43,.3)"
+              : "1px solid rgba(74,148,99,.25)";
+            alertEl.style.color = isHigh ? "#f1948a" : "#a8d5b0";
+            alertEl.style.display = "block";
+          }
+
+          // Show 3-day timeline
+          timelineEl.innerHTML = "";
+          f.risk_timeline.forEach((day) => {
+            const c = RISK_COLORS[day.overall] || RISK_COLORS.Low;
+            const div = document.createElement("div");
+            div.className = "timeline-day";
+            div.style.background = c.bg;
+            div.style.border = "1px solid " + c.border;
+            div.innerHTML = `
+            <div class="timeline-day-date">${day.date}</div>
+            <div style="font-size:1.4rem">${RISK_ICONS[day.overall] || "⚪"}</div>
+            <div class="timeline-day-level" style="color:${c.text}">${day.overall}</div>`;
+            timelineEl.appendChild(div);
+          });
+          wrapEl.style.display = "block";
+        }
+
+        document.getElementById("w-demo-note").style.display = w.demo
           ? "block"
           : "none";
         document.getElementById("weather-result").style.display = "block";
       }
 
-      /* ══════════════════════════════════════════
-   API HELPER
-══════════════════════════════════════════ */
+      /* ══════════════════════════════════
+       API HELPER
+    ══════════════════════════════════ */
       async function api(url, method, body) {
         const opts = {
           method,
@@ -2320,5 +2423,7 @@
         }
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <canvas id="weatherChart"></canvas>
   </body>
 </html>
