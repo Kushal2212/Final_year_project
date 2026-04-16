@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Cardamom Disease Detection</title>
+    <title>अलैँची · Disease Detection</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
@@ -61,7 +61,7 @@
         align-items: center;
         justify-content: space-between;
         height: 68px;
-        background: rgba(26, 58, 42, 0.85);
+        background: rgba(26, 58, 42, 0.88);
         backdrop-filter: blur(16px);
         border-bottom: 1px solid rgba(168, 213, 176, 0.1);
       }
@@ -82,7 +82,7 @@
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 28px;
+        gap: 24px;
       }
       .nav-links a {
         color: var(--gp);
@@ -113,18 +113,53 @@
       .nav-links a.active::after {
         width: 100%;
       }
-      .nav-cta {
-        padding: 8px 22px;
-        background: linear-gradient(135deg, var(--g3), var(--g2));
-        color: var(--white) !important;
+      #cdx-nav-auth {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-user-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(74, 148, 99, 0.15);
+        border: 1px solid rgba(168, 213, 176, 0.2);
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 0.82rem;
+        color: var(--gp);
+      }
+      .nav-user-badge span {
+        color: var(--white);
+      }
+      .btn-logout-nav {
+        padding: 7px 14px;
+        background: rgba(192, 57, 43, 0.12);
+        border: 1px solid rgba(192, 57, 43, 0.25);
         border-radius: 8px;
-        font-weight: 500 !important;
+        color: #f1948a;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        cursor: pointer;
+        transition: all 0.2s;
       }
-      .nav-cta::after {
-        display: none !important;
+      .btn-logout-nav:hover {
+        background: rgba(192, 57, 43, 0.22);
       }
-      .nav-cta:hover {
-        box-shadow: 0 6px 20px rgba(74, 148, 99, 0.4);
+      .btn-login-nav {
+        padding: 7px 18px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(168, 213, 176, 0.2);
+        border-radius: 8px;
+        color: var(--gp);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      .btn-login-nav:hover {
+        color: var(--white);
+        border-color: rgba(168, 213, 176, 0.4);
       }
       .burger {
         display: none;
@@ -139,6 +174,7 @@
         height: 2px;
         background: var(--gp);
         border-radius: 2px;
+        transition: 0.3s;
       }
       .mob-menu {
         display: none;
@@ -150,16 +186,30 @@
         backdrop-filter: blur(16px);
         padding: 20px 5%;
         flex-direction: column;
-        gap: 16px;
+        gap: 0;
         border-bottom: 1px solid rgba(168, 213, 176, 0.1);
         z-index: 99;
       }
-      .mob-menu a {
+      .mob-menu a,
+      .mob-menu button {
         color: var(--gp);
         text-decoration: none;
-        font-size: 1rem;
-        padding: 8px 0;
+        font-size: 0.95rem;
+        padding: 12px 0;
         border-bottom: 1px solid rgba(168, 213, 176, 0.08);
+        display: block;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        text-align: left;
+        width: 100%;
+      }
+      .mob-menu a:hover,
+      .mob-menu button:hover {
+        color: var(--white);
       }
       .mob-menu.open {
         display: flex;
@@ -167,9 +217,10 @@
 
       /* ── Header ── */
       header {
-        padding-top: 100px;
+        padding: 108px 20px 24px;
         text-align: center;
         position: relative;
+        z-index: 1;
       }
       .leaf {
         font-size: 44px;
@@ -198,11 +249,11 @@
       header p {
         color: var(--gp);
         font-size: 0.9rem;
-        margin-top: 6px;
+        margin-top: 5px;
       }
       .nep {
         color: var(--gold);
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         margin-top: 3px;
       }
       #user-greeting {
@@ -219,6 +270,8 @@
         max-width: 820px;
         margin: 0 auto;
         padding: 0 16px 60px;
+        position: relative;
+        z-index: 1;
       }
 
       /* ── Tabs ── */
@@ -238,7 +291,7 @@
         background: none;
         color: var(--gp);
         font-family: "DM Sans", sans-serif;
-        font-size: 0.88rem;
+        font-size: 0.85rem;
         cursor: pointer;
         border-radius: 8px;
         transition: all 0.2s;
@@ -255,35 +308,22 @@
         display: block;
       }
 
-      /* ── Card wrapper ── */
+      /* ── Card ── */
       .card {
         background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(168, 213, 176, 0.2);
         border-radius: 20px;
-        padding: 32px 28px;
+        padding: 28px 24px;
         backdrop-filter: blur(12px);
       }
       .card h2 {
         font-family: "Playfair Display", serif;
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         color: var(--white);
-        margin-bottom: 20px;
+        margin-bottom: 18px;
       }
 
-      /* ══════════════════════════════════════
-   UPLOAD CARD  (new)
-══════════════════════════════════════ */
-      .upload-card {
-        margin-bottom: 0;
-      }
-      .upload-card h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 1.15rem;
-        color: var(--white);
-        margin-bottom: 16px;
-      }
-
-      /* Source selector tabs */
+      /* ── Source tabs ── */
       .src-tabs {
         display: flex;
         gap: 6px;
@@ -315,7 +355,7 @@
         color: var(--white);
       }
 
-      /* Drop zone */
+      /* ── Drop zone ── */
       .drop-zone {
         border: 2px dashed var(--g3);
         border-radius: 14px;
@@ -346,7 +386,7 @@
       }
       .drop-zone h4 {
         font-family: "Playfair Display", serif;
-        font-size: 1.05rem;
+        font-size: 1rem;
         color: var(--white);
         margin-bottom: 4px;
       }
@@ -355,7 +395,7 @@
         font-size: 0.83rem;
       }
 
-      /* Camera container */
+      /* ── Camera ── */
       #camera-container {
         border-radius: 14px;
         overflow: hidden;
@@ -363,7 +403,6 @@
         background: #000;
         position: relative;
         display: none;
-        margin-bottom: 0;
       }
       #camera-video {
         width: 100%;
@@ -394,8 +433,6 @@
         font-size: 0.73rem;
         color: rgba(255, 255, 255, 0.55);
       }
-
-      /* Camera action buttons */
       #camera-btns {
         display: none;
         gap: 8px;
@@ -433,8 +470,6 @@
       .btn-stop:hover {
         background: rgba(192, 57, 43, 0.2);
       }
-
-      /* Camera start placeholder */
       #camera-start-wrap .cam-start-box {
         border: 2px dashed rgba(74, 148, 99, 0.45);
         border-radius: 14px;
@@ -455,7 +490,7 @@
       }
       .cam-start-box h4 {
         font-family: "Playfair Display", serif;
-        font-size: 1.05rem;
+        font-size: 1rem;
         color: var(--white);
         margin-bottom: 5px;
       }
@@ -464,7 +499,7 @@
         font-size: 0.8rem;
       }
 
-      /* Preview */
+      /* ── Preview ── */
       #prev-wrap {
         display: none;
         margin-top: 14px;
@@ -495,14 +530,13 @@
         color: rgba(241, 148, 138, 0.55);
         font-size: 0.8rem;
         cursor: pointer;
-        padding: 2px 6px;
         transition: color 0.2s;
       }
       .prev-bar button:hover {
         color: #f1948a;
       }
 
-      /* Analyse button */
+      /* ── Analyse btn ── */
       .btn-analyse {
         display: block;
         width: 100%;
@@ -529,7 +563,7 @@
         box-shadow: none;
       }
 
-      /* Warning note */
+      /* ── Upload warning ── */
       .upload-warn {
         margin-top: 10px;
         padding: 10px 14px;
@@ -541,7 +575,7 @@
         line-height: 1.5;
       }
 
-      /* Loader */
+      /* ── Loader ── */
       .loader-wrap {
         display: none;
         text-align: center;
@@ -566,21 +600,19 @@
         }
       }
 
-      /* Result placeholder */
+      /* ── Result placeholder ── */
       #result-ph {
         text-align: center;
-        padding: 36px 20px;
+        padding: 28px 20px;
         color: var(--gp);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         display: block;
       }
 
-      /* ══════════════════════════════════════
-   RESULT CARD  (unchanged)
-══════════════════════════════════════ */
+      /* ── Result card ── */
       #result-wrap {
         display: none;
-        margin-top: 22px;
+        margin-top: 18px;
       }
       .res-card {
         background: rgba(255, 255, 255, 0.07);
@@ -589,30 +621,30 @@
         overflow: hidden;
       }
       .res-head {
-        padding: 20px 24px;
+        padding: 20px 22px;
         border-bottom: 1px solid rgba(168, 213, 176, 0.12);
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 14px;
         flex-wrap: wrap;
       }
       .dis-name {
         font-family: "Playfair Display", serif;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         color: var(--white);
         text-transform: capitalize;
       }
       .dis-nep {
         color: var(--gold);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
       .sev {
         display: inline-block;
         padding: 3px 12px;
         border-radius: 99px;
-        font-size: 0.75rem;
+        font-size: 0.73rem;
         font-weight: 500;
-        margin-top: 6px;
+        margin-top: 5px;
       }
       .s-none {
         background: rgba(74, 148, 99, 0.3);
@@ -628,12 +660,12 @@
       }
       .conf-wrap {
         margin-left: auto;
-        min-width: 150px;
+        min-width: 140px;
       }
       .conf-lbl {
         display: flex;
         justify-content: space-between;
-        font-size: 0.78rem;
+        font-size: 0.77rem;
         color: var(--gp);
         margin-bottom: 5px;
       }
@@ -649,28 +681,56 @@
         background: linear-gradient(90deg, var(--g3), var(--gp));
         transition: width 1s ease;
       }
+      .conf-fill.low {
+        background: linear-gradient(90deg, #c0392b, #e74c3c);
+      }
+      .conf-fill.med {
+        background: linear-gradient(90deg, #d35400, #e67e22);
+      }
+      .conf-badge {
+        display: inline-block;
+        margin-left: 5px;
+        padding: 1px 8px;
+        border-radius: 99px;
+        font-size: 0.67rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        vertical-align: middle;
+      }
+      .conf-badge.low {
+        background: rgba(192, 57, 43, 0.2);
+        color: #f1948a;
+      }
+      .conf-badge.med {
+        background: rgba(211, 84, 0, 0.2);
+        color: #f0b27a;
+      }
+      .conf-badge.high {
+        background: rgba(74, 148, 99, 0.2);
+        color: #a8d5b0;
+      }
       .res-body {
-        padding: 20px 24px;
+        padding: 18px 22px;
       }
       .ib {
-        margin-bottom: 16px;
+        margin-bottom: 14px;
       }
       .ib h4 {
-        font-size: 0.7rem;
+        font-size: 0.69rem;
         text-transform: uppercase;
         letter-spacing: 0.12em;
         color: var(--gp);
-        margin-bottom: 6px;
+        margin-bottom: 5px;
       }
       .ib p {
         color: var(--cream);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         line-height: 1.65;
       }
       .rec-box {
         background: rgba(200, 168, 75, 0.08);
         border-left: 3px solid var(--gold);
-        padding: 11px 15px;
+        padding: 10px 14px;
         border-radius: 0 6px 6px 0;
       }
       .rec-box p {
@@ -683,15 +743,15 @@
         margin-bottom: 6px;
       }
       .pn {
-        width: 95px;
-        font-size: 0.8rem;
+        width: 90px;
+        font-size: 0.79rem;
         color: var(--cream);
         text-transform: capitalize;
         flex-shrink: 0;
       }
       .pb {
         flex: 1;
-        height: 7px;
+        height: 6px;
         border-radius: 99px;
         background: rgba(255, 255, 255, 0.08);
         overflow: hidden;
@@ -703,60 +763,171 @@
         transition: width 0.8s ease;
       }
       .pp {
-        font-size: 0.78rem;
+        font-size: 0.77rem;
         color: var(--gp);
-        width: 38px;
+        width: 36px;
         text-align: right;
+      }
+
+      /* ── Low confidence banner ── */
+      .low-conf-banner {
+        margin: 14px 0 0;
+        padding: 13px 15px;
+        background: rgba(211, 84, 0, 0.1);
+        border: 1px solid rgba(211, 84, 0, 0.28);
+        border-radius: 10px;
+        display: none;
+      }
+      .low-conf-banner.show {
+        display: block;
+      }
+      .low-conf-banner .lcb-title {
+        color: #f0b27a;
+        font-size: 0.84rem;
+        font-weight: 500;
+        margin-bottom: 7px;
+      }
+      .lcb-tips {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .lcb-tips li {
+        color: rgba(240, 178, 122, 0.8);
+        font-size: 0.79rem;
+        line-height: 1.5;
+        padding: 2px 0 2px 16px;
+        position: relative;
+      }
+      .lcb-tips li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+      }
+      .lcb-retry {
+        margin-top: 10px;
+        padding: 6px 14px;
+        background: rgba(211, 84, 0, 0.14);
+        border: 1px solid rgba(211, 84, 0, 0.28);
+        border-radius: 8px;
+        color: #f0b27a;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.79rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .lcb-retry:hover {
+        background: rgba(211, 84, 0, 0.24);
+      }
+
+      /* ── Model breakdown ── */
+      .model-breakdown {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .model-box {
+        flex: 1;
+        min-width: 80px;
+        background: rgba(74, 148, 99, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+      }
+      .model-box.gold {
+        background: rgba(200, 168, 75, 0.1);
+      }
+      .model-box-lbl {
+        font-size: 0.69rem;
+        color: var(--gp);
+        margin-bottom: 3px;
+      }
+      .model-box.gold .model-box-lbl {
+        color: rgba(200, 168, 75, 0.8);
+      }
+      .model-box-val {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        color: var(--white);
+      }
+
+      /* ── Grad-CAM ── */
+      #gradcam-section {
+        display: none;
+        margin-top: 16px;
+      }
+      .gradcam-wrap {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(168, 213, 176, 0.2);
+      }
+      .gradcam-wrap img {
+        width: 100%;
+        display: block;
+        max-height: 280px;
+        object-fit: contain;
+        background: #000;
+      }
+      .gradcam-note {
+        font-size: 0.71rem;
+        color: rgba(168, 213, 176, 0.4);
+        margin-top: 6px;
+        text-align: center;
       }
 
       /* ── History ── */
       .hist-item {
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(168, 213, 176, 0.15);
+        border: 1px solid rgba(168, 213, 176, 0.12);
         border-radius: 12px;
-        padding: 16px 18px;
+        padding: 14px 16px;
         margin-bottom: 10px;
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 12px;
         transition: background 0.2s;
       }
       .hist-item:hover {
-        background: rgba(74, 148, 99, 0.12);
+        background: rgba(74, 148, 99, 0.1);
       }
       .hist-icon {
-        font-size: 28px;
+        font-size: 26px;
         flex-shrink: 0;
       }
       .hist-info {
         flex: 1;
+        min-width: 0;
       }
       .hist-disease {
         font-family: "Playfair Display", serif;
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: var(--white);
         text-transform: capitalize;
       }
       .hist-meta {
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         color: var(--gp);
         margin-top: 2px;
       }
       .hist-conf {
-        font-size: 0.85rem;
+        font-size: 0.83rem;
         color: var(--gold);
         font-weight: 500;
         margin-left: auto;
+        white-space: nowrap;
       }
       .hist-del {
         background: none;
         border: none;
-        color: rgba(241, 148, 138, 0.5);
-        font-size: 1rem;
+        color: rgba(241, 148, 138, 0.4);
+        font-size: 0.95rem;
         cursor: pointer;
-        padding: 4px 8px;
+        padding: 4px 7px;
         border-radius: 6px;
         transition: color 0.2s;
+        flex-shrink: 0;
       }
       .hist-del:hover {
         color: #f1948a;
@@ -765,235 +936,338 @@
         text-align: center;
         padding: 32px;
         color: var(--gp);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
       .btn {
         display: inline-block;
-        padding: 14px;
+        padding: 9px 20px;
         background: linear-gradient(135deg, var(--g3), var(--g2));
         color: var(--white);
         font-family: "DM Sans", sans-serif;
-        font-size: 1rem;
+        font-size: 0.88rem;
         font-weight: 500;
         border: none;
-        border-radius: 12px;
+        border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s;
       }
       .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(74, 148, 99, 0.45);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(74, 148, 99, 0.4);
       }
       .btn:disabled {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
         transform: none;
       }
       .btn-sm {
-        padding: 8px 18px;
-        font-size: 0.85rem;
+        padding: 7px 16px;
+        font-size: 0.82rem;
       }
 
       /* ── Stats ── */
       .stat-row {
         display: flex;
         gap: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
       }
       .stat-box {
         flex: 1;
-        min-width: 100px;
+        min-width: 90px;
         background: rgba(74, 148, 99, 0.12);
-        border: 1px solid rgba(168, 213, 176, 0.2);
+        border: 1px solid rgba(168, 213, 176, 0.18);
         border-radius: 12px;
         padding: 14px;
         text-align: center;
       }
       .stat-num {
         font-family: "Playfair Display", serif;
-        font-size: 1.8rem;
+        font-size: 1.75rem;
         color: var(--white);
       }
       .stat-lbl {
-        font-size: 0.75rem;
+        font-size: 0.73rem;
         color: var(--gp);
         margin-top: 2px;
         text-transform: capitalize;
       }
 
+      /* ── Weather ── */
+      .district-btn {
+        padding: 8px 18px;
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.83rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+      .district-btn.active {
+        background: var(--g3);
+        color: var(--white);
+        box-shadow: 0 4px 14px rgba(74, 148, 99, 0.35);
+      }
+      .district-btn.inactive {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--gp);
+        border: 1px solid rgba(168, 213, 176, 0.15);
+      }
+      .district-btn.inactive:hover {
+        background: rgba(255, 255, 255, 0.09);
+        color: var(--white);
+      }
+      .w-stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .w-stat {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 12px;
+        text-align: center;
+      }
+      .w-stat-icon {
+        font-size: 1.4rem;
+        margin-bottom: 3px;
+      }
+      .w-stat-val {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        color: var(--white);
+      }
+      .w-stat-lbl {
+        font-size: 0.7rem;
+        color: var(--gp);
+      }
+      .risk-card {
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+      .risk-card-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .risk-card-name {
+        font-weight: 600;
+        color: var(--white);
+        font-size: 0.9rem;
+      }
+      .risk-card-level {
+        font-size: 0.74rem;
+        font-weight: 500;
+        margin-top: 1px;
+      }
+      .risk-card-msg {
+        font-size: 0.82rem;
+        color: var(--cream);
+        line-height: 1.55;
+        margin-bottom: 8px;
+      }
+      .risk-card-action {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 0.79rem;
+        color: var(--gp);
+      }
+      .risk-card-action strong {
+        color: var(--white);
+      }
+      .demo-note {
+        margin-top: 14px;
+        padding: 10px 14px;
+        background: rgba(200, 168, 75, 0.08);
+        border: 1px solid rgba(200, 168, 75, 0.2);
+        border-radius: 9px;
+        font-size: 0.77rem;
+        color: var(--gold);
+        line-height: 1.5;
+      }
+
+      /* ── Delete modal ── */
+      .del-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 9000;
+        backdrop-filter: blur(6px);
+      }
+      .del-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9001;
+        width: calc(100% - 32px);
+        max-width: 380px;
+      }
+      .del-box {
+        background: #1a3a2a;
+        border: 1px solid rgba(168, 213, 176, 0.18);
+        border-radius: 20px;
+        padding: 30px 26px;
+        animation: delIn 0.22s ease;
+      }
+      @keyframes delIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .del-icon-wrap {
+        width: 56px;
+        height: 56px;
+        background: rgba(192, 57, 43, 0.14);
+        border: 1px solid rgba(192, 57, 43, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        font-size: 22px;
+      }
+      .del-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+        text-align: center;
+        margin-bottom: 9px;
+      }
+      .del-msg {
+        font-size: 0.85rem;
+        color: var(--gp);
+        text-align: center;
+        line-height: 1.6;
+        margin-bottom: 22px;
+      }
+      .del-btns {
+        display: flex;
+        gap: 10px;
+      }
+      .del-cancel {
+        flex: 1;
+        padding: 11px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(168, 213, 176, 0.15);
+        border-radius: 10px;
+        color: var(--gp);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .del-cancel:hover {
+        background: rgba(255, 255, 255, 0.11);
+        color: var(--white);
+      }
+      .del-confirm {
+        flex: 1;
+        padding: 11px;
+        background: linear-gradient(135deg, #c0392b, #922b21);
+        border: none;
+        border-radius: 10px;
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .del-confirm:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 16px rgba(192, 57, 43, 0.4);
+      }
+      .del-confirm:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ── Toast ── */
+      #toast {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        border-radius: 10px;
+        padding: 11px 22px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.87rem;
+        z-index: 9999;
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+        white-space: nowrap;
+        border: 1px solid transparent;
+      }
+
       footer {
         text-align: center;
         padding: 18px;
-        color: rgba(168, 213, 176, 0.35);
-        font-size: 0.75rem;
+        color: rgba(168, 213, 176, 0.3);
+        font-size: 0.74rem;
+        position: relative;
+        z-index: 1;
       }
 
-      @media (max-width: 480px) {
+      @media (max-width: 520px) {
         .card {
-          padding: 20px 16px;
+          padding: 20px 14px;
         }
         .res-head {
-          padding: 16px;
+          padding: 16px 14px;
         }
         .nav-links {
           display: none;
         }
-      }
-
-      .login-btn {
-        padding: 6px 14px;
-        border: 1px solid #4caf50;
-        border-radius: 6px;
-        color: #4caf50;
-        text-decoration: none;
-      }
-
-      .register-btn {
-        padding: 6px 14px;
-        background: #4caf50;
-        color: white;
-        border-radius: 6px;
-        text-decoration: none;
-      }
-
-      .user-name {
-        font-weight: 600;
-      }
-
-      .logout-btn {
-        padding: 6px 10px;
-        background: #e74c3c;
-        border: none;
-        color: white;
-        border-radius: 6px;
-        cursor: pointer;
+        .burger {
+          display: flex;
+        }
+        .w-stat-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
       }
     </style>
   </head>
   <body>
-    <script>
-      const TOKEN_KEY = "cardamom_token";
-      const USER_KEY = "cardamom_user";
-
-      const token = localStorage.getItem(TOKEN_KEY);
-      const user = localStorage.getItem(USER_KEY);
-
-      // 🔒 Protect page
-      if (!token) {
-        localStorage.setItem("redirectAfterLogin", window.location.pathname);
-        window.location.href = "/login";
-      }
-
-      // Navbar + greeting
-      document.addEventListener("DOMContentLoaded", () => {
-        const navAuth = document.getElementById("cdx-nav-auth");
-        if (navAuth && user) {
-          navAuth.innerHTML = `
-      <span class="user-name">👤 ${user}</span>
-      <button id="logout-btn" class="logout-btn">Logout</button>
-    `;
-
-          document
-            .getElementById("logout-btn")
-            .addEventListener("click", () => {
-              localStorage.removeItem(TOKEN_KEY);
-              localStorage.removeItem(USER_KEY);
-              window.location.href = "/login";
-            });
-
-          document
-            .getElementById("logout-btn")
-            .addEventListener("click", () => {
-              localStorage.removeItem(TOKEN_KEY);
-              localStorage.removeItem(USER_KEY);
-              window.location.href = "/login";
-            });
-        }
-
-        const userGreeting = document.getElementById("user-greeting");
-        if (userGreeting && user) {
-          userGreeting.innerHTML = `Hello, <strong>${user}</strong>`;
-        }
-      });
-    </script>
-
     <!-- ── Nav ── -->
-    <nav id="navbar">
+    <nav>
       <a href="/" class="nav-brand"><span>🌿</span><strong>अलैँची</strong></a>
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/blog">Blog</a>
         <a href="/contact">Contact</a>
-        <button
-          id="lang-toggle-btn"
-          onclick="toggleLang()"
-          style="
-            padding: 7px 16px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
-            color: #9db8a5;
-            font-family: &quot;Outfit&quot;, sans-serif;
-            font-size: 0.82rem;
-            cursor: pointer;
-            transition: all 0.2s;
-          "
-        >
-          🇳🇵 नेपाली
-        </button>
-
-        <!-- Shown when logged in -->
-        <div
-          id="nav-user-badge"
-          style="display: none; align-items: center; gap: 10px"
-        >
-          <span style="font-size: 0.83rem; color: #9db8a5"
-            >👤 <span id="nav-user-name">User</span></span
-          >
-          <a
-            id="nav-app-btn"
-            href="/"
-            style="
-              padding: 8px 16px;
-              background: rgba(82, 196, 122, 0.12);
-              border: 1px solid rgba(82, 196, 122, 0.25);
-              border-radius: 8px;
-              color: #52c47a;
-              font-size: 0.83rem;
-              text-decoration: none;
-              font-family: &quot;Outfit&quot;, sans-serif;
-            "
-          >
-            Dashboard →
-          </a>
-          <button
-            id="nav-logout-btn"
-            style="
-              padding: 8px 15px;
-              background: rgba(192, 57, 43, 0.12);
-              border: 1px solid rgba(192, 57, 43, 0.22);
-              border-radius: 8px;
-              color: #f1948a;
-              font-family: &quot;Outfit&quot;, sans-serif;
-              font-size: 0.8rem;
-              cursor: pointer;
-            "
-          >
-            Logout
-          </button>
-        </div>
       </div>
       <div class="burger" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </div>
-
-      <div
-        id="cdx-nav-auth"
-        style="display: flex; align-items: center; gap: 8px"
-      ></div>
+      <div id="cdx-nav-auth"></div>
     </nav>
+
+    <div class="mob-menu" id="mob-menu">
+      <a href="/">🏠 Home</a>
+      <a href="/about">ℹ️ About</a>
+      <a href="/blog">📰 Blog</a>
+      <a href="/contact">📬 Contact</a>
+      <div id="cdx-mob-auth"></div>
+    </div>
 
     <!-- ── Header ── -->
     <header>
@@ -1027,124 +1301,123 @@
         >
           📊 Stats
         </button>
+        <button
+          class="tab"
+          onclick="
+            switchTab('weather');
+            loadWeather();
+          "
+        >
+          🌦️ Weather
+        </button>
       </div>
 
-      <!-- ══ PREDICT TAB ══ -->
+      <!-- ══ PREDICT ══ -->
       <div id="tab-predict" class="tab-panel active">
         <div class="card">
-          <!-- Upload Card -->
-          <div class="upload-card">
-            <h3>Upload or capture leaf image</h3>
+          <h3
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-size: 1.1rem;
+              color: var(--white);
+              margin-bottom: 14px;
+            "
+          >
+            Upload or capture leaf image
+          </h3>
 
-            <!-- Source tabs -->
-            <div class="src-tabs">
-              <button
-                id="src-upload-btn"
-                class="src-tab active"
-                onclick="setSource('upload')"
-              >
-                📁 Upload File
-              </button>
-              <button
-                id="src-camera-btn"
-                class="src-tab inactive"
-                onclick="setSource('camera')"
-              >
-                📷 Use Camera
-              </button>
-            </div>
-
-            <!-- Upload mode -->
-            <div id="mode-upload">
-              <div class="drop-zone" id="drop-zone">
-                <input type="file" id="file-input" accept="image/*" />
-                <span class="dz-icon">📁</span>
-                <h4>Drag &amp; drop or click to select</h4>
-                <p>JPG · PNG · BMP · WEBP supported</p>
-              </div>
-            </div>
-
-            <!-- Camera mode -->
-            <div id="mode-camera" style="display: none">
-              <!-- Live feed -->
-              <div id="camera-container">
-                <video id="camera-video" autoplay playsinline muted></video>
-                <div class="camera-guide">
-                  <div class="camera-guide-box"></div>
-                </div>
-                <div class="camera-guide-lbl">Position leaf inside the box</div>
-              </div>
-
-              <!-- Capture / stop buttons -->
-              <div id="camera-btns">
-                <button class="btn-capture" onclick="capturePhoto()">
-                  📸 Capture Photo
-                </button>
-                <button class="btn-stop" onclick="stopCamera()">✕ Stop</button>
-              </div>
-
-              <!-- Start camera placeholder -->
-              <div id="camera-start-wrap">
-                <div class="cam-start-box" onclick="startCamera()">
-                  <span class="cam-start-icon">📷</span>
-                  <h4>Click to open camera</h4>
-                  <p>Take a live photo of your cardamom leaf</p>
-                </div>
-              </div>
-
-              <!-- Hidden canvas for capture -->
-              <canvas id="camera-canvas" style="display: none"></canvas>
-            </div>
-
-            <!-- Preview (shared) -->
-            <div id="prev-wrap">
-              <img id="prev-img" src="" alt="preview" />
-              <div class="prev-bar">
-                <span id="prev-filename">image.jpg</span>
-                <button onclick="clearPreview()">✕ Clear</button>
-              </div>
-            </div>
-
+          <!-- Source toggle -->
+          <div class="src-tabs">
             <button
-              class="btn-analyse"
-              id="btn-analyse"
-              disabled
-              onclick="doPrediction()"
+              id="src-upload-btn"
+              class="src-tab active"
+              onclick="setSource('upload')"
             >
-              🔬 Analyse Disease
+              📁 Upload File
             </button>
+            <button
+              id="src-camera-btn"
+              class="src-tab inactive"
+              onclick="setSource('camera')"
+            >
+              📷 Use Camera
+            </button>
+          </div>
 
-            <div class="upload-warn">
-              ⚠️ Upload only cardamom leaf images. Other images will be rejected
-              automatically.
+          <!-- Upload -->
+          <div id="mode-upload">
+            <div class="drop-zone" id="drop-zone">
+              <input type="file" id="file-input" accept="image/*" />
+              <span class="dz-icon">📁</span>
+              <h4>Drag &amp; drop or click to select</h4>
+              <p>JPG · PNG · BMP · WEBP supported</p>
             </div>
+          </div>
+
+          <!-- Camera -->
+          <div id="mode-camera" style="display: none">
+            <div id="camera-container">
+              <video id="camera-video" autoplay playsinline muted></video>
+              <div class="camera-guide">
+                <div class="camera-guide-box"></div>
+              </div>
+              <div class="camera-guide-lbl">Position leaf inside the box</div>
+            </div>
+            <div id="camera-btns">
+              <button class="btn-capture" onclick="capturePhoto()">
+                📸 Capture Photo
+              </button>
+              <button class="btn-stop" onclick="stopCamera()">✕ Stop</button>
+            </div>
+            <div id="camera-start-wrap">
+              <div class="cam-start-box" onclick="startCamera()">
+                <span class="cam-start-icon">📷</span>
+                <h4>Click to open camera</h4>
+                <p>Take a live photo of your cardamom leaf</p>
+              </div>
+            </div>
+            <canvas id="camera-canvas" style="display: none"></canvas>
+          </div>
+
+          <!-- Preview -->
+          <div id="prev-wrap">
+            <img id="prev-img" src="" alt="preview" />
+            <div class="prev-bar">
+              <span id="prev-filename">image.jpg</span>
+              <button onclick="clearPreview()">✕ Clear</button>
+            </div>
+          </div>
+
+          <button
+            class="btn-analyse"
+            id="btn-analyse"
+            disabled
+            onclick="doPrediction()"
+          >
+            🔬 Analyse Disease
+          </button>
+
+          <div class="upload-warn">
+            ⚠️ Upload only cardamom leaf images. Other images will be rejected
+            automatically.
           </div>
 
           <!-- Loader -->
           <div class="loader-wrap" id="loader">
             <div class="loader-ring"></div>
-            <p>Analysing with EfficientNetB0 and MobileNetV2</p>
+            <p>Analysing with EfficientNetB0 and MobileNetV2…</p>
           </div>
 
-          <!-- Result placeholder -->
-          <div
-            id="result-ph"
-            style="
-              text-align: center;
-              padding: 28px 20px;
-              color: var(--gp);
-              font-size: 0.88rem;
-              display: block;
-            "
-          >
+          <!-- Placeholder -->
+          <div id="result-ph">
             📷 Upload or capture a leaf image to begin analysis
           </div>
 
-          <!-- Result card -->
+          <!-- Result -->
           <div id="result-wrap">
             <div class="res-card">
               <div class="res-head">
-                <span style="font-size: 40px" id="ri">🌿</span>
+                <span style="font-size: 38px" id="ri">🌿</span>
                 <div>
                   <div class="dis-name" id="rn">—</div>
                   <div class="dis-nep" id="rnp">—</div>
@@ -1152,13 +1425,43 @@
                 </div>
                 <div class="conf-wrap">
                   <div class="conf-lbl">
-                    <span>Confidence</span><span id="rcp">0%</span>
+                    <span>Confidence</span>
+                    <span
+                      ><span id="rcp">0%</span>
+                      <span class="conf-badge" id="rclvl"></span
+                    ></span>
                   </div>
                   <div class="conf-bg">
                     <div class="conf-fill" id="rcb" style="width: 0%"></div>
                   </div>
                 </div>
               </div>
+
+              <!-- Low confidence banner -->
+              <div class="low-conf-banner" id="low-conf-banner">
+                <div class="lcb-title">
+                  ⚠️ Low Confidence — please retake for better accuracy
+                </div>
+                <ul class="lcb-tips">
+                  <li>Leaf should fill most of the frame</li>
+                  <li>Use natural lighting — avoid shadows or harsh flash</li>
+                  <li>Hold camera steady and focus on the leaf surface</li>
+                  <li>Use a plain background behind the leaf</li>
+                  <li>Capture only one leaf at a time</li>
+                </ul>
+                <button
+                  class="lcb-retry"
+                  onclick="
+                    clearPreview();
+                    document
+                      .getElementById('low-conf-banner')
+                      .classList.remove('show');
+                  "
+                >
+                  📷 Try a better photo
+                </button>
+              </div>
+
               <div class="res-body">
                 <div class="ib">
                   <h4>Description</h4>
@@ -1172,89 +1475,50 @@
                   <h4>All class scores</h4>
                   <div id="rall"></div>
                 </div>
+                <div class="ib" id="model-details-wrap">
+                  <h4>Ensemble model breakdown</h4>
+                  <div class="model-breakdown" id="model-details"></div>
+                </div>
                 <p
-                  style="font-size: 0.78rem; color: var(--gp); margin-top: 6px"
+                  id="saved-note"
+                  style="font-size: 0.77rem; color: var(--gp); margin-top: 6px"
                 >
                   ✅ Result saved to your history
                 </p>
-
-                <div
-                  id="confidence-warn"
-                  style="
-                    display: none;
-                    margin-bottom: 12px;
-                    padding: 10px 14px;
-                    background: rgba(211, 84, 0, 0.12);
-                    border: 1px solid rgba(211, 84, 0, 0.25);
-                    border-radius: 9px;
-                    color: #f0b27a;
-                    font-size: 0.82rem;
-                  "
-                ></div>
-
-                <div class="ib">
-                  <h4>Ensemble model breakdown</h4>
-                  <div id="model-details"></div>
-                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- /.card -->
-        <div id="gradcam-section" style="display: none; margin-top: 18px">
-          <div class="ib">
-            <h4>🔍 AI Attention Map (Grad-CAM)</h4>
-            <p
-              style="
-                font-size: 0.82rem;
-                color: var(--gp);
-                margin-bottom: 10px;
-                line-height: 1.55;
-              "
-            >
-              The heatmap below shows which part of the leaf the AI focused on
-              to make this prediction.
-              <strong style="color: var(--white)">Red/warm areas</strong> = high
-              attention.
-              <strong style="color: var(--gp)">Blue/cool areas</strong> = low
-              attention.
-            </p>
-            <div
-              style="
-                border-radius: 12px;
-                overflow: hidden;
-                border: 1px solid rgba(168, 213, 176, 0.2);
-              "
-            >
-              <img
-                id="gradcam-img"
-                src=""
-                alt="Grad-CAM heatmap"
+
+          <!-- Grad-CAM -->
+          <div id="gradcam-section">
+            <div class="ib" style="margin-top: 16px">
+              <h4>🔍 AI Attention Map (Grad-CAM)</h4>
+              <p
                 style="
-                  width: 100%;
-                  display: block;
-                  max-height: 280px;
-                  object-fit: contain;
-                  background: #000;
+                  font-size: 0.81rem;
+                  color: var(--gp);
+                  margin-bottom: 10px;
+                  line-height: 1.55;
                 "
-              />
+              >
+                The heatmap shows which leaf area the AI focused on.
+                <strong style="color: var(--white)">Red/warm</strong> = high
+                attention ·
+                <strong style="color: var(--gp)">Blue/cool</strong> = low
+                attention.
+              </p>
+              <div class="gradcam-wrap">
+                <img id="gradcam-img" src="" alt="Grad-CAM heatmap" />
+              </div>
+              <p class="gradcam-note">
+                Grad-CAM visualization · EfficientNetB0 attention
+              </p>
             </div>
-            <p
-              style="
-                font-size: 0.72rem;
-                color: rgba(168, 213, 176, 0.4);
-                margin-top: 6px;
-                text-align: center;
-              "
-            >
-              Grad-CAM visualization · EfficientNetB0 attention
-            </p>
           </div>
         </div>
       </div>
-      <!-- /#tab-predict -->
 
-      <!-- ══ HISTORY TAB ══ -->
+      <!-- ══ HISTORY ══ -->
       <div id="tab-history" class="tab-panel">
         <div class="card">
           <h2>Prediction History</h2>
@@ -1267,7 +1531,7 @@
               ← Prev
             </button>
             <span
-              style="margin: 0 12px; font-size: 0.85rem; color: var(--gp)"
+              style="margin: 0 10px; font-size: 0.83rem; color: var(--gp)"
               id="hist-page-info"
             ></span>
             <button class="btn btn-sm" id="hist-next" onclick="changePage(1)">
@@ -1277,83 +1541,310 @@
         </div>
       </div>
 
-      <!-- ══ STATS TAB ══ -->
+      <!-- ══ STATS ══ -->
       <div id="tab-stats" class="tab-panel">
         <div class="card">
           <h2>Your Statistics</h2>
           <div id="stats-content"><div class="empty">Loading…</div></div>
         </div>
       </div>
-    </main>
 
-    
+      <!-- ══ WEATHER ══ -->
+      <div id="tab-weather" class="tab-panel">
+        <div class="card">
+          <h2>🌦️ Weather Risk Alert</h2>
+          <p
+            style="
+              color: var(--gp);
+              font-size: 0.85rem;
+              margin-bottom: 18px;
+              line-height: 1.6;
+            "
+          >
+            Current weather and disease risk for major cardamom-growing
+            districts of Nepal.
+          </p>
+          <div style="margin-bottom: 16px">
+            <label
+              style="
+                display: block;
+                font-size: 0.71rem;
+                font-weight: 600;
+                color: var(--gp);
+                margin-bottom: 8px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+              "
+              >Select District</label
+            >
+            <div
+              style="display: flex; gap: 8px; flex-wrap: wrap"
+              id="district-btns"
+            ></div>
+          </div>
+          <div class="loader-wrap" id="weather-loader">
+            <div class="loader-ring"></div>
+            <p>Fetching weather data…</p>
+          </div>
+          <div id="weather-result" style="display: none">
+            <div
+              style="
+                background: rgba(74, 148, 99, 0.08);
+                border: 1px solid rgba(168, 213, 176, 0.2);
+                border-radius: 14px;
+                padding: 18px;
+                margin-bottom: 14px;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 14px;
+                  flex-wrap: wrap;
+                "
+              >
+                <div id="w-icon" style="font-size: 46px">🌤️</div>
+                <div style="flex: 1">
+                  <div
+                    style="
+                      font-family: &quot;Playfair Display&quot;, serif;
+                      font-size: 1.2rem;
+                      color: #fff;
+                      margin-bottom: 2px;
+                    "
+                    id="w-location"
+                  >
+                    —
+                  </div>
+                  <div style="color: var(--gp); font-size: 0.83rem" id="w-desc">
+                    —
+                  </div>
+                </div>
+                <div
+                  id="w-overall-badge"
+                  style="
+                    padding: 5px 14px;
+                    border-radius: 99px;
+                    font-size: 0.81rem;
+                    font-weight: 600;
+                  "
+                >
+                  —
+                </div>
+              </div>
+              <div class="w-stat-grid">
+                <div class="w-stat">
+                  <div class="w-stat-icon">🌡️</div>
+                  <div class="w-stat-val" id="w-temp">—</div>
+                  <div class="w-stat-lbl">Temperature</div>
+                </div>
+                <div class="w-stat">
+                  <div class="w-stat-icon">💧</div>
+                  <div class="w-stat-val" id="w-humidity">—</div>
+                  <div class="w-stat-lbl">Humidity</div>
+                </div>
+                <div class="w-stat">
+                  <div class="w-stat-icon">🌧️</div>
+                  <div class="w-stat-val" id="w-rain">—</div>
+                  <div class="w-stat-lbl">Rainfall</div>
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 0.71rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--gp);
+                font-weight: 600;
+                margin-bottom: 10px;
+              "
+            >
+              Disease Risk Assessment
+            </div>
+            <div id="risk-cards"></div>
+            <div class="demo-note" id="w-demo-note" style="display: none">
+              📡 Showing demo data. Set <strong>WEATHER_API_KEY</strong> in your
+              environment to get live weather from OpenWeatherMap (free tier).
+            </div>
+          </div>
+          <div
+            id="weather-empty"
+            style="
+              text-align: center;
+              padding: 32px;
+              color: var(--gp);
+              font-size: 0.88rem;
+            "
+          >
+            Select a district above to see weather and disease risk.
+          </div>
+        </div>
+      </div>
+    </main>
 
     <footer>Cardamom Disease Prediction System · Nepal 🇳🇵</footer>
 
+    <!-- ── Delete modal ── -->
+    <div
+      class="del-backdrop"
+      id="del-backdrop"
+      onclick="closeDeleteModal()"
+    ></div>
+    <div class="del-modal" id="del-modal">
+      <div class="del-box">
+        <div class="del-icon-wrap">🗑️</div>
+        <div class="del-title">Delete Prediction?</div>
+        <div class="del-msg" id="del-msg">
+          This record will be permanently deleted.
+        </div>
+        <div class="del-btns">
+          <button class="del-cancel" onclick="closeDeleteModal()">
+            Cancel
+          </button>
+          <button
+            class="del-confirm"
+            id="del-confirm-btn"
+            onclick="confirmDelete()"
+          >
+            🗑️ Yes, Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Toast ── -->
+    <div id="toast"></div>
+
+    <!-- ── Scripts ── -->
+    <script src="/static/js/auth.js"></script>
     <script>
-      /* ═══════════════════════════════════════
-   CONSTANTS & STATE
-═══════════════════════════════════════ */
+      /* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
       const ICONS = {
         healthy: "✅",
         chhirke: "🦠",
+        chirke: "🦠",
         leaf_blight: "🍂",
       };
       const SEVC = { None: "s-none", Medium: "s-med", High: "s-high" };
       let histPage = 1,
         histTotal = 1;
-      let selFile = null;
-      let cameraStream = null;
+      let selFile = null,
+        cameraStream = null;
+      let _deleteId = null;
+      const DISTRICTS = [
+        { key: "ilam", name: "Ilam" },
+        { key: "taplejung", name: "Taplejung" },
+        { key: "panchthar", name: "Panchthar" },
+        { key: "sankhuwasabha", name: "Sankhuwasabha" },
+      ];
+      let activeDistrict = "ilam";
 
-      function getToken() {
-        return localStorage.getItem("cardamom_token");
+      /* ══════════════════════════════════════════
+   NAV AUTH  (single implementation)
+══════════════════════════════════════════ */
+      function renderNav() {
+        const ph = document.getElementById("cdx-nav-auth");
+        const mobPh = document.getElementById("cdx-mob-auth");
+        if (!ph) return;
+
+        if (isLoggedIn()) {
+          const name = getUsername();
+          ph.innerHTML = `
+      <div class="nav-user-badge"><span>👤</span><span>${name}</span></div>
+      <button class="btn-logout-nav" onclick="doLogout()">Logout</button>`;
+          if (mobPh)
+            mobPh.innerHTML = `
+      <button onclick="doLogout()" style="color:#f1948a">👤 ${name} · Logout</button>`;
+
+          // Show user greeting
+          const g = document.getElementById("user-greeting");
+          if (g) g.innerHTML = "Welcome back, <strong>" + name + "</strong> 👋";
+        } else {
+          ph.innerHTML = `<a href="/login" class="btn-login-nav">Login</a>`;
+          if (mobPh) mobPh.innerHTML = `<a href="/login">🔑 Login</a>`;
+        }
       }
 
-      /* ── User greeting ── */
-      const userName = localStorage.getItem("cardamom_user");
-      if (userName) {
-        document.getElementById("user-greeting").innerHTML =
-          "Welcome back, <strong>" + userName + "</strong> 👋";
+      function doLogout() {
+        clearAuth();
+        window.location.href = "/login";
       }
 
-      /* ═══════════════════════════════════════
+      function toggleMenu() {
+        document.getElementById("mob-menu").classList.toggle("open");
+      }
+
+      document.addEventListener("DOMContentLoaded", renderNav);
+
+      // Guard — redirect if not logged in
+      if (!isLoggedIn()) {
+        localStorage.setItem("redirectAfterLogin", location.pathname);
+        location.href = "/login";
+      }
+
+      /* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+      let _toastTimer = null;
+      function showToast(msg, type = "success", duration = 3200) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.style.background =
+          type === "error" ? "rgba(60,15,15,.97)" : "rgba(26,58,42,.97)";
+        t.style.borderColor =
+          type === "error" ? "rgba(192,57,43,.45)" : "rgba(168,213,176,.25)";
+        t.style.color = type === "error" ? "#f1948a" : "#a8d5b0";
+        t.style.opacity = "1";
+        t.style.transform = "translateX(-50%) translateY(0)";
+        clearTimeout(_toastTimer);
+        _toastTimer = setTimeout(() => {
+          t.style.opacity = "0";
+          t.style.transform = "translateX(-50%) translateY(80px)";
+        }, duration);
+      }
+
+      /* ══════════════════════════════════════════
    TAB SWITCH
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
+      const TAB_ORDER = ["predict", "history", "stats", "weather"];
       function switchTab(tab) {
-        document.querySelectorAll(".tab").forEach((t, i) => {
-          t.classList.toggle(
-            "active",
-            ["predict", "history", "stats"][i] === tab,
+        document
+          .querySelectorAll(".tab")
+          .forEach((t, i) =>
+            t.classList.toggle("active", TAB_ORDER[i] === tab),
           );
-        });
-        ["predict", "history", "stats"].forEach((t) => {
+        TAB_ORDER.forEach((t) =>
           document
             .getElementById("tab-" + t)
-            .classList.toggle("active", t === tab);
-        });
+            .classList.toggle("active", t === tab),
+        );
       }
 
-      /* ═══════════════════════════════════════
-   SOURCE SWITCH (upload / camera)
-═══════════════════════════════════════ */
-      function setSource(source) {
-        const isCamera = source === "camera";
+      /* ══════════════════════════════════════════
+   SOURCE (upload / camera)
+══════════════════════════════════════════ */
+      function setSource(src) {
+        const isCam = src === "camera";
         document.getElementById("src-upload-btn").className =
-          "src-tab " + (isCamera ? "inactive" : "active");
+          "src-tab " + (isCam ? "inactive" : "active");
         document.getElementById("src-camera-btn").className =
-          "src-tab " + (isCamera ? "active" : "inactive");
-        document.getElementById("mode-upload").style.display = isCamera
+          "src-tab " + (isCam ? "active" : "inactive");
+        document.getElementById("mode-upload").style.display = isCam
           ? "none"
           : "block";
-        document.getElementById("mode-camera").style.display = isCamera
+        document.getElementById("mode-camera").style.display = isCam
           ? "block"
           : "none";
-        if (!isCamera) stopCamera();
+        if (!isCam) stopCamera();
       }
 
-      /* ═══════════════════════════════════════
+      /* ══════════════════════════════════════════
    CAMERA
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       async function startCamera() {
         try {
           cameraStream = await navigator.mediaDevices.getUserMedia({
@@ -1368,8 +1859,9 @@
           document.getElementById("camera-btns").style.display = "flex";
           document.getElementById("camera-start-wrap").style.display = "none";
         } catch {
-          alert(
-            "Could not access camera. Allow camera permission or use file upload.",
+          showToast(
+            "❌ Camera access denied. Use file upload instead.",
+            "error",
           );
         }
       }
@@ -1402,9 +1894,9 @@
         );
       }
 
-      /* ═══════════════════════════════════════
+      /* ══════════════════════════════════════════
    FILE / DRAG-DROP
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       const dz = document.getElementById("drop-zone");
       const fi = document.getElementById("file-input");
       dz.addEventListener("dragover", (e) => {
@@ -1423,16 +1915,17 @@
 
       function setFile(f) {
         selFile = f;
-        const reader = new FileReader();
-        reader.onload = (e) => {
+        const r = new FileReader();
+        r.onload = (e) => {
           document.getElementById("prev-img").src = e.target.result;
         };
-        reader.readAsDataURL(f);
+        r.readAsDataURL(f);
         document.getElementById("prev-wrap").style.display = "block";
         document.getElementById("prev-filename").textContent = f.name;
         document.getElementById("btn-analyse").disabled = false;
         document.getElementById("result-wrap").style.display = "none";
         document.getElementById("result-ph").style.display = "none";
+        document.getElementById("gradcam-section").style.display = "none";
       }
 
       function clearPreview() {
@@ -1440,26 +1933,27 @@
         document.getElementById("prev-wrap").style.display = "none";
         document.getElementById("btn-analyse").disabled = true;
         document.getElementById("result-wrap").style.display = "none";
+        document.getElementById("gradcam-section").style.display = "none";
         document.getElementById("result-ph").style.display = "block";
-        document.getElementById("result-ph").innerHTML =
+        document.getElementById("result-ph").textContent =
           "📷 Upload or capture a leaf image to begin analysis";
         document.getElementById("file-input").value = "";
-        document.getElementById("gradcam-section").style.display = "none";
+        document.getElementById("low-conf-banner").classList.remove("show");
       }
 
-      /* ═══════════════════════════════════════
+      /* ══════════════════════════════════════════
    PREDICT
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       async function doPrediction() {
         if (!selFile) return;
         document.getElementById("btn-analyse").disabled = true;
         document.getElementById("loader").style.display = "block";
         document.getElementById("result-wrap").style.display = "none";
         document.getElementById("result-ph").style.display = "none";
+        document.getElementById("gradcam-section").style.display = "none";
 
         const fd = new FormData();
         fd.append("file", selFile);
-
         try {
           const res = await fetch("/api/predict", {
             method: "POST",
@@ -1470,40 +1964,37 @@
           document.getElementById("loader").style.display = "none";
           document.getElementById("btn-analyse").disabled = false;
 
-          // Not a cardamom leaf
           if (d.error === "not_cardamom") {
             document.getElementById("result-ph").innerHTML = `
-        <span style="font-size:44px;display:block;margin-bottom:14px">⚠️</span>
-        <p style="color:#f1948a;font-size:.92rem;font-weight:500;margin-bottom:8px">Not a cardamom leaf!</p>
-        <p style="color:var(--gp);font-size:.84rem;line-height:1.6">${d.message}</p>
-        <button onclick="clearPreview()" style="margin-top:16px;padding:9px 22px;
+        <span style="font-size:42px;display:block;margin-bottom:12px">⚠️</span>
+        <p style="color:#f1948a;font-size:.9rem;font-weight:500;margin-bottom:8px">Not a cardamom leaf!</p>
+        <p style="color:var(--gp);font-size:.83rem;line-height:1.6">${d.message}</p>
+        <button onclick="clearPreview()" style="margin-top:14px;padding:8px 20px;
           background:rgba(255,255,255,.06);border:1px solid rgba(168,213,176,.2);
           border-radius:8px;color:var(--gp);font-family:'DM Sans',sans-serif;
-          font-size:.83rem;cursor:pointer">Try another image</button>`;
+          font-size:.82rem;cursor:pointer">Try another image</button>`;
             document.getElementById("result-ph").style.display = "block";
             return;
           }
-
           if (d.error) {
-            document.getElementById("result-ph").innerHTML =
+            document.getElementById("result-ph").textContent =
               "❌ Error: " + d.error;
             document.getElementById("result-ph").style.display = "block";
             return;
           }
-
           showResult(d);
         } catch {
           document.getElementById("loader").style.display = "none";
           document.getElementById("btn-analyse").disabled = false;
-          document.getElementById("result-ph").innerHTML =
+          document.getElementById("result-ph").textContent =
             "❌ Network error. Is the server running?";
           document.getElementById("result-ph").style.display = "block";
         }
       }
 
-      /* ═══════════════════════════════════════
+      /* ══════════════════════════════════════════
    SHOW RESULT
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       function showResult(d) {
         document.getElementById("ri").textContent = ICONS[d.disease] || "🌿";
         document.getElementById("rn").textContent = d.disease.replace(
@@ -1511,7 +2002,6 @@
           " ",
         );
         document.getElementById("rnp").textContent = d.nepali;
-        document.getElementById("rcp").textContent = d.confidence + "%";
         document.getElementById("rdesc").textContent = d.description;
         document.getElementById("rrec").textContent = d.recommendation;
 
@@ -1519,9 +2009,30 @@
         sev.textContent = "Severity: " + d.severity;
         sev.className = "sev " + (SEVC[d.severity] || "s-none");
 
+        // Confidence + colour
+        const pct = d.confidence;
+        const level = (d.confidence_level || "").toLowerCase();
+        const lvlKey =
+          level === "low" ? "low" : level === "medium" ? "med" : "high";
+        document.getElementById("rcp").textContent = pct + "%";
+        const badge = document.getElementById("rclvl");
+        badge.textContent = d.confidence_level || "";
+        badge.className = "conf-badge " + lvlKey;
+        const bar = document.getElementById("rcb");
+        bar.className = "conf-fill " + lvlKey;
         requestAnimationFrame(() => {
-          document.getElementById("rcb").style.width = d.confidence + "%";
+          bar.style.width = pct + "%";
         });
+
+        // Low confidence banner
+        const banner = document.getElementById("low-conf-banner");
+        d.low_confidence
+          ? banner.classList.add("show")
+          : banner.classList.remove("show");
+
+        // Saved note
+        const note = document.getElementById("saved-note");
+        if (note) note.style.display = d.saved ? "block" : "none";
 
         // All class scores
         const c = document.getElementById("rall");
@@ -1529,8 +2040,7 @@
         (d.all_predictions || []).forEach((p) => {
           const row = document.createElement("div");
           row.className = "pr";
-          row.innerHTML = `
-      <div class="pn">${p.class.replace(/_/g, " ")}</div>
+          row.innerHTML = `<div class="pn">${p.class.replace(/_/g, " ")}</div>
       <div class="pb"><div class="pbf" style="width:0%" data-v="${p.confidence}"></div></div>
       <div class="pp">${p.confidence}%</div>`;
           c.appendChild(row);
@@ -1541,59 +2051,41 @@
           );
         });
 
-        // ── Show model details (EfficientNet vs MobileNet scores) ────────────
-        const details = d.model_details;
-        if (details && document.getElementById("model-details")) {
-          document.getElementById("model-details").innerHTML = `
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
-        <div style="flex:1;background:rgba(74,148,99,.1);border-radius:8px;padding:10px;text-align:center">
-          <div style="font-size:.7rem;color:var(--gp);margin-bottom:3px">EfficientNetB0</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white)">${details.efficientnet_top}%</div>
-        </div>
-        <div style="flex:1;background:rgba(74,148,99,.1);border-radius:8px;padding:10px;text-align:center">
-          <div style="font-size:.7rem;color:var(--gp);margin-bottom:3px">MobileNetV2</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white)">${details.mobilenet_top}%</div>
-        </div>
-        <div style="flex:1;background:rgba(200,168,75,.1);border-radius:8px;padding:10px;text-align:center">
-          <div style="font-size:.7rem;color:var(--gold);margin-bottom:3px">Ensemble</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white)">${details.ensemble_top}%</div>
-        </div>
-      </div>`;
+        // Ensemble model breakdown
+        const md = document.getElementById("model-details");
+        const mdw = document.getElementById("model-details-wrap");
+        if (d.model_details && md) {
+          const det = d.model_details;
+          md.innerHTML = `
+      <div class="model-box"><div class="model-box-lbl">EfficientNetB0</div><div class="model-box-val">${det.efficientnet_top}%</div></div>
+      <div class="model-box"><div class="model-box-lbl">MobileNetV2</div><div class="model-box-val">${det.mobilenet_top}%</div></div>
+      <div class="model-box gold"><div class="model-box-lbl">Ensemble</div><div class="model-box-val">${det.ensemble_top}%</div></div>`;
+          mdw.style.display = "block";
+        } else if (mdw) {
+          mdw.style.display = "none";
         }
 
-        // ── Show low confidence warning ───────────────────────────────────────
-        const warnEl = document.getElementById("confidence-warn");
-        if (warnEl) {
-          if (d.low_confidence) {
-            warnEl.style.display = "block";
-            warnEl.textContent = "⚠️ " + d.confidence_label;
-          } else {
-            warnEl.style.display = "none";
-          }
-        }
-
-        // ── Show Grad-CAM heatmap if available ────────────────────────────────
-        const gcSection = document.getElementById("gradcam-section");
+        // Grad-CAM
+        const gc = document.getElementById("gradcam-section");
         const gcImg = document.getElementById("gradcam-img");
-        if (gcSection && gcImg) {
-          if (d.gradcam_url) {
-            gcImg.src = d.gradcam_url;
-            gcSection.style.display = "block";
-          } else {
-            gcSection.style.display = "none";
-          }
+        if (d.gradcam_url && gc && gcImg) {
+          gcImg.src = d.gradcam_url;
+          gc.style.display = "block";
+        } else if (gc) {
+          gc.style.display = "none";
         }
 
         document.getElementById("result-wrap").style.display = "block";
         document.getElementById("result-ph").style.display = "none";
       }
-      /* ═══════════════════════════════════════
+
+      /* ══════════════════════════════════════════
    HISTORY
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       async function loadHistory() {
         const res = await api(`/api/history?page=${histPage}&limit=8`, "GET");
         const list = document.getElementById("hist-list");
-        if (!res.predictions || res.predictions.length === 0) {
+        if (!res.predictions || !res.predictions.length) {
           list.innerHTML =
             '<div class="empty">No predictions yet. Upload a leaf image!</div>';
           document.getElementById("hist-pagination").style.display = "none";
@@ -1606,11 +2098,11 @@
     <div class="hist-item">
       <span class="hist-icon">${ICONS[p.disease] || "🌿"}</span>
       <div class="hist-info">
-        <div class="hist-disease">${p.disease.replace(/_/g, " ")} · ${p.nepali_name}</div>
+        <div class="hist-disease">${p.disease.replace(/_/g, " ")} · ${p.nepali_name || ""}</div>
         <div class="hist-meta">${new Date(p.created_at).toLocaleString()} · Severity: ${p.severity}</div>
       </div>
       <span class="hist-conf">${p.confidence}%</span>
-      <button class="hist-del" onclick="deletePred(${p.id}, '${p.disease}')" title="Delete">🗑</button>
+      <button class="hist-del" onclick="openDeleteModal(${p.id},'${p.disease}')" title="Delete">🗑</button>
     </div>`,
           )
           .join("");
@@ -1631,13 +2123,49 @@
         loadHistory();
       }
 
-      async function deletePred(id, diseaseName) {
-  openDeleteModal(id, diseaseName);
-}
+      /* ══════════════════════════════════════════
+   DELETE MODAL
+══════════════════════════════════════════ */
+      function openDeleteModal(id, disease) {
+        _deleteId = id;
+        document.getElementById("del-msg").innerHTML =
+          `The <strong style="color:#fff">${(disease || "").replace(/_/g, " ")}</strong> prediction will be permanently deleted.`;
+        document.getElementById("del-backdrop").style.display = "block";
+        document.getElementById("del-modal").style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
 
-      /* ═══════════════════════════════════════
+      function closeDeleteModal() {
+        document.getElementById("del-backdrop").style.display = "none";
+        document.getElementById("del-modal").style.display = "none";
+        document.body.style.overflow = "";
+        _deleteId = null;
+      }
+
+      async function confirmDelete() {
+        if (!_deleteId) return;
+        const btn = document.getElementById("del-confirm-btn");
+        btn.disabled = true;
+        btn.textContent = "Deleting…";
+        const r = await api("/api/history/" + _deleteId, "DELETE");
+        btn.disabled = false;
+        btn.textContent = "🗑️ Yes, Delete";
+        closeDeleteModal();
+        if (r.error) {
+          showToast("❌ " + r.error, "error");
+          return;
+        }
+        showToast("✅ Prediction deleted", "success");
+        loadHistory();
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDeleteModal();
+      });
+
+      /* ══════════════════════════════════════════
    STATS
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       async function loadStats() {
         const res = await api("/api/stats", "GET");
         const el = document.getElementById("stats-content");
@@ -1645,26 +2173,138 @@
           el.innerHTML = '<div class="empty">No predictions yet.</div>';
           return;
         }
-        const counts = res.disease_counts || {};
-        const boxes = Object.entries(counts)
+        const boxes = Object.entries(res.disease_counts || {})
           .map(
             ([k, v]) =>
-              `<div class="stat-box"><div class="stat-num">${v}</div>
-     <div class="stat-lbl">${k.replace(/_/g, " ")}</div></div>`,
+              `<div class="stat-box"><div class="stat-num">${v}</div><div class="stat-lbl">${k.replace(/_/g, " ")}</div></div>`,
           )
           .join("");
-        el.innerHTML = `
-    <div class="stat-row">
-      <div class="stat-box">
-        <div class="stat-num">${res.total_predictions}</div>
-        <div class="stat-lbl">Total scans</div>
-      </div>${boxes}
-    </div>`;
+        el.innerHTML = `<div class="stat-row">
+    <div class="stat-box"><div class="stat-num">${res.total_predictions}</div><div class="stat-lbl">Total scans</div></div>
+    ${boxes}</div>`;
       }
 
-      /* ═══════════════════════════════════════
+      /* ══════════════════════════════════════════
+   WEATHER
+══════════════════════════════════════════ */
+      const RISK_COLORS = {
+        High: {
+          bg: "rgba(192,57,43,.18)",
+          border: "rgba(192,57,43,.38)",
+          text: "#f1948a",
+        },
+        Medium: {
+          bg: "rgba(211,84,0,.15)",
+          border: "rgba(211,84,0,.32)",
+          text: "#f0b27a",
+        },
+        Low: {
+          bg: "rgba(74,148,99,.15)",
+          border: "rgba(74,148,99,.35)",
+          text: "#a8d5b0",
+        },
+      };
+      const RISK_ICONS = { High: "🔴", Medium: "🟡", Low: "🟢" };
+      const WEATHER_ICONS = {
+        rain: "🌧️",
+        drizzle: "🌦️",
+        thunder: "⛈️",
+        snow: "❄️",
+        mist: "🌫️",
+        fog: "🌫️",
+        clear: "☀️",
+        cloud: "⛅",
+      };
+
+      function renderDistrictButtons() {
+        const el = document.getElementById("district-btns");
+        if (!el) return;
+        el.innerHTML = DISTRICTS.map(
+          (d) => `
+    <button onclick="selectDistrict('${d.key}')"
+      class="district-btn ${d.key === activeDistrict ? "active" : "inactive"}">${d.name}</button>`,
+        ).join("");
+      }
+
+      function selectDistrict(key) {
+        activeDistrict = key;
+        renderDistrictButtons();
+        loadWeather();
+      }
+
+      async function loadWeather() {
+        renderDistrictButtons();
+        document.getElementById("weather-loader").style.display = "block";
+        document.getElementById("weather-result").style.display = "none";
+        document.getElementById("weather-empty").style.display = "none";
+
+        const d = await api(`/api/weather?district=${activeDistrict}`, "GET");
+        document.getElementById("weather-loader").style.display = "none";
+
+        if (d.error) {
+          document.getElementById("weather-empty").textContent =
+            "❌ " + d.error;
+          document.getElementById("weather-empty").style.display = "block";
+          return;
+        }
+
+        // Icon
+        const desc = (d.description || "").toLowerCase();
+        let icon = "🌤️";
+        for (const [k, v] of Object.entries(WEATHER_ICONS)) {
+          if (desc.includes(k)) {
+            icon = v;
+            break;
+          }
+        }
+
+        document.getElementById("w-icon").textContent = icon;
+        document.getElementById("w-location").textContent = d.location;
+        document.getElementById("w-desc").textContent = d.description;
+        document.getElementById("w-temp").textContent = d.temperature + "°C";
+        document.getElementById("w-humidity").textContent = d.humidity + "%";
+        document.getElementById("w-rain").textContent = d.rain_mm + " mm";
+
+        // Overall risk badge
+        const overall = d.risk?.overall || "Low";
+        const rc = RISK_COLORS[overall] || RISK_COLORS.Low;
+        const badge = document.getElementById("w-overall-badge");
+        badge.textContent = overall + " Risk";
+        badge.style.background = rc.bg;
+        badge.style.border = "1px solid " + rc.border;
+        badge.style.color = rc.text;
+
+        // Risk cards
+        const container = document.getElementById("risk-cards");
+        container.innerHTML = "";
+        (d.risk?.risks || []).forEach((r) => {
+          const c = RISK_COLORS[r.level] || RISK_COLORS.Low;
+          const card = document.createElement("div");
+          card.className = "risk-card";
+          card.style.background = c.bg;
+          card.style.border = "1px solid " + c.border;
+          card.innerHTML = `
+      <div class="risk-card-head">
+        <span style="font-size:18px">${RISK_ICONS[r.level] || "⚪"}</span>
+        <div>
+          <div class="risk-card-name">${r.disease}</div>
+          <div class="risk-card-level" style="color:${c.text}">${r.level} Risk</div>
+        </div>
+      </div>
+      <p class="risk-card-msg">${r.message}</p>
+      <div class="risk-card-action"><strong>Action:</strong> ${r.action}</div>`;
+          container.appendChild(card);
+        });
+
+        document.getElementById("w-demo-note").style.display = d.demo
+          ? "block"
+          : "none";
+        document.getElementById("weather-result").style.display = "block";
+      }
+
+      /* ══════════════════════════════════════════
    API HELPER
-═══════════════════════════════════════ */
+══════════════════════════════════════════ */
       async function api(url, method, body) {
         const opts = {
           method,
@@ -1680,186 +2320,5 @@
         }
       }
     </script>
-
-    <!--
-  PASTE THIS anywhere inside <body> in app.html — before </body>
-  This adds a beautiful delete confirmation modal
--->
-
-<!-- ── Delete Confirmation Modal ── -->
-<div id="del-backdrop" onclick="closeDeleteModal()" style="
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,0.65);z-index:9000;
-  backdrop-filter:blur(6px)"></div>
-
-<div id="del-modal" style="
-  display:none;position:fixed;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  z-index:9001;width:100%;max-width:380px;padding:0 16px">
-  <div style="
-    background:#1a3a2a;
-    border:1px solid rgba(168,213,176,0.15);
-    border-radius:20px;padding:32px 28px;
-    font-family:'DM Sans',sans-serif;
-    animation:delIn .25s ease">
-
-    <!-- Icon -->
-    <div style="text-align:center;margin-bottom:18px">
-      <div style="
-        width:56px;height:56px;
-        background:rgba(192,57,43,0.15);
-        border:1px solid rgba(192,57,43,0.25);
-        border-radius:50%;
-        display:flex;align-items:center;
-        justify-content:center;margin:0 auto;
-        font-size:24px">🗑️</div>
-    </div>
-
-    <!-- Text -->
-    <h3 style="
-      font-family:'Playfair Display',serif;
-      font-size:1.25rem;font-weight:700;
-      color:#fff;text-align:center;
-      margin-bottom:10px">
-      Delete Prediction?
-    </h3>
-    <p style="
-      font-size:.86rem;color:#a8d5b0;
-      text-align:center;line-height:1.6;
-      margin-bottom:24px" id="del-msg">
-      This prediction record will be permanently deleted
-      and cannot be recovered.
-    </p>
-
-    <!-- Buttons -->
-    <div style="display:flex;gap:10px">
-      <button onclick="closeDeleteModal()" style="
-        flex:1;padding:12px;
-        background:rgba(255,255,255,0.06);
-        border:1px solid rgba(168,213,176,0.15);
-        border-radius:10px;color:#a8d5b0;
-        font-family:'DM Sans',sans-serif;
-        font-size:.9rem;cursor:pointer;
-        transition:all .2s"
-        onmouseover="this.style.background='rgba(255,255,255,0.1)'"
-        onmouseout="this.style.background='rgba(255,255,255,0.06)'">
-        Cancel
-      </button>
-      <button id="del-confirm-btn" onclick="confirmDelete()" style="
-        flex:1;padding:12px;
-        background:linear-gradient(135deg,#c0392b,#922b21);
-        border:none;border-radius:10px;
-        color:#fff;font-family:'DM Sans',sans-serif;
-        font-size:.9rem;font-weight:500;cursor:pointer;
-        transition:all .2s"
-        onmouseover="this.style.transform='translateY(-2px)'"
-        onmouseout="this.style.transform='none'">
-        🗑️ Yes, Delete
-      </button>
-    </div>
-  </div>
-</div>
-
-<style>
-@keyframes delIn {
-  from { opacity:0; transform:translate(-50%,-46%) scale(0.96) }
-  to   { opacity:1; transform:translate(-50%,-50%) scale(1) }
-}
-</style>
-
-<script>
-// ── Delete modal state ─────────────────────────────────────────────────────
-let _deleteId   = null;
-let _deleteType = 'prediction'; // future use
-
-function openDeleteModal(id, diseaseName) {
-  _deleteId = id;
-  const msg = document.getElementById('del-msg');
-  if (diseaseName) {
-    msg.innerHTML = `The <strong style="color:#fff">${diseaseName.replace(/_/g,' ')}</strong> prediction record will be permanently deleted and cannot be recovered.`;
-  } else {
-    msg.textContent = 'This prediction record will be permanently deleted and cannot be recovered.';
-  }
-  document.getElementById('del-backdrop').style.display = 'block';
-  document.getElementById('del-modal').style.display    = 'block';
-  document.body.style.overflow = 'hidden';
-}
-
-function closeDeleteModal() {
-  document.getElementById('del-backdrop').style.display = 'none';
-  document.getElementById('del-modal').style.display    = 'none';
-  document.body.style.overflow = '';
-  _deleteId = null;
-}
-
-async function confirmDelete() {
-  if (!_deleteId) return;
-
-  const btn         = document.getElementById('del-confirm-btn');
-  btn.disabled      = true;
-  btn.textContent   = 'Deleting…';
-
-  const res = await api('/api/history/' + _deleteId, 'DELETE');
-
-  btn.disabled    = false;
-  btn.textContent = '🗑️ Yes, Delete';
-  closeDeleteModal();
-
-  if (res.error) {
-    // Show inline error instead of alert
-    showToast('❌ Could not delete: ' + res.error, 'error');
-    return;
-  }
-
-  showToast('✅ Prediction deleted', 'success');
-  loadHistory();
-}
-
-// Close modal with Escape key
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeDeleteModal();
-});
-</script>
-
-
-<!--
-  ── TOAST NOTIFICATION (replaces alert) ──────────────────────────────────
-  Also paste this — it shows a small notification at the bottom
--->
-<div id="toast" style="
-  position:fixed;bottom:28px;left:50%;
-  transform:translateX(-50%) translateY(80px);
-  background:#1a3a2a;
-  border:1px solid rgba(168,213,176,0.2);
-  border-radius:10px;padding:12px 22px;
-  color:#a8d5b0;font-family:'DM Sans',sans-serif;
-  font-size:.88rem;z-index:9999;
-  transition:transform .3s ease, opacity .3s ease;
-  opacity:0;pointer-events:none;white-space:nowrap">
-</div>
-
-<script>
-let toastTimer = null;
-function showToast(message, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = message;
-  t.style.background = type === 'error'
-    ? 'rgba(192,57,43,0.9)'
-    : 'rgba(26,58,42,0.95)';
-  t.style.borderColor = type === 'error'
-    ? 'rgba(192,57,43,0.4)'
-    : 'rgba(168,213,176,0.25)';
-  t.style.color = type === 'error' ? '#f1948a' : '#a8d5b0';
-  t.style.opacity     = '1';
-  t.style.transform   = 'translateX(-50%) translateY(0)';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    t.style.opacity   = '0';
-    t.style.transform = 'translateX(-50%) translateY(80px)';
-  }, 3000);
-}
-</script>
-
   </body>
 </html>

@@ -9,11 +9,11 @@ WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY", "")
 WEATHER_URL     = "https://api.openweathermap.org/data/2.5/weather"
 
 DISTRICTS = {
+    "sankhuwasabha": {"lat": 27.5333, "lon": 87.1833, "name": "Sankhuwasabha"},
     "ilam":      {"lat": 26.9125, "lon": 87.9258, "name": "Ilam"},
     "taplejung": {"lat": 27.3548, "lon": 87.6694, "name": "Taplejung"},
     "panchthar": {"lat": 27.1452, "lon": 87.7958, "name": "Panchthar"},
-    "dhankuta":  {"lat": 26.9833, "lon": 87.3333, "name": "Dhankuta"},
-    "kathmandu": {"lat": 27.7172, "lon": 85.3240, "name": "Kathmandu"},
+    
 }
 
 

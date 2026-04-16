@@ -45,7 +45,8 @@
         );
         pointer-events: none;
       }
-      /* Nav */
+
+      /* ── Nav ── */
       nav {
         display: flex;
         align-items: center;
@@ -103,7 +104,8 @@
         border-color: rgba(192, 57, 43, 0.2);
         color: #f1948a;
       }
-      /* Layout */
+
+      /* ── Layout ── */
       main {
         padding: 26px 28px;
         max-width: 1180px;
@@ -123,7 +125,8 @@
         font-size: 0.87rem;
         margin-bottom: 22px;
       }
-      /* Stat cards */
+
+      /* ── Stat cards ── */
       .stat-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -166,7 +169,8 @@
         color: rgba(168, 213, 176, 0.5);
         margin-top: 2px;
       }
-      /* Charts */
+
+      /* ── Charts ── */
       .chart-row {
         display: grid;
         grid-template-columns: 1.6fr 1fr;
@@ -191,7 +195,8 @@
         color: var(--white);
         margin-bottom: 16px;
       }
-      /* Table card */
+
+      /* ── Table card ── */
       .tcard {
         background: var(--card);
         border: 1px solid var(--border);
@@ -231,12 +236,10 @@
       .search:focus {
         border-color: rgba(168, 213, 176, 0.4);
       }
-
       .search option {
         background: var(--g1);
         color: var(--cream);
       }
-
       select.search {
         cursor: pointer;
       }
@@ -302,7 +305,8 @@
       .del-btn:hover {
         color: #f1948a;
       }
-      /* Pagination */
+
+      /* ── Pagination ── */
       .pag {
         display: flex;
         align-items: center;
@@ -340,6 +344,187 @@
         color: var(--gp);
         font-size: 0.88rem;
       }
+
+      /* ════════════════════════════════════════
+       CUSTOM MODALS
+    ════════════════════════════════════════ */
+
+      /* Shared overlay backdrop */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+
+      /* Modal box */
+      .modal-box {
+        background: var(--g1);
+        border: 1px solid rgba(168, 213, 176, 0.22);
+        border-radius: 22px;
+        width: 100%;
+        max-width: 400px;
+        padding: 32px 28px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+        animation: modalIn 0.25s ease;
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-icon {
+        font-size: 2.8rem;
+        display: block;
+        margin-bottom: 14px;
+      }
+      .modal-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .modal-msg {
+        color: var(--gp);
+        font-size: 0.88rem;
+        line-height: 1.65;
+        margin-bottom: 24px;
+      }
+      .modal-msg strong {
+        color: var(--cream);
+      }
+
+      .modal-btns {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .mbtn {
+        padding: 10px 26px;
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        transition: all 0.25s;
+      }
+      .mbtn-cancel {
+        background: rgba(255, 255, 255, 0.07);
+        color: var(--gp);
+        border: 1px solid rgba(168, 213, 176, 0.2);
+      }
+      .mbtn-cancel:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--white);
+      }
+      .mbtn-confirm {
+        background: linear-gradient(135deg, #c0392b, #922b21);
+        color: var(--white);
+      }
+      .mbtn-confirm:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(192, 57, 43, 0.4);
+      }
+      .mbtn-primary {
+        background: linear-gradient(135deg, var(--g3), var(--g2));
+        color: var(--white);
+      }
+      .mbtn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(74, 148, 99, 0.4);
+      }
+
+      /* ── Toast notification ── */
+      #toast {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%) translateY(60px);
+        border-radius: 99px;
+        padding: 10px 22px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.88rem;
+        z-index: 9999;
+        transition:
+          transform 0.35s ease,
+          opacity 0.35s ease;
+        opacity: 0;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      #toast.success {
+        background: rgba(26, 58, 42, 0.97);
+        border: 1px solid rgba(168, 213, 176, 0.35);
+        color: #a8d5b0;
+      }
+      #toast.error {
+        background: rgba(60, 18, 18, 0.97);
+        border: 1px solid rgba(192, 57, 43, 0.4);
+        color: #f1948a;
+      }
+
+      /* ── Access denied full screen ── */
+      #access-denied {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(10, 26, 18, 0.97);
+        backdrop-filter: blur(14px);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 24px;
+        text-align: center;
+      }
+      #access-denied.show {
+        display: flex;
+      }
+      #access-denied .ad-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+      }
+      #access-denied h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        color: var(--white);
+        margin-bottom: 10px;
+      }
+      #access-denied p {
+        color: var(--gp);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        max-width: 420px;
+        margin-bottom: 28px;
+      }
+      #access-denied .ad-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
       footer {
         text-align: center;
         padding: 18px;
@@ -351,6 +536,48 @@
     </style>
   </head>
   <body>
+    <!-- ══ ACCESS DENIED SCREEN ══ -->
+    <div id="access-denied">
+      <span class="ad-icon">🔒</span>
+      <h2>Access Denied</h2>
+      <p>
+        This page is restricted to administrators only.<br />
+        You do not have permission to view the admin dashboard.
+      </p>
+      <p style="color: rgba(200, 168, 75, 0.7); font-size: 0.83rem">
+        यो पृष्ठ केवल प्रशासकका लागि हो
+      </p>
+      <div class="ad-btns">
+        <a href="/app" class="mbtn mbtn-primary" style="text-decoration: none"
+          >← Back to App</a
+        >
+        <a href="/" class="mbtn mbtn-cancel" style="text-decoration: none"
+          >Go to Home</a
+        >
+      </div>
+    </div>
+
+    <!-- ══ DELETE CONFIRM MODAL ══ -->
+    <div class="modal-backdrop" id="del-modal">
+      <div class="modal-box">
+        <span class="modal-icon">🗑️</span>
+        <div class="modal-title" id="del-modal-title">Delete User</div>
+        <div class="modal-msg" id="del-modal-msg">Are you sure?</div>
+        <div class="modal-btns">
+          <button class="mbtn mbtn-cancel" onclick="closeDelModal()">
+            Cancel
+          </button>
+          <button class="mbtn mbtn-confirm" id="del-modal-confirm">
+            Yes, Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TOAST ══ -->
+    <div id="toast"></div>
+
+    <!-- ══ NAV ══ -->
     <nav>
       <div class="nav-brand">🌿 अलैँची</div>
       <span class="admin-pill">Admin Panel</span>
@@ -509,8 +736,7 @@
                 font-size: 0.75rem;
                 margin-left: 8px;
               "
-            >
-            </span>
+            ></span>
           </h3>
         </div>
         <table>
@@ -536,11 +762,72 @@
 
     <script src="/static/js/auth.js"></script>
     <script>
+      /* ════════════════════════════════════════════════
+   TOAST  (replaces alert/confirm)
+════════════════════════════════════════════════ */
+      function showToast(msg, type = "success", duration = 3200) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "show " + type;
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => {
+          t.className = "";
+        }, duration);
+      }
+
+      /* ════════════════════════════════════════════════
+   DELETE CONFIRM MODAL  (replaces confirm())
+════════════════════════════════════════════════ */
+      function showDelModal({ title, msg, onConfirm }) {
+        document.getElementById("del-modal-title").textContent = title;
+        document.getElementById("del-modal-msg").innerHTML = msg;
+        const btn = document.getElementById("del-modal-confirm");
+        // Remove old listener, attach new one
+        const fresh = btn.cloneNode(true);
+        btn.parentNode.replaceChild(fresh, btn);
+        fresh.addEventListener("click", async () => {
+          closeDelModal();
+          await onConfirm();
+        });
+        document.getElementById("del-modal").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeDelModal() {
+        document.getElementById("del-modal").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      // Close modal on backdrop click
+      document
+        .getElementById("del-modal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeDelModal();
+        });
+
+      // ESC key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDelModal();
+      });
+
+      /* ════════════════════════════════════════════════
+   ACCESS DENIED  (replaces alert + redirect)
+════════════════════════════════════════════════ */
+      function showAccessDenied() {
+        document.getElementById("access-denied").classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+
+      /* ════════════════════════════════════════════════
+   AUTH CHECK
+════════════════════════════════════════════════ */
       if (!isLoggedIn()) {
         window.location.href = "/login";
       }
 
-      const TOKEN = getToken();
+      /* ════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════ */
       let uPage = 1,
         uTotal = 1,
         pPage = 1,
@@ -548,14 +835,21 @@
         searchTimer = null;
       let dailyChart = null,
         diseaseChart = null;
-      const ICONS = { healthy: "✅", chhirke: "🦠", leaf_blight: "🍂" };
+      const ICONS = {
+        healthy: "✅",
+        chhirke: "🦠",
+        chhirke: "🦠",
+        leaf_blight: "🍂",
+      };
       const SEV_C = { None: "b-green", Medium: "b-gold", High: "b-red" };
 
+      /* ════════════════════════════════════════════════
+   STATS
+════════════════════════════════════════════════ */
       async function loadStats() {
         const d = await apiCall("/api/admin/stats", "GET");
-        if (d.error) {
-          alert("Access denied. You must be admin.");
-          window.location.href = "/app";
+        if (!d || d.error) {
+          showAccessDenied(); // ← custom screen instead of alert()
           return;
         }
         document.getElementById("s-users").textContent = d.total_users;
@@ -566,7 +860,7 @@
         document.getElementById("s-preds-w").textContent =
           "+" + d.new_preds_week + " this week";
         document.getElementById("s-chhirke").textContent =
-          d.disease_counts["chhirke"] || 0;
+          d.disease_counts["chhirke"] || d.disease_counts["chhirke"] || 0;
         document.getElementById("s-blight").textContent =
           d.disease_counts["leaf_blight"] || 0;
         document.getElementById("s-healthy").textContent =
@@ -586,8 +880,8 @@
               {
                 label: "Predictions",
                 data: daily.map((d) => d.count),
-                backgroundColor: "rgba(74,148,99,0.3)",
-                borderColor: "rgba(168,213,176,0.6)",
+                backgroundColor: "rgba(74,148,99,.3)",
+                borderColor: "rgba(168,213,176,.6)",
                 borderWidth: 1,
                 borderRadius: 4,
               },
@@ -614,18 +908,21 @@
       function renderDiseaseChart(counts) {
         const ctx = document.getElementById("disease-chart").getContext("2d");
         if (diseaseChart) diseaseChart.destroy();
-        const labels = Object.keys(counts);
-        const data = Object.values(counts);
-        const colors = [
-          "rgba(241,148,138,0.75)",
-          "rgba(168,213,176,0.75)",
-          "rgba(240,178,122,0.75)",
-        ];
         diseaseChart = new Chart(ctx, {
           type: "doughnut",
           data: {
-            labels,
-            datasets: [{ data, backgroundColor: colors, borderWidth: 0 }],
+            labels: Object.keys(counts),
+            datasets: [
+              {
+                data: Object.values(counts),
+                backgroundColor: [
+                  "rgba(241,148,138,.75)",
+                  "rgba(168,213,176,.75)",
+                  "rgba(240,178,122,.75)",
+                ],
+                borderWidth: 0,
+              },
+            ],
           },
           options: {
             responsive: true,
@@ -643,12 +940,15 @@
         });
       }
 
+      /* ════════════════════════════════════════════════
+   USERS
+════════════════════════════════════════════════ */
       async function loadUsers(page = 1, search = "") {
         uPage = page;
         let url = `/api/admin/users?page=${page}&limit=8`;
         if (search) url += `&search=${encodeURIComponent(search)}`;
         const d = await apiCall(url, "GET");
-        if (d.error) return;
+        if (!d || d.error) return;
         uTotal = d.pages;
         const tbody = document.getElementById("users-tbody");
         if (!d.users.length) {
@@ -664,9 +964,13 @@
       <td>${u.name}</td>
       <td style="color:var(--gp)">${u.email}</td>
       <td><span class="badge ${u.is_admin ? "b-gold" : "b-blue"}">${u.is_admin ? "Admin" : "User"}</span></td>
-      <td>${u.predictions}</td>
+      <td>${u.prediction_count ?? u.predictions ?? 0}</td>
       <td style="color:var(--gp)">${new Date(u.created_at).toLocaleDateString()}</td>
-      <td>${!u.is_admin ? `<button class="del-btn" onclick="deleteUser(${u.id},'${u.name}')">🗑 Delete</button>` : "—"}</td>
+      <td>${
+        !u.is_admin
+          ? `<button class="del-btn" onclick="deleteUser(${u.id},'${u.name}')">🗑 Delete</button>`
+          : "—"
+      }</td>
     </tr>`,
           )
           .join("");
@@ -687,24 +991,40 @@
         );
       }
 
-      async function deleteUser(id, name) {
-        if (!confirm(`Delete user "${name}" and all their data?`)) return;
-        const r = await apiCall("/api/admin/users/" + id, "DELETE");
-        if (r.error) {
-          alert(r.error);
-          return;
-        }
-        loadUsers(uPage);
-        loadStats();
+      /* ── Delete user — custom modal instead of confirm() ── */
+      function deleteUser(id, name) {
+        showDelModal({
+          title: "Delete User",
+          msg: `Are you sure you want to delete <strong>${name}</strong>?<br>
+            <span style="font-size:.8rem;color:rgba(241,148,138,.7)">
+              This will also delete all their predictions and uploaded images.
+            </span>`,
+          onConfirm: async () => {
+            const r = await apiCall("/api/admin/users/" + id, "DELETE");
+            if (!r || r.error) {
+              showToast("❌ " + (r?.error || "Delete failed"), "error");
+              return;
+            }
+            showToast(
+              "✅ " + (r.message || "User deleted successfully"),
+              "success",
+            );
+            loadUsers(uPage);
+            loadStats();
+          },
+        });
       }
 
+      /* ════════════════════════════════════════════════
+   PREDICTIONS
+════════════════════════════════════════════════ */
       async function loadPredictions(page = 1) {
         pPage = page;
         const disease = document.getElementById("pred-filter").value;
         let url = `/api/admin/predictions?page=${page}&limit=10`;
         if (disease) url += `&disease=${disease}`;
         const d = await apiCall(url, "GET");
-        if (d.error) return;
+        if (!d || d.error) return;
         pTotal = d.pages;
         const tbody = document.getElementById("preds-tbody");
         if (!d.predictions.length) {
@@ -735,25 +1055,15 @@
         loadPredictions(Math.max(1, Math.min(pTotal, pPage + d)));
       }
 
-      function doLogout() {
-        clearAuth();
-        window.location.href = "/";
-      }
-
-      loadStats();
-      loadUsers();
-      loadPredictions();
-
+      /* ════════════════════════════════════════════════
+   MESSAGES
+════════════════════════════════════════════════ */
       async function loadMessages() {
         const d = await apiCall("/api/admin/messages", "GET");
-        if (d.error) return;
-
-        // Show unread count
-        if (d.unread > 0) {
+        if (!d || d.error) return;
+        if (d.unread > 0)
           document.getElementById("unread-badge").textContent =
             d.unread + " unread";
-        }
-
         const tbody = document.getElementById("msgs-tbody");
         if (!d.messages.length) {
           tbody.innerHTML =
@@ -763,18 +1073,16 @@
         tbody.innerHTML = d.messages
           .map(
             (m) => `
-    <tr style="${!m.is_read ? "background:rgba(74,148,99,0.05)" : ""}">
+    <tr style="${!m.is_read ? "background:rgba(74,148,99,.05)" : ""}">
       <td>${m.name}</td>
       <td style="color:var(--gp)">${m.email}</td>
       <td>${m.subject}</td>
       <td style="color:var(--gp)">${new Date(m.created_at).toLocaleDateString()}</td>
-      <td>
-        ${
-          !m.is_read
-            ? `<button onclick="markRead(${m.id})" style="background:none;border:1px solid rgba(168,213,176,.3);border-radius:6px;color:var(--gp);font-size:.78rem;padding:3px 10px;cursor:pointer">Mark read</button>`
-            : '<span style="color:rgba(168,213,176,.4);font-size:.78rem">Read</span>'
-        }
-      </td>
+      <td>${
+        !m.is_read
+          ? `<button onclick="markRead(${m.id})" style="background:none;border:1px solid rgba(168,213,176,.3);border-radius:6px;color:var(--gp);font-size:.78rem;padding:3px 10px;cursor:pointer">Mark read</button>`
+          : '<span style="color:rgba(168,213,176,.4);font-size:.78rem">Read</span>'
+      }</td>
     </tr>
     <tr>
       <td colspan="5" style="padding:8px 16px;color:var(--gp);font-size:.82rem;border-bottom:1px solid rgba(168,213,176,.08)">${m.message}</td>
@@ -788,7 +1096,20 @@
         loadMessages();
       }
 
-      // Add to the bottom of your existing calls
+      /* ════════════════════════════════════════════════
+   LOGOUT
+════════════════════════════════════════════════ */
+      function doLogout() {
+        clearAuth();
+        window.location.href = "/";
+      }
+
+      /* ════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════ */
+      loadStats();
+      loadUsers();
+      loadPredictions();
       loadMessages();
     </script>
   </body>

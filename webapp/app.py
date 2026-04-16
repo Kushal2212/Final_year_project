@@ -10,7 +10,7 @@ Open: http://127.0.0.1:5000
 
 import os
 import sys
-from flask import Flask, jsonify, render_template
+from flask import Flask, app, jsonify, render_template
 from datetime import timedelta
 
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -47,6 +47,8 @@ def create_app():
     app.register_blueprint(contact_bp)
     from webapp.routes.admin   import admin_bp
     from webapp.routes.weather import weather_bp
+   
+    
 
     app.register_blueprint(admin_bp)
     app.register_blueprint(weather_bp)
