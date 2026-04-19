@@ -1,228 +1,131 @@
-import os
 import json
-import cv2
 import numpy as np
 import tensorflow as tf
 from pathlib import Path
+import cv2
 
-BASE_DIR      = Path(__file__).parent.parent
-MODEL_DIR     = BASE_DIR / "models"
-EFFNET_PATH   = MODEL_DIR / "model_efficientnet.keras"
-MOBILENET_PATH= MODEL_DIR / "model_mobilenet.keras"
-LABELS_PATH   = MODEL_DIR / "class_labels.json"
-IMG_SIZE      = 224
+# ── Paths ───────────────────────────────────────────────
+BASE_DIR   = Path(__file__).parent.parent
+MODEL_DIR  = BASE_DIR / "models"
 
-# ── Confidence thresholds ──────────────────────────────────────────────────
-REJECT_THRESHOLD = 78.0   # below this → not a cardamom leaf
-WARN_THRESHOLD   = 88.0   # below this → show warning to farmer
+EFFNET_PATH    = MODEL_DIR / "model_efficientnet.keras"
+MOBILENET_PATH = MODEL_DIR / "model_mobilenet.keras"
+LABELS_PATH    = MODEL_DIR / "class_labels.json"
 
-# ── Disease information ────────────────────────────────────────────────────
+IMG_SIZE = 224
+
+# ── Thresholds ──────────────────────────────────────────
+REJECT_THRESHOLD = 78.0
+WARN_THRESHOLD   = 88.0
+
+# ── Disease Info ────────────────────────────────────────
 DISEASE_INFO = {
     "healthy": {
-        "nepali":         "स्वस्थ",
-        "description":    "Plant is healthy. No disease detected.",
-        "recommendation": "Continue regular care: proper shade, watering, and organic fertiliser.",
-        "severity":       "None",
+        "nepali": "स्वस्थ",
+        "description": "Plant is healthy.",
+        "recommendation": "Continue proper care.",
+        "severity": "None",
     },
     "chhirke": {
-        "nepali":         "छिर्के रोग",
-        "description":    "Viral disease spread by aphids. Causes mosaic yellowing and stunted growth.",
-        "recommendation": "Remove infected plants. Spray neem oil or imidacloprid to control aphids.",
-        "severity":       "High",
+        "nepali": "छिर्के रोग",
+        "description": "Viral disease spread by aphids.",
+        "recommendation": "Remove infected plants. Use neem oil.",
+        "severity": "High",
     },
     "leaf_blight": {
-        "nepali":         "पात झुल्सा रोग",
-        "description":    "Fungal disease causing brown water-soaked lesions on leaves.",
-        "recommendation": "Apply mancozeb or copper-based fungicide. Improve drainage.",
-        "severity":       "Medium",
+        "nepali": "पात झुल्सा रोग",
+        "description": "Fungal disease causing brown spots.",
+        "recommendation": "Apply fungicide.",
+        "severity": "Medium",
     },
 }
 
-# ── Cache models in memory ─────────────────────────────────────────────────
-_effnet_model    = None
-_mobilenet_model = None
-_index_to_class  = None
+# ── Cache ───────────────────────────────────────────────
+_effnet = None
+_mobilenet = None
+_index_to_class = None
 
 
 def _load_resources():
-    global _effnet_model, _mobilenet_model, _index_to_class
+    global _effnet, _mobilenet, _index_to_class
 
-    if _effnet_model is None:
-        # Check both model files exist
-        if not EFFNET_PATH.exists():
-            raise FileNotFoundError(
-                f"EfficientNetB0 model not found at:\n  {EFFNET_PATH}\n\n"
-                "Train first: python main.py train"
-            )
-        if not MOBILENET_PATH.exists():
-            raise FileNotFoundError(
-                f"MobileNetV2 model not found at:\n  {MOBILENET_PATH}\n\n"
-                "Train first: python main.py train"
-            )
+    if _effnet is not None:
+        return _effnet, _mobilenet, _index_to_class
 
-        print("Loading EfficientNetB0 …")
-        _effnet_model    = tf.keras.models.load_model(str(EFFNET_PATH))
-        print("Loading MobileNetV2 …")
-        _mobilenet_model = tf.keras.models.load_model(str(MOBILENET_PATH))
+    if not EFFNET_PATH.exists() or not MOBILENET_PATH.exists():
+        raise FileNotFoundError("Model files not found. Upload /models folder to server.")
 
-        with open(LABELS_PATH) as f:
-            class_indices = json.load(f)
+    _effnet = tf.keras.models.load_model(EFFNET_PATH)
+    _mobilenet = tf.keras.models.load_model(MOBILENET_PATH)
 
-        # Handle both formats
-        first_key = list(class_indices.keys())[0]
-        if first_key.isdigit():
-            _index_to_class = {int(k): v for k, v in class_indices.items()}
-        else:
-            _index_to_class = {v: k for k, v in class_indices.items()}
+    with open(LABELS_PATH) as f:
+        class_indices = json.load(f)
 
-        print("✅ Ensemble models loaded (EfficientNetB0 + MobileNetV2)")
+    # reverse mapping
+    _index_to_class = {v: k for k, v in class_indices.items()}
 
-    return _effnet_model, _mobilenet_model, _index_to_class
+    print("✅ Models loaded")
+
+    return _effnet, _mobilenet, _index_to_class
 
 
+# ── Prediction ──────────────────────────────────────────
 def predict(img_path: str) -> dict:
-    """
-    Predict disease using soft voting ensemble.
+    try:
+        effnet, mobilenet, index_to_class = _load_resources()
 
-    Flow:
-        Image
-          ↓
-        EfficientNetB0  →  [0.1, 0.8, 0.1]
-        MobileNetV2     →  [0.2, 0.7, 0.1]
-                             ↓
-                    Average: [0.15, 0.75, 0.1]
-                             ↓
-                    Final:   healthy (75%)
-    """
-    effnet, mobilenet, index_to_class = _load_resources()
+        # Load image
+        img = tf.keras.utils.load_img(img_path, target_size=(IMG_SIZE, IMG_SIZE))
+        arr = tf.keras.utils.img_to_array(img)
 
-    # ── Load image — raw [0, 255], NO division ────────────────────────────
-    img = tf.keras.utils.load_img(img_path, target_size=(IMG_SIZE, IMG_SIZE))
-    arr = tf.keras.utils.img_to_array(img)   # [0,255]
-    gray = cv2.cvtColor(arr.astype("uint8"), cv2.COLOR_RGB2GRAY)
+        # Basic validation
+        gray = cv2.cvtColor(arr.astype("uint8"), cv2.COLOR_RGB2GRAY)
 
-    if np.std(gray) < 10:
-        return {
-            "error": "Image too plain or blank. Please upload a clear leaf image."
-    }
-    
-    if np.mean(gray) < 20:
-        return {"error": "Image too dark"}
+        if np.std(gray) < 10:
+            return {"error": "Image too plain"}
 
-    if np.mean(gray) > 240:
-        return {"error": "Image too bright"}    
-        
-    arr_batch = np.expand_dims(arr, axis=0).astype("float32")
+        if np.mean(gray) < 20:
+            return {"error": "Image too dark"}
 
-    # ── Get predictions from both models ──────────────────────────────────
-    preds_eff = effnet.predict(arr_batch,    verbose=0)[0]
-    preds_mob = mobilenet.predict(arr_batch, verbose=0)[0]
+        if np.mean(gray) > 240:
+            return {"error": "Image too bright"}
 
-    # ── Soft voting: average probabilities ───────────────────────────────
-    # This is the key step — combining both models
-    preds_ensemble = (preds_eff + preds_mob) / 2.0
+        arr = np.expand_dims(arr, axis=0).astype("float32")
 
-    top_idx    = int(np.argmax(preds_ensemble))
-    confidence = float(preds_ensemble[top_idx]) * 100
+        # Predictions
+        p1 = effnet.predict(arr, verbose=0)[0]
+        p2 = mobilenet.predict(arr, verbose=0)[0]
 
-    # ── All predictions sorted ────────────────────────────────────────────
-    all_predictions = sorted(
-        [
-            {
-                "class":          index_to_class[i],
-                "confidence":     round(float(preds_ensemble[i]) * 100, 2),
-                "conf_effnet":    round(float(preds_eff[i]) * 100, 2),
-                "conf_mobilenet": round(float(preds_mob[i]) * 100, 2),
+        preds = (p1 + p2) / 2
+
+        top_idx = int(np.argmax(preds))
+        confidence = float(preds[top_idx]) * 100
+
+        # Confidence gap check
+        sorted_preds = sorted(preds, reverse=True)
+        gap = (sorted_preds[0] - sorted_preds[1]) * 100
+
+        if confidence < REJECT_THRESHOLD or gap < 15:
+            return {
+                "error": "not_cardamom",
+                "confidence": round(confidence, 2),
+                "message": "Not confident this is a cardamom leaf."
             }
-            for i in range(len(preds_ensemble))
-        ],
-        key=lambda x: x["confidence"],
-        reverse=True,
-    )
 
-    # ── Rejection check ───────────────────────────────────────────────────
-    sorted_preds  = sorted(preds_ensemble, reverse=True)
-    top_conf      = float(sorted_preds[0]) * 100
-    second_conf   = float(sorted_preds[1]) * 100
-    confidence_gap = top_conf - second_conf
+        disease = index_to_class[top_idx]
+        info = DISEASE_INFO.get(disease, {})
 
-    if confidence < REJECT_THRESHOLD or confidence_gap < 15:
         return {
-            "error":           "not_cardamom",
-            "message":         (
-                f"This does not look like a cardamom leaf. "
-                f"Both models are not confident enough ({confidence:.1f}%). "
-                f"Please upload a clear, well-lit cardamom leaf image."
-            ),
-            "confidence":      round(confidence, 2),
-            "all_predictions": all_predictions,
+            "disease": disease,
+            "confidence": round(confidence, 2),
+            "nepali": info.get("nepali"),
+            "description": info.get("description"),
+            "recommendation": info.get("recommendation"),
+            "severity": info.get("severity"),
         }
 
-    # ── Disease info ──────────────────────────────────────────────────────
-    disease_key = index_to_class[top_idx]
-    info = DISEASE_INFO.get(disease_key, {
-        "nepali":         disease_key,
-        "description":    "Unknown disease.",
-        "recommendation": "Consult an agricultural expert.",
-        "severity":       "Unknown",
-    })
-
-    # ── Honest confidence label ───────────────────────────────────────────
-    if confidence >= 90:
-        confidence_level = "High"
-        confidence_label = "Very confident"
-    elif confidence >= WARN_THRESHOLD:
-        confidence_level = "Medium"
-        confidence_label = "Fairly confident"
-    else:
-        confidence_level = "Low"
-        confidence_label = "Not very confident — please verify with an expert"
-
-    return {
-        "disease":          disease_key,
-        "confidence":       round(confidence, 2),
-        "confidence_level": confidence_level,
-        "confidence_label": confidence_label,
-        "low_confidence":   confidence < WARN_THRESHOLD,
-        "nepali":           info["nepali"],
-        "description":      info["description"],
-        "recommendation":   info["recommendation"],
-        "severity":         info["severity"],
-        "all_predictions":  all_predictions,
-        "model_details": {
-            "efficientnet_top":  round(float(preds_eff[top_idx])  * 100, 2),
-            "mobilenet_top":     round(float(preds_mob[top_idx])  * 100, 2),
-            "ensemble_top":      round(confidence, 2),
-        },
-        "image_path": img_path,
-    }
-
-
-# ── CLI ────────────────────────────────────────────────────────────────────
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) < 2:
-        print("Usage: python src/predict.py <image_path>")
-        sys.exit(1)
-
-    r = predict(sys.argv[1])
-
-    if r.get("error") == "not_cardamom":
-        print(f"\n⚠️  {r['message']}")
-        sys.exit(0)
-
-    print("\n" + "=" * 55)
-    print("  SOFT VOTING ENSEMBLE PREDICTION")
-    print("=" * 55)
-    print(f"  Disease           : {r['disease'].upper().replace('_', ' ')}")
-    print(f"  Nepali            : {r['nepali']}")
-    print(f"  Ensemble conf.    : {r['confidence']}%")
-    print(f"  EfficientNet conf.: {r['model_details']['efficientnet_top']}%")
-    print(f"  MobileNet conf.   : {r['model_details']['mobilenet_top']}%")
-    print(f"  Confidence level  : {r['confidence_level']} ({r['confidence_label']})")
-    print(f"  Severity          : {r['severity']}")
-    if r['low_confidence']:
-        print(f"\n  ⚠️  Low confidence. Verify with an agricultural expert.")
-    print(f"\n  Description :\n    {r['description']}")
-    print(f"\n  Recommendation :\n    {r['recommendation']}")
-    print("=" * 55)
+    except Exception as e:
+        return {
+            "error": "server_error",
+            "message": str(e)
+        }
