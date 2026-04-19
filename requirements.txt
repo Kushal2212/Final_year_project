@@ -60,8 +60,8 @@ ipython_pygments_lexers==1.1.1
 ipywidgets==8.1.8
 isoduration==20.11.0
 itsdangerous==2.2.0
-jax==0.4.30
-jaxlib==0.4.30
+jax
+jaxlib
 jedi==0.19.2
 Jinja2==3.1.6
 joblib==1.5.3
