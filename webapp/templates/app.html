@@ -1658,7 +1658,6 @@
                   <div class="w-stat-lbl">Rainfall</div>
                 </div>
               </div>
-              
             </div>
 
             <!-- Disease risk cards -->
@@ -1730,7 +1729,6 @@
           </div>
         </div>
       </div>
-      
     </main>
 
     <footer>Cardamom Disease Prediction System · Nepal 🇳🇵</footer>
@@ -1769,8 +1767,8 @@
     <script src="/static/js/auth.js"></script>
     <script>
       /* ══════════════════════════════════
-       STATE
-    ══════════════════════════════════ */
+             STATE
+          ══════════════════════════════════ */
       const ICONS = {
         healthy: "✅",
         chhirke: "🦠",
@@ -1820,25 +1818,28 @@
       let activeDistrict = "ilam";
 
       /* ══════════════════════════════════
-       NAV AUTH
-    ══════════════════════════════════ */
+             NAV AUTH
+          ══════════════════════════════════ */
       function renderNav() {
         const ph = document.getElementById("cdx-nav-auth");
         const mobPh = document.getElementById("cdx-mob-auth");
         if (!ph) return;
 
         if (isLoggedIn()) {
-          const name = getUsername();
-          ph.innerHTML = `
-      <div class="nav-user-badge"><span>👤</span><span>${name}</span></div>
-      <button class="btn-logout-nav" onclick="doLogout()">Logout</button>`;
-          if (mobPh)
-            mobPh.innerHTML = `
-      <button onclick="doLogout()" style="color:#f1948a">👤 ${name} · Logout</button>`;
+          const name = getUsername(); // ← use getUsername() from auth.js
 
-          // Show user greeting
+          ph.innerHTML = `
+            <div class="nav-user-badge">
+              <span>👤</span>
+              <span>${name}</span>
+            </div>
+            <button class="btn-logout-nav" onclick="doLogout()">Logout</button>`;
+
+          if (mobPh)
+            mobPh.innerHTML = `<button onclick="doLogout()" style="color:#f1948a">👤 ${name} · Logout</button>`;
+
           const g = document.getElementById("user-greeting");
-          if (g) g.innerHTML = "Welcome back, <strong>" + name + "</strong> 👋";
+          if (g) g.innerHTML = `Welcome back, <strong>${name}</strong> 👋`;
         } else {
           ph.innerHTML = `<a href="/login" class="btn-login-nav">Login</a>`;
           if (mobPh) mobPh.innerHTML = `<a href="/login">🔑 Login</a>`;
@@ -1854,7 +1855,10 @@
         document.getElementById("mob-menu").classList.toggle("open");
       }
 
-      document.addEventListener("DOMContentLoaded", renderNav);
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        renderNav(); 
+      });
 
       // Guard — redirect if not logged in
       if (!isLoggedIn()) {
@@ -1863,8 +1867,8 @@
       }
 
       /* ══════════════════════════════════
-       TOAST
-    ══════════════════════════════════ */
+             TOAST
+          ══════════════════════════════════ */
       let _toastTimer = null;
       function showToast(msg, type = "success", duration = 3200) {
         const t = document.getElementById("toast");
@@ -1884,8 +1888,8 @@
       }
 
       /* ══════════════════════════════════
-       TAB SWITCH
-    ══════════════════════════════════ */
+             TAB SWITCH
+          ══════════════════════════════════ */
       const TAB_ORDER = ["predict", "history", "stats", "weather"];
       function switchTab(tab) {
         document
@@ -1901,8 +1905,8 @@
       }
 
       /* ══════════════════════════════════
-       SOURCE SWITCH
-    ══════════════════════════════════ */
+             SOURCE SWITCH
+          ══════════════════════════════════ */
       function setSource(src) {
         const isCam = src === "camera";
         document.getElementById("src-upload-btn").className =
@@ -1919,8 +1923,8 @@
       }
 
       /* ══════════════════════════════════
-       CAMERA
-    ══════════════════════════════════ */
+             CAMERA
+          ══════════════════════════════════ */
       async function startCamera() {
         try {
           cameraStream = await navigator.mediaDevices.getUserMedia({
@@ -1969,8 +1973,8 @@
       }
 
       /* ══════════════════════════════════
-       FILE / DRAG-DROP
-    ══════════════════════════════════ */
+             FILE / DRAG-DROP
+          ══════════════════════════════════ */
       const dz = document.getElementById("drop-zone");
       const fi = document.getElementById("file-input");
       dz.addEventListener("dragover", (e) => {
@@ -2015,8 +2019,8 @@
       }
 
       /* ══════════════════════════════════
-       PREDICT
-    ══════════════════════════════════ */
+             PREDICT
+          ══════════════════════════════════ */
       async function doPrediction() {
         if (!selFile) return;
         document.getElementById("btn-analyse").disabled = true;
@@ -2038,10 +2042,10 @@
           document.getElementById("btn-analyse").disabled = false;
           if (d.error === "not_cardamom") {
             document.getElementById("result-ph").innerHTML = `
-            <span style="font-size:42px;display:block;margin-bottom:12px">⚠️</span>
-            <p style="color:#f1948a;font-size:.9rem;font-weight:500;margin-bottom:8px">Not a cardamom leaf!</p>
-            <p style="color:var(--gp);font-size:.83rem;line-height:1.6">${d.message}</p>
-            <button onclick="clearPreview()" style="margin-top:14px;padding:8px 20px;background:rgba(255,255,255,.06);border:1px solid rgba(168,213,176,.2);border-radius:8px;color:var(--gp);font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer">Try another image</button>`;
+                  <span style="font-size:42px;display:block;margin-bottom:12px">⚠️</span>
+                  <p style="color:#f1948a;font-size:.9rem;font-weight:500;margin-bottom:8px">Not a cardamom leaf!</p>
+                  <p style="color:var(--gp);font-size:.83rem;line-height:1.6">${d.message}</p>
+                  <button onclick="clearPreview()" style="margin-top:14px;padding:8px 20px;background:rgba(255,255,255,.06);border:1px solid rgba(168,213,176,.2);border-radius:8px;color:var(--gp);font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer">Try another image</button>`;
             document.getElementById("result-ph").style.display = "block";
             return;
           }
@@ -2062,8 +2066,8 @@
       }
 
       /* ══════════════════════════════════
-       SHOW RESULT
-    ══════════════════════════════════ */
+             SHOW RESULT
+          ══════════════════════════════════ */
       function showResult(d) {
         document.getElementById("ri").textContent = ICONS[d.disease] || "🌿";
         document.getElementById("rn").textContent = d.disease.replace(
@@ -2118,9 +2122,9 @@
         if (d.model_details && md) {
           const det = d.model_details;
           md.innerHTML = `
-          <div class="model-box"><div class="model-box-lbl">EfficientNetB0</div><div class="model-box-val">${det.efficientnet_top}%</div></div>
-          <div class="model-box"><div class="model-box-lbl">MobileNetV2</div><div class="model-box-val">${det.mobilenet_top}%</div></div>
-          <div class="model-box gold"><div class="model-box-lbl">Ensemble</div><div class="model-box-val">${det.ensemble_top}%</div></div>`;
+                <div class="model-box"><div class="model-box-lbl">EfficientNetB0</div><div class="model-box-val">${det.efficientnet_top}%</div></div>
+                <div class="model-box"><div class="model-box-lbl">MobileNetV2</div><div class="model-box-val">${det.mobilenet_top}%</div></div>
+                <div class="model-box gold"><div class="model-box-lbl">Ensemble</div><div class="model-box-val">${det.ensemble_top}%</div></div>`;
           mdw.style.display = "block";
         } else if (mdw) {
           mdw.style.display = "none";
@@ -2140,8 +2144,8 @@
       }
 
       /* ══════════════════════════════════
-       HISTORY
-    ══════════════════════════════════ */
+             HISTORY
+          ══════════════════════════════════ */
       async function loadHistory() {
         const res = await api(`/api/history?page=${histPage}&limit=8`, "GET");
         const list = document.getElementById("hist-list");
@@ -2155,15 +2159,15 @@
         list.innerHTML = res.predictions
           .map(
             (p) => `
-        <div class="hist-item">
-          <span class="hist-icon">${ICONS[p.disease] || "🌿"}</span>
-          <div class="hist-info">
-            <div class="hist-disease">${p.disease.replace(/_/g, " ")} · ${p.nepali_name || ""}</div>
-            <div class="hist-meta">${new Date(p.created_at).toLocaleString()} · Severity: ${p.severity}</div>
-          </div>
-          <span class="hist-conf">${p.confidence}%</span>
-          <button class="hist-del" onclick="openDeleteModal(${p.id},'${p.disease}')" title="Delete">🗑</button>
-        </div>`,
+              <div class="hist-item">
+                <span class="hist-icon">${ICONS[p.disease] || "🌿"}</span>
+                <div class="hist-info">
+                  <div class="hist-disease">${p.disease.replace(/_/g, " ")} · ${p.nepali_name || ""}</div>
+                  <div class="hist-meta">${new Date(p.created_at).toLocaleString()} · Severity: ${p.severity}</div>
+                </div>
+                <span class="hist-conf">${p.confidence}%</span>
+                <button class="hist-del" onclick="openDeleteModal(${p.id},'${p.disease}')" title="Delete">🗑</button>
+              </div>`,
           )
           .join("");
         const pag = document.getElementById("hist-pagination");
@@ -2183,8 +2187,8 @@
       }
 
       /* ══════════════════════════════════
-       DELETE MODAL
-    ══════════════════════════════════ */
+             DELETE MODAL
+          ══════════════════════════════════ */
       function openDeleteModal(id, disease) {
         _deleteId = id;
         document.getElementById("del-msg").innerHTML =
@@ -2220,8 +2224,8 @@
       });
 
       /* ══════════════════════════════════
-       STATS
-    ══════════════════════════════════ */
+             STATS
+          ══════════════════════════════════ */
       async function loadStats() {
         const res = await api("/api/stats", "GET");
         const el = document.getElementById("stats-content");
@@ -2239,8 +2243,8 @@
       }
 
       /* ══════════════════════════════════
-       WEATHER
-    ══════════════════════════════════ */
+             WEATHER
+          ══════════════════════════════════ */
       function renderDistrictButtons() {
         const el = document.getElementById("district-btns");
         if (!el) return;
@@ -2309,15 +2313,15 @@
           card.style.background = c.bg;
           card.style.border = "1px solid " + c.border;
           card.innerHTML = `
-          <div class="risk-card-head">
-            <span style="font-size:18px">${RISK_ICONS[r.level] || "⚪"}</span>
-            <div>
-              <div class="risk-card-name">${r.disease}</div>
-              <div class="risk-card-level" style="color:${c.text}">${r.level} Risk</div>
-            </div>
-          </div>
-          <p class="risk-card-msg">${r.message}</p>
-          <div class="risk-card-action"><strong>Action:</strong> ${r.action}</div>`;
+                <div class="risk-card-head">
+                  <span style="font-size:18px">${RISK_ICONS[r.level] || "⚪"}</span>
+                  <div>
+                    <div class="risk-card-name">${r.disease}</div>
+                    <div class="risk-card-level" style="color:${c.text}">${r.level} Risk</div>
+                  </div>
+                </div>
+                <p class="risk-card-msg">${r.message}</p>
+                <div class="risk-card-action"><strong>Action:</strong> ${r.action}</div>`;
           container.appendChild(card);
         });
 
@@ -2394,9 +2398,9 @@
             div.style.background = c.bg;
             div.style.border = "1px solid " + c.border;
             div.innerHTML = `
-            <div class="timeline-day-date">${day.date}</div>
-            <div style="font-size:1.4rem">${RISK_ICONS[day.overall] || "⚪"}</div>
-            <div class="timeline-day-level" style="color:${c.text}">${day.overall}</div>`;
+                  <div class="timeline-day-date">${day.date}</div>
+                  <div style="font-size:1.4rem">${RISK_ICONS[day.overall] || "⚪"}</div>
+                  <div class="timeline-day-level" style="color:${c.text}">${day.overall}</div>`;
             timelineEl.appendChild(div);
           });
           wrapEl.style.display = "block";
@@ -2409,8 +2413,8 @@
       }
 
       /* ══════════════════════════════════
-       API HELPER
-    ══════════════════════════════════ */
+             API HELPER
+          ══════════════════════════════════ */
       async function api(url, method, body) {
         const opts = {
           method,

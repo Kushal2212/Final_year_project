@@ -1,14 +1,7 @@
-"""
-gradcam.py
-──────────
-Generates a Grad-CAM heatmap showing which part of the
-leaf the AI focused on when making a prediction.
-"""
-
 import os
 import numpy as np
 import tensorflow as tf
-import cv2
+import cv2 
 
 IMG_SIZE = 224
 

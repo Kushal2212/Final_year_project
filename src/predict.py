@@ -1,7 +1,6 @@
 import os
 import json
 import cv2
-from matplotlib.pyplot import gray
 import numpy as np
 import tensorflow as tf
 from pathlib import Path

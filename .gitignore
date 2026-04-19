@@ -3,12 +3,8 @@ raw_images
 .venv/
 __pycache__/
 *.pyc
-models/*.keras
 database/*.db
 .env
 
-models/
+.vscode/
 database/
-dataset/
-
-.webapp\static\uploads
