@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from webapp.extensions import db
 
+
 def create_app():
     app = Flask(__name__)
 

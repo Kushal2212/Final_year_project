@@ -1,17 +1,3 @@
-"""
-main.py
-───────
-Entry point for Cardamom Disease Detection System
-using Soft Voting Ensemble (EfficientNetB0 + MobileNetV2)
-
-Commands:
-    python main.py train           → train both models
-    python main.py predict <img>   → predict using ensemble
-    python main.py evaluate        → evaluate ensemble on test set
-    python main.py web             → run web application
-    python main.py preprocess      → split raw_images/ into dataset/
-"""
-
 import sys
 import os
 
@@ -69,7 +55,7 @@ def cmd_web(_):
     print("\n🌿 Cardamom Disease Detection System")
     print("   Ensemble: EfficientNetB0 + MobileNetV2")
     print("   Web: http://127.0.0.1:5000\n")
-    application.run(debug=True, host="0.0.0.0", port=5000)
+    application.run(debug=False, host="0.0.0.0", port=5000)
 
 
 COMMANDS = {

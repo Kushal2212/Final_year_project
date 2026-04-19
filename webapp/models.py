@@ -9,8 +9,7 @@ class User(db.Model):
     name       = db.Column(db.String(100), nullable=False)
     email      = db.Column(db.String(150), unique=True, nullable=False)
     password   = db.Column(db.String(256), nullable=False)
-    is_admin   = db.Column(db.Boolean,     default=False, nullable=False,
-                           server_default="0")
+    is_admin   = db.Column(db.Boolean,     default=False, nullable=False, server_default="0")
     created_at = db.Column(db.DateTime,    default=datetime.utcnow)
 
     predictions = db.relationship("Prediction", backref="user", lazy=True)
@@ -50,14 +49,15 @@ class Prediction(db.Model):
             "image_filename": self.image_filename,
             "created_at":     self.created_at.isoformat(),
         }
-        
+
+
 class ContactMessage(db.Model):
     __tablename__ = "contact_messages"
 
     id         = db.Column(db.Integer,     primary_key=True)
     name       = db.Column(db.String(100), nullable=False)
     email      = db.Column(db.String(150), nullable=False)
-    subject    = db.Column(db.String(200), nullable=False)
+    subject    = db.Column(db.String(200), nullable=False, default="No subject")
     message    = db.Column(db.Text,        nullable=False)
     is_read    = db.Column(db.Boolean,     default=False)
     created_at = db.Column(db.DateTime,    default=datetime.utcnow)
@@ -71,4 +71,46 @@ class ContactMessage(db.Model):
             "message":    self.message,
             "is_read":    self.is_read,
             "created_at": self.created_at.isoformat(),
+        }
+
+
+class NewsletterSubscriber(db.Model):
+    __tablename__ = "newsletter_subscribers"
+
+    id         = db.Column(db.Integer,     primary_key=True)
+    email      = db.Column(db.String(150), unique=True, nullable=False)
+    is_active  = db.Column(db.Boolean,     default=True)
+    created_at = db.Column(db.DateTime,    default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id":         self.id,
+            "email":      self.email,
+            "is_active":  self.is_active,
+            "created_at": self.created_at.isoformat(),
+        }
+
+
+class Farmer(db.Model):
+    __tablename__ = "farmers"
+
+    id          = db.Column(db.Integer,    primary_key=True)
+    name        = db.Column(db.String(100), nullable=False)
+    phone       = db.Column(db.String(20),  unique=True, nullable=False)
+    district    = db.Column(db.String(50),  default="ilam")
+    language    = db.Column(db.String(5),   default="ne")
+    is_active   = db.Column(db.Boolean,     default=True)
+    last_sms_at = db.Column(db.DateTime,    nullable=True)
+    created_at  = db.Column(db.DateTime,    default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id":          self.id,
+            "name":        self.name,
+            "phone":       self.phone,
+            "district":    self.district,
+            "language":    self.language,
+            "is_active":   self.is_active,
+            "last_sms_at": self.last_sms_at.isoformat() if self.last_sms_at else None,
+            "created_at":  self.created_at.isoformat(),
         }

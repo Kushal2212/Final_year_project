@@ -1,15 +1,3 @@
-"""
-predict.py
-──────────
-Soft Voting Ensemble Prediction:
-  1. EfficientNetB0 predicts → probabilities
-  2. MobileNetV2 predicts    → probabilities
-  3. Average both            → final probabilities
-  4. Pick highest            → final disease class
-
-This gives better accuracy than either model alone.
-"""
-
 import os
 import json
 import cv2

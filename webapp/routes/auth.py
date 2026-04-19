@@ -1,14 +1,3 @@
-"""
-auth.py
-───────
-Authentication REST API endpoints.
-
-POST /api/auth/register   → create account
-POST /api/auth/login      → get JWT token
-GET  /api/auth/profile    → get current user info  (requires token)
-POST /api/auth/logout     → client-side (token deletion hint)
-"""
-
 import email
 from xml.parsers.expat import errors
 

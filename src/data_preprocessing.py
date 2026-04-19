@@ -1,13 +1,3 @@
-"""
-data_preprocessing.py
-─────────────────────
-Utilities to clean, resize, and split raw cardamom images
-into train / validation / test folders.
-
-Usage:
-    python src/data_preprocessing.py --raw_dir raw_images --output_dir dataset
-"""
-
 import os
 import shutil
 import argparse

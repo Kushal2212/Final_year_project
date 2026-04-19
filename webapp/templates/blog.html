@@ -890,14 +890,50 @@
           >
             Get new articles and disease alerts in your inbox.
           </p>
-          <input
-            class="nl-input"
-            type="email"
-            id="nl-email"
-            placeholder="your@email.com"
-          />
-          <button class="nl-btn" onclick="subscribeNL()">Subscribe →</button>
-          <div class="nl-ok" id="nl-ok">✅ Subscribed! Thank you.</div>
+          <div id="subscribe-wrap" style="text-align:center;padding:20px 0">
+  <div style="display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center">
+    <input
+      id="sub-email"
+      type="email"
+      placeholder="your@email.com"
+      onkeydown="if(event.key==='Enter') doSubscribe()"
+      style="
+        flex:1;min-width:200px;
+        padding:12px 16px;
+        background:rgba(255,255,255,0.08);
+        border:1px solid rgba(168,213,176,0.25);
+        border-radius:10px;
+        color:#f5f0e8;
+        font-family:'DM Sans',sans-serif;
+        font-size:.9rem;
+        outline:none;
+      "
+    />
+    <button
+      onclick="doSubscribe()"
+      id="sub-btn"
+      style="
+        padding:12px 24px;
+        background:linear-gradient(135deg,#4a9463,#2d5c3f);
+        color:#fff;
+        border:none;
+        border-radius:10px;
+        font-family:'DM Sans',sans-serif;
+        font-size:.9rem;
+        font-weight:500;
+        cursor:pointer;
+        transition:all .2s;
+        white-space:nowrap;
+      "
+      onmouseover="this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.transform='none'"
+    >
+      Subscribe
+    </button>
+  </div>
+  <!-- Response message -->
+  <div id="sub-msg" style="display:none;margin-top:12px;font-size:.86rem;padding:10px 18px;border-radius:8px;display:inline-block"></div>
+</div>
         </div>
       </div>
     </div>
@@ -1261,12 +1297,58 @@
         applyFilter(val.toLowerCase());
       }
 
-      function subscribeNL() {
-        const v = document.getElementById("nl-email").value.trim();
-        if (!v || !v.includes("@")) return;
-        document.getElementById("nl-ok").style.display = "block";
-        document.getElementById("nl-email").value = "";
-      }
+      async function doSubscribe() {
+  const emailEl = document.getElementById('sub-email');
+  const btn     = document.getElementById('sub-btn');
+  const msgEl   = document.getElementById('sub-msg');
+  const email   = emailEl.value.trim();
+ 
+  msgEl.style.display = 'none';
+ 
+  if (!email || !email.includes('@')) {
+    msgEl.textContent      = '⚠️ Please enter a valid email address.';
+    msgEl.style.background = 'rgba(211,84,0,.12)';
+    msgEl.style.border     = '1px solid rgba(211,84,0,.25)';
+    msgEl.style.color      = '#f0b27a';
+    msgEl.style.display    = 'inline-block';
+    return;
+  }
+ 
+  btn.disabled    = true;
+  btn.textContent = 'Subscribing…';
+ 
+  try {
+    const res  = await fetch('/api/newsletter/subscribe', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email }),
+    });
+    const data = await res.json();
+ 
+    if (data.error) {
+      msgEl.textContent      = '❌ ' + data.error;
+      msgEl.style.background = 'rgba(192,57,43,.12)';
+      msgEl.style.border     = '1px solid rgba(192,57,43,.25)';
+      msgEl.style.color      = '#f1948a';
+    } else {
+      msgEl.textContent      = '✅ ' + data.message;
+      msgEl.style.background = 'rgba(74,148,99,.12)';
+      msgEl.style.border     = '1px solid rgba(74,148,99,.25)';
+      msgEl.style.color      = '#a8d5b0';
+      emailEl.value          = '';
+    }
+    msgEl.style.display = 'inline-block';
+  } catch {
+    msgEl.textContent      = '❌ Network error. Please try again.';
+    msgEl.style.background = 'rgba(192,57,43,.12)';
+    msgEl.style.border     = '1px solid rgba(192,57,43,.25)';
+    msgEl.style.color      = '#f1948a';
+    msgEl.style.display    = 'inline-block';
+  }
+ 
+  btn.disabled    = false;
+  btn.textContent = 'Subscribe';
+}
 
       const obs = new IntersectionObserver(
         (entries) => {

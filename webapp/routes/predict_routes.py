@@ -1,9 +1,3 @@
-"""
-predict_routes.py
-─────────────────
-Prediction API with Grad-CAM heatmap generation.
-"""
-
 import os
 import sys
 from unittest import result
