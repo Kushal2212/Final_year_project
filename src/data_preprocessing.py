@@ -140,3 +140,6 @@ if __name__ == "__main__":
     if args.resize:
         print("\nResizing images...")
         resize_dataset(args.output_dir)
+
+
+

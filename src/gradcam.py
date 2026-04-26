@@ -1,92 +1,125 @@
 import os
 import numpy as np
 import tensorflow as tf
-import cv2 
+import cv2
 
 IMG_SIZE = 224
 
 
-def generate_gradcam(img_path: str, model, class_idx: int, output_path: str) -> str:
-    """
-    Generate Grad-CAM heatmap overlaid on original image.
+# ─────────────────────────────────────────────────────────────
+# 🔍 Find last conv layer automatically
+# ─────────────────────────────────────────────────────────────
+def find_last_conv_layer(model):
+    for layer in reversed(model.layers):
+        if isinstance(layer, tf.keras.layers.Conv2D):
+            return layer.name
+    raise ValueError("No Conv2D layer found in model")
 
-    Args:
-        img_path    : path to original leaf image
-        model       : loaded Keras model
-        class_idx   : predicted class index (0, 1, 2)
-        output_path : where to save the heatmap image
 
-    Returns:
-        output_path if successful, None if failed
-    """
+# ─────────────────────────────────────────────────────────────
+# 🔥 Grad-CAM++ implementation
+# ─────────────────────────────────────────────────────────────
+def generate_gradcam_pp(img_path: str, model, class_idx: int, output_path: str):
     try:
-        # Load image — NO division by 255, EfficientNet handles it
+        # ── Load image ─────────────────────────────────────────
         img = tf.keras.utils.load_img(img_path, target_size=(IMG_SIZE, IMG_SIZE))
-        arr = tf.keras.utils.img_to_array(img)      # [0, 255]
-        arr_batch = np.expand_dims(arr, axis=0).astype("float32")
+        arr = tf.keras.utils.img_to_array(img)
+        arr = np.expand_dims(arr, axis=0).astype("float32")
 
-        # Find last conv layer inside EfficientNetB0 sub-model
-        last_conv_name = "top_conv"
-        try:
-            effnet     = model.get_layer("efficientnetb0")
-            conv_layer = effnet.get_layer(last_conv_name)
-            grad_model = tf.keras.Model(
-                inputs  = model.inputs,
-                outputs = [conv_layer.output, model.output]
-            )
+        # ── Get last conv layer ────────────────────────────────
+        last_conv_name = find_last_conv_layer(model)
 
-            with tf.GradientTape() as tape:
-                inputs = tf.cast(arr_batch, tf.float32)
-                conv_outputs, predictions = grad_model(inputs)
-                loss  = predictions[:, class_idx]
-            grads = tape.gradient(loss, conv_outputs)
+        grad_model = tf.keras.Model(
+            inputs=model.inputs,
+            outputs=[model.get_layer(last_conv_name).output, model.output]
+        )
 
-            pooled_grads  = tf.reduce_mean(grads, axis=(0, 1, 2))
-            conv_outputs  = conv_outputs[0]
-            heatmap       = conv_outputs @ pooled_grads[..., tf.newaxis]
-            heatmap       = tf.squeeze(heatmap)
-            heatmap       = tf.maximum(heatmap, 0) / (tf.math.reduce_max(heatmap) + 1e-8)
-            heatmap       = heatmap.numpy()
+        # ── Gradient computation ──────────────────────────────
+        with tf.GradientTape() as tape:
+            conv_outputs, predictions = grad_model(arr)
+            loss = predictions[:, class_idx]
 
-        except Exception:
-            # Fallback: simple input gradient saliency
-            inputs = tf.Variable(arr_batch)
-            with tf.GradientTape() as tape:
-                preds = model(inputs)
-                loss  = preds[:, class_idx]
-            grads   = tape.gradient(loss, inputs)
-            heatmap = tf.reduce_max(tf.abs(grads), axis=-1)[0].numpy()
+        grads = tape.gradient(loss, conv_outputs)
 
-        # Resize and colorize heatmap
-        heatmap_resized = cv2.resize(heatmap, (IMG_SIZE, IMG_SIZE))
-        heatmap_norm    = np.uint8(255 * (heatmap_resized - heatmap_resized.min()) /
-                                   (heatmap_resized.max() - heatmap_resized.min() + 1e-8))
-        heatmap_colored = cv2.applyColorMap(heatmap_norm, cv2.COLORMAP_JET)
+        if grads is None:
+            raise ValueError("Gradients are None")
 
-        # Overlay on original
+        conv_outputs = conv_outputs[0]
+        grads = grads[0]
+
+        # ── Grad-CAM++ weights ───────────────────────────────
+        grads_power_2 = grads ** 2
+        grads_power_3 = grads ** 3
+
+        sum_activations = tf.reduce_sum(conv_outputs, axis=(0, 1))
+
+        alpha_num = grads_power_2
+        alpha_denom = 2 * grads_power_2 + sum_activations * grads_power_3
+        alpha_denom = tf.where(alpha_denom != 0, alpha_denom, tf.ones_like(alpha_denom))
+
+        alphas = alpha_num / alpha_denom
+
+        positive_gradients = tf.nn.relu(grads)
+        weights = tf.reduce_sum(alphas * positive_gradients, axis=(0, 1))
+
+        # ── Compute heatmap ───────────────────────────────────
+        heatmap = tf.reduce_sum(weights * conv_outputs, axis=-1)
+
+        heatmap = tf.nn.relu(heatmap)
+        heatmap /= tf.reduce_max(heatmap) + 1e-8
+        heatmap = heatmap.numpy()
+
+        # ── Resize heatmap ───────────────────────────────────
+        heatmap = cv2.resize(heatmap, (IMG_SIZE, IMG_SIZE))
+        heatmap_uint8 = np.uint8(255 * heatmap)
+
+        # ── Apply colormap ───────────────────────────────────
+        heatmap_color = cv2.applyColorMap(heatmap_uint8, cv2.COLORMAP_JET)
+
+        # ── Overlay ──────────────────────────────────────────
         original = cv2.imread(img_path)
         original = cv2.resize(original, (IMG_SIZE, IMG_SIZE))
-        overlay  = cv2.addWeighted(original, 0.55, heatmap_colored, 0.45, 0)
 
-        # Add legend bar at bottom
-        bar_h  = 18
+        overlay = cv2.addWeighted(original, 0.75, heatmap_color, 0.25, 0)
+
+        # ── Add legend ───────────────────────────────────────
+        bar_h = 18
         canvas = np.zeros((IMG_SIZE + bar_h + 22, IMG_SIZE, 3), dtype=np.uint8)
+
         canvas[:IMG_SIZE] = overlay
+
         for x in range(IMG_SIZE):
-            val   = int(x / IMG_SIZE * 255)
+            val = int(x / IMG_SIZE * 255)
             color = cv2.applyColorMap(
-                np.array([[val]], dtype=np.uint8), cv2.COLORMAP_JET)[0][0]
+                np.array([[val]], dtype=np.uint8),
+                cv2.COLORMAP_JET
+            )[0][0]
             canvas[IMG_SIZE + 4: IMG_SIZE + 4 + bar_h, x] = color
 
-        cv2.putText(canvas, "Low",  (2, IMG_SIZE + bar_h + 20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.35, (180, 180, 180), 1)
-        cv2.putText(canvas, "High", (IMG_SIZE - 28, IMG_SIZE + bar_h + 20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.35, (180, 180, 180), 1)
+        cv2.putText(canvas, "Low",
+                    (2, IMG_SIZE + bar_h + 20),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.35, (180, 180, 180), 1)
 
+        cv2.putText(canvas, "High",
+                    (IMG_SIZE - 30, IMG_SIZE + bar_h + 20),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.35, (180, 180, 180), 1)
+
+        # ── Save ─────────────────────────────────────────────
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         cv2.imwrite(output_path, canvas)
+
         return output_path
 
     except Exception as e:
-        print(f"Grad-CAM error: {e}")
+        print(f"Grad-CAM++ error: {e}")
         return None
 
+
+# ─────────────────────────────────────────────────────────────
+# 🔧 Auto version (recommended)
+# ─────────────────────────────────────────────────────────────
+def generate_gradcam_pp_auto(img_path, model, preds, output_path):
+    class_idx = int(np.argmax(preds))
+    return generate_gradcam_pp(img_path, model, class_idx, output_path)

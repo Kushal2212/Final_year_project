@@ -250,3 +250,8 @@ if __name__ == "__main__":
         bar = '█' * int(p['confidence'] / 5)
         print(f"  {p['class']:15s}: {p['confidence']:5.1f}%  {bar}")
     print("=" * 55)
+
+
+
+
+

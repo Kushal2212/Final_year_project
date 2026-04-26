@@ -8,3 +8,5 @@ database/*.db
 
 .vscode/
 database/
+dataset/
+models/

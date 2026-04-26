@@ -83,12 +83,11 @@ def get_class_weights():
 def make_augmentation():
     return tf.keras.Sequential([
         layers.RandomFlip("horizontal_and_vertical"),
-        layers.RandomRotation(0.25),
-        layers.RandomZoom(0.2),
-        layers.RandomTranslation(0.15, 0.15),
-        layers.RandomContrast(0.2),
+        layers.RandomRotation(0.1),
+        layers.RandomZoom(0.1),
+        layers.RandomTranslation(0.05, 0.05),
+        layers.RandomContrast(0.1),
         layers.RandomBrightness(0.2),
-        layers.GaussianNoise(0.05),
     ], name="augmentation")
 
 
@@ -318,3 +317,5 @@ def train():
 
 if __name__ == "__main__":
     train()
+
+
