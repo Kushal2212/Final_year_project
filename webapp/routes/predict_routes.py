@@ -61,7 +61,7 @@ def predict():
     # ── Generate Grad-CAM heatmap ─────────────────────────────────────────
     gradcam_url = None
     try:
-        from gradcam import generate_gradcam
+        from gradcam import generate_gradcam_pp_auto
 
         # Get models and find class index
         effnet_model, _, index_to_class = _load_resources()
@@ -77,7 +77,7 @@ def predict():
             gradcam_filename = f"{uuid.uuid4().hex}_gradcam.jpg"
             gradcam_path     = os.path.join(upload_dir, gradcam_filename)
             # Use EfficientNet for Grad-CAM (better feature visualization)
-            out = generate_gradcam(filepath, effnet_model, class_idx, gradcam_path)
+            out = generate_gradcam_pp_auto(filepath, effnet_model, class_idx, gradcam_path)
             if out:
                 gradcam_url = f"/static/uploads/{gradcam_filename}"
     except Exception as e:

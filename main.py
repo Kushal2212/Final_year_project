@@ -1,6 +1,8 @@
 import sys
 import os
 
+from src.predict import BASE_DIR
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "webapp"))
 
@@ -44,9 +46,9 @@ def cmd_predict(args):
 
 
 def cmd_evaluate(_):
-    from train_model import evaluate_ensemble, load_datasets
-    _, val_ds = load_datasets()
-    evaluate_ensemble(val_ds)
+    from src.utils import evaluate_ensemble
+    test_dir = os.path.join(BASE_DIR, "dataset", "test")
+    evaluate_ensemble(test_dir)
 
 
 def cmd_web(_):
