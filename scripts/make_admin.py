@@ -1,11 +1,4 @@
-"""
-make_admin.py
-─────────────
-Make a user admin by their email address.
-
-Usage:
-    python make_admin.py
-"""
+# Make a user admin by their email address.
 
 import sqlite3
 import os

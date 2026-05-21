@@ -890,50 +890,70 @@
           >
             Get new articles and disease alerts in your inbox.
           </p>
-          <div id="subscribe-wrap" style="text-align:center;padding:20px 0">
-  <div style="display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center">
-    <input
-      id="sub-email"
-      type="email"
-      placeholder="your@email.com"
-      onkeydown="if(event.key==='Enter') doSubscribe()"
-      style="
-        flex:1;min-width:200px;
-        padding:12px 16px;
-        background:rgba(255,255,255,0.08);
-        border:1px solid rgba(168,213,176,0.25);
-        border-radius:10px;
-        color:#f5f0e8;
-        font-family:'DM Sans',sans-serif;
-        font-size:.9rem;
-        outline:none;
-      "
-    />
-    <button
-      onclick="doSubscribe()"
-      id="sub-btn"
-      style="
-        padding:12px 24px;
-        background:linear-gradient(135deg,#4a9463,#2d5c3f);
-        color:#fff;
-        border:none;
-        border-radius:10px;
-        font-family:'DM Sans',sans-serif;
-        font-size:.9rem;
-        font-weight:500;
-        cursor:pointer;
-        transition:all .2s;
-        white-space:nowrap;
-      "
-      onmouseover="this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.transform='none'"
-    >
-      Subscribe
-    </button>
-  </div>
-  <!-- Response message -->
-  <div id="sub-msg" style="display:none;margin-top:12px;font-size:.86rem;padding:10px 18px;border-radius:8px;display:inline-block"></div>
-</div>
+          <div id="subscribe-wrap" style="text-align: center; padding: 20px 0">
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                max-width: 420px;
+                margin: 0 auto;
+                flex-wrap: wrap;
+                justify-content: center;
+              "
+            >
+              <input
+                id="sub-email"
+                type="email"
+                placeholder="your@email.com"
+                onkeydown="if (event.key === 'Enter') doSubscribe();"
+                style="
+                  flex: 1;
+                  min-width: 200px;
+                  padding: 12px 16px;
+                  background: rgba(255, 255, 255, 0.08);
+                  border: 1px solid rgba(168, 213, 176, 0.25);
+                  border-radius: 10px;
+                  color: #f5f0e8;
+                  font-family: &quot;DM Sans&quot;, sans-serif;
+                  font-size: 0.9rem;
+                  outline: none;
+                "
+              />
+              <button
+                onclick="doSubscribe()"
+                id="sub-btn"
+                style="
+                  padding: 12px 24px;
+                  background: linear-gradient(135deg, #4a9463, #2d5c3f);
+                  color: #fff;
+                  border: none;
+                  border-radius: 10px;
+                  font-family: &quot;DM Sans&quot;, sans-serif;
+                  font-size: 0.9rem;
+                  font-weight: 500;
+                  cursor: pointer;
+                  transition: all 0.2s;
+                  white-space: nowrap;
+                "
+                onmouseover="this.style.transform = 'translateY(-2px)'"
+                onmouseout="this.style.transform = 'none'"
+              >
+                Subscribe
+              </button>
+            </div>
+            <!-- Response message -->
+            <div
+              id="sub-msg"
+              style="
+                display: none;
+                margin-top: 12px;
+                font-size: 0.86rem;
+                padding: 10px 18px;
+                border-radius: 8px;
+                display: inline-block;
+              "
+            ></div>
+          </div>
         </div>
       </div>
     </div>
@@ -971,9 +991,9 @@
           nep: "छिर्के रोग: एलाइचीको मूक खतरा",
           excerpt:
             "chhirke is a mosaic virus transmitted by aphids that can devastate entire cardamom plantations. Early detection is critical to prevent its spread.",
-          author: "Dr. Research Team",
+          author: "Research Team",
           avatar: "👩‍🔬",
-          date: "Nov 2025",
+          date: "April 2026",
           read: "6 min",
           full: `<p>chhirke (meaning "spotted" in Nepali) is caused by a mosaic virus and is one of the most economically damaging diseases in large cardamom cultivation in Nepal and Sikkim.</p>
 <h3>Symptoms</h3>
@@ -1009,7 +1029,7 @@
             "Altitude, shade, humidity, and soil pH all play crucial roles in cardamom health. Understanding these factors helps prevent stress-related disease susceptibility.",
           author: "Farm Research Unit",
           avatar: "🧑‍🌾",
-          date: "Sep 2025",
+          date: "March 2026",
           read: "7 min",
           full: `<p>Large cardamom (Amomum subulatum) thrives in very specific ecological conditions found in the sub-Himalayan valleys of Nepal, particularly between 600–2000m elevation.</p>
 <h3>Ideal Growing Conditions</h3>
@@ -1038,7 +1058,7 @@
             'A beginner-friendly explanation of the deep learning model powering अलैँची — how convolutional neural networks "see" disease patterns invisible to the human eye.',
           author: "AI Research Team",
           avatar: "🤖",
-          date: "Aug 2025",
+          date: "Feb 2026",
           read: "8 min",
           full: `<p>EfficientNetB0 is a convolutional neural network (CNN) architecture developed by Google Brain that achieves excellent accuracy with minimal computational cost — making it ideal for mobile and server deployment.</p>
 <h3>How It Works</h3>
@@ -1071,7 +1091,7 @@
             "Leaf blight caused by Phytophthora species spreads rapidly in humid conditions. Learn the telltale signs and effective fungicide treatments available in Nepal.",
           author: "Plant Pathology Lab",
           avatar: "🔬",
-          date: "Jul 2025",
+          date: "Jul 2026",
           read: "5 min",
           full: `<p>Leaf blight in cardamom is primarily caused by <em>Phytophthora meadii</em> and related Phytophthora species. It thrives in the warm, humid conditions of Nepal's monsoon season (June–September).</p>
 <h3>Symptoms</h3>
@@ -1105,7 +1125,7 @@
             "Simple, proven field practices that reduce disease pressure, improve yield, and make disease detection more effective — based on research with Nepali farmers.",
           author: "Extension Team",
           avatar: "👨‍🌾",
-          date: "Jun 2025",
+          date: "Jun 2026",
           read: "4 min",
           full: `<p>After working with cardamom farmers across Ilam, Taplejung, and Panchthar, our extension team identified five high-impact practices that consistently improve farm outcomes.</p>
 <h3>1. Regular Scouting — Every 14 Days</h3>
@@ -1131,7 +1151,7 @@
             "Healthy soil is the foundation of disease-resistant cardamom plants. This guide covers organic matter management, pH balancing, and nutrient requirements.",
           author: "Soil Science Team",
           avatar: "🧑‍🔬",
-          date: "May 2025",
+          date: "May 2026",
           read: "6 min",
           full: `<p>Cardamom is particularly sensitive to soil conditions. Poor soil health weakens plant immunity, making crops far more susceptible to the diseases अलैँची detects.</p>
 <h3>Key Soil Parameters</h3>
@@ -1163,7 +1183,7 @@
             "How we collected, cleaned, and annotated 2,000+ cardamom leaf images from real Nepali farms to train our disease detection model.",
           author: "ML Research Team",
           avatar: "💻",
-          date: "Apr 2025",
+          date: "jan 2026",
           read: "9 min",
           full: `<p>Building a high-quality training dataset for a domain-specific model like अलैँची requires far more than downloading images from the internet. Here's how we built ours.</p>
 <h3>Field Collection</h3>
@@ -1298,57 +1318,57 @@
       }
 
       async function doSubscribe() {
-  const emailEl = document.getElementById('sub-email');
-  const btn     = document.getElementById('sub-btn');
-  const msgEl   = document.getElementById('sub-msg');
-  const email   = emailEl.value.trim();
- 
-  msgEl.style.display = 'none';
- 
-  if (!email || !email.includes('@')) {
-    msgEl.textContent      = '⚠️ Please enter a valid email address.';
-    msgEl.style.background = 'rgba(211,84,0,.12)';
-    msgEl.style.border     = '1px solid rgba(211,84,0,.25)';
-    msgEl.style.color      = '#f0b27a';
-    msgEl.style.display    = 'inline-block';
-    return;
-  }
- 
-  btn.disabled    = true;
-  btn.textContent = 'Subscribing…';
- 
-  try {
-    const res  = await fetch('/api/newsletter/subscribe', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ email }),
-    });
-    const data = await res.json();
- 
-    if (data.error) {
-      msgEl.textContent      = '❌ ' + data.error;
-      msgEl.style.background = 'rgba(192,57,43,.12)';
-      msgEl.style.border     = '1px solid rgba(192,57,43,.25)';
-      msgEl.style.color      = '#f1948a';
-    } else {
-      msgEl.textContent      = '✅ ' + data.message;
-      msgEl.style.background = 'rgba(74,148,99,.12)';
-      msgEl.style.border     = '1px solid rgba(74,148,99,.25)';
-      msgEl.style.color      = '#a8d5b0';
-      emailEl.value          = '';
-    }
-    msgEl.style.display = 'inline-block';
-  } catch {
-    msgEl.textContent      = '❌ Network error. Please try again.';
-    msgEl.style.background = 'rgba(192,57,43,.12)';
-    msgEl.style.border     = '1px solid rgba(192,57,43,.25)';
-    msgEl.style.color      = '#f1948a';
-    msgEl.style.display    = 'inline-block';
-  }
- 
-  btn.disabled    = false;
-  btn.textContent = 'Subscribe';
-}
+        const emailEl = document.getElementById("sub-email");
+        const btn = document.getElementById("sub-btn");
+        const msgEl = document.getElementById("sub-msg");
+        const email = emailEl.value.trim();
+
+        msgEl.style.display = "none";
+
+        if (!email || !email.includes("@")) {
+          msgEl.textContent = "⚠️ Please enter a valid email address.";
+          msgEl.style.background = "rgba(211,84,0,.12)";
+          msgEl.style.border = "1px solid rgba(211,84,0,.25)";
+          msgEl.style.color = "#f0b27a";
+          msgEl.style.display = "inline-block";
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Subscribing…";
+
+        try {
+          const res = await fetch("/api/newsletter/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          const data = await res.json();
+
+          if (data.error) {
+            msgEl.textContent = "❌ " + data.error;
+            msgEl.style.background = "rgba(192,57,43,.12)";
+            msgEl.style.border = "1px solid rgba(192,57,43,.25)";
+            msgEl.style.color = "#f1948a";
+          } else {
+            msgEl.textContent = "✅ " + data.message;
+            msgEl.style.background = "rgba(74,148,99,.12)";
+            msgEl.style.border = "1px solid rgba(74,148,99,.25)";
+            msgEl.style.color = "#a8d5b0";
+            emailEl.value = "";
+          }
+          msgEl.style.display = "inline-block";
+        } catch {
+          msgEl.textContent = "❌ Network error. Please try again.";
+          msgEl.style.background = "rgba(192,57,43,.12)";
+          msgEl.style.border = "1px solid rgba(192,57,43,.25)";
+          msgEl.style.color = "#f1948a";
+          msgEl.style.display = "inline-block";
+        }
+
+        btn.disabled = false;
+        btn.textContent = "Subscribe";
+      }
 
       const obs = new IntersectionObserver(
         (entries) => {
